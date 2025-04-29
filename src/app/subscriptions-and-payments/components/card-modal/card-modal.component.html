@@ -1,0 +1,42 @@
+<div id="modal" class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <h2>Please enter your card information</h2>
+    <mat-card>
+      <mat-form-field class="cnumber">
+        <mat-label>Card number</mat-label>
+        <input matInput type="number" id="cnumber" name="cnumber">
+      </mat-form-field>
+      <div class="card-date-and-cvv-container">
+        <mat-form-field class="cdate">
+          <mat-label>MM/YY</mat-label>
+          <input matInput type="text" id="cdate" name="cdate">
+        </mat-form-field>
+        <mat-form-field class="cvv">
+          <mat-label>CVV</mat-label>
+          <input matInput type="number" id="cvv" name="cvv">
+        </mat-form-field>
+      </div>
+      <div class="name-and-lastname-container">
+        <mat-form-field class="name">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" id="name" name="name">
+        </mat-form-field>
+        <mat-form-field class="lastname">
+          <mat-label>Last name</mat-label>
+          <input matInput type="text" id="lastname" name="lastname">
+        </mat-form-field>
+      </div>
+      <mat-form-field class="email">
+        <mat-label>E-mail</mat-label>
+        <input matInput type="mail" id="email" name="email">
+      </mat-form-field>
+      <mat-card-actions>
+        <button mat-button class="pay-button">Pay</button>
+      </mat-card-actions>
+
+    </mat-card>
+
+
+
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="chat-container" *ngIf="currentUser && selectedUser">
+  <div class="chat-header">
+    <h3>Chat with {{ selectedUser.name }} {{ selectedUser.lastname }}</h3>
+  </div>
+  <div class="chat-messages">
+    <div *ngFor="let message of messages" class="message-container">
+      <div [ngClass]="{
+            'message': true,
+            'message-received': message.from !== currentUser.email,
+            'message-sent': message.from === currentUser.email
+          }">
+        <p>{{ message.content }}</p>
+        <span>{{ message.timestamp | date:'shortTime' }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="chat-input">
+    <input [(ngModel)]="newMessage" (keydown.enter)="sendMessage()" placeholder="Type a message...">
+   
+  </div>
+</div>

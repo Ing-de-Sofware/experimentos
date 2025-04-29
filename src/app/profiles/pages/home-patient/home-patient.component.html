@@ -1,0 +1,29 @@
+<section>
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+      <div class="box1">
+        <div class="part1">
+          <h2>Today's reminders</h2>
+          <a mat-flat-button href="https://www.google.com/" target="_blank">Your next appointment...</a>
+        </div>
+        <div class="part2">
+          <app-patients-reminder></app-patients-reminder>
+
+        </div>
+
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="box2">
+        <div class="part1">
+          <h2>Pending Tasks</h2>
+          <app-patients-pending-task></app-patients-pending-task>
+        </div>
+        <div class="part2">
+          <app-patients-upload-exam></app-patients-upload-exam>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</section>

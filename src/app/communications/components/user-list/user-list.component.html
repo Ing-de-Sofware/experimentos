@@ -1,0 +1,5 @@
+<div class="user-list">
+  <div *ngFor="let user of users" (click)="selectUser(user.email)">
+    <p>{{ user.name }}</p>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<!-- src/app/registration-endocrinologist/registration-endocrinologist.component.html -->
+
+<mat-toolbar>
+  <span class="toolbar-title">Registration of an endocrinologist doctor</span>
+  <span class="spacer"></span>
+  <button mat-button class="back-button" aria-label="back-button">Back
+  </button>
+</mat-toolbar>
+
+<div class="container">
+  <p>Please complete the following fields to complete your registration in the “HormonalCare” application:</p>
+  <div class="formAndimg">
+    <div class="formContainer">
+      <form>
+
+        <mat-form-field class="fname">
+          <mat-label>First name:</mat-label>
+          <input matInput type="text" id="fname" name="fname">
+        </mat-form-field>
+        <mat-form-field class="lname">
+          <mat-label>Last name:</mat-label>
+          <input matInput type="text" id="lname" name="lname">
+        </mat-form-field>
+        <mat-form-field class="age">
+          <mat-label>Age:</mat-label>
+          <input matInput type="number" id="age" name="age">
+        </mat-form-field>
+        <mat-form-field class="mail">
+          <mat-label>Email:</mat-label>
+          <input matInput type="email" id="mail" name="mail">
+        </mat-form-field>
+        <mat-form-field class="password">
+          <mat-label>Password:</mat-label>
+          <input matInput type="password" id="password" name="password">
+        </mat-form-field>
+        <mat-form-field class="qualific">
+          <mat-label>Qualification:</mat-label>
+          <input matInput type="number" id="qualific" name="qualific">
+        </mat-form-field>
+        <mat-form-field class="schoolNo">
+          <mat-label>School Number:</mat-label>
+          <input matInput type="number" id="schoolNo" name="schoolNo">
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="buttonContainer">
+      <div class="buttonDiv">
+        <div class="buttonBackground">
+          <button mat-button class="image-button"></button>
+        </div>
+      </div>
+      <div class="continueDiv">
+        <button mat-button class="continue-button">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>

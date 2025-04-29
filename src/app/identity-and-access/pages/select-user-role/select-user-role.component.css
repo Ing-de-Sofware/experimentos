@@ -1,0 +1,124 @@
+
+
+.toolbar {
+  width: 100%;
+  background-color: rgba(167, 138, 171, 1);
+  color: white;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+}
+
+.full-screen-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(229, 221, 230, 1);
+  background-image: url('../../../../assets/images/select-user-role-background.png');  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  position: absolute;
+  top: 100px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+}
+
+.textAndCards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80%;
+  align-items: center;
+  z-index: 2000;
+  position: relative;
+}
+
+.selectUserText {
+  display: flex;
+  justify-content: center;
+  height:20%;
+  z-index: 4000;
+  position: relative;
+}
+
+.userCards {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  height:50%;
+  z-index: 3000;
+  position: relative;
+}
+
+.patientCard {
+  background-color: rgba(192, 160, 195, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  margin-right: 20px;
+  border-radius: 10%;
+  width: 25rem;
+  padding-bottom: 0;
+}
+
+.endocrinologistCard {
+  background-color: rgba(192, 160, 195, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  margin-left: 20px;
+  border-radius: 10%;
+  width: 25rem;
+  padding-bottom: 0;
+}
+
+.endocrinologistTitle {
+  text-align: center;
+}
+
+mat-card-title {
+  text-align: center;
+  align-content: center;
+  height: 30% ;
+}
+
+.circle {
+  background-color: rgba(223, 202, 225, 1);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+}
+h1{
+  font-size: 2.5rem;
+}
+
+span{
+  font-size: 1.5rem;
+}
+a {
+  padding: 14vh 160px;
+  border-radius: 35px;
+  position: relative;
+  bottom: 2.5vh; /* 25pxAjusta este valor según tus necesidades */
+}

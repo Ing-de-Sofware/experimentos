@@ -1,0 +1,213 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.grid-container>* {
+  box-shadow: 10px 6px 37px -13px rgba(51, 51, 51, 0.74);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+
+}
+
+.grid-container {
+  display: grid;
+  gap: 20px;
+  grid-template:
+        "mat-toolbar" 200px
+        "description-text-container" 50px
+        "doctor-code-grid" 50px
+        "formContainer" 100px
+        "buttonDiv"
+        "continueDiv";
+  background-color: rgba(229, 221, 230, 0.8392);
+
+  mat-toolbar{
+    grid-area: mat-toolbar;
+    background-color: rgba(167, 138, 171, 1);
+    color: white;
+    z-index: 1000;
+    font-family: "Comic Sans", sans-serif;
+    font-weight: lighter;
+    font-size: 20px;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+  }
+
+  .payment-method-card-grid {
+    grid-area: payment-method-card-grid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+
+    .payment-method-card-container{
+      background-color: rgba(167, 138, 171, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 70%;
+      height: 270px;
+      margin: 0 0 10% 0 ;
+      border-radius: 15px;
+      padding: 10px 20px 10px 20px;
+      mat-card{
+        width: 100%;
+        height: 60px;
+        border-radius: 10px;
+        margin: 10px 0 10px 0;
+        display:flex;
+        text-align: left;
+        padding: 0 10px 0 10px;
+      }
+    }
+    .payment-icons-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 50%;
+      height: 100px;
+      margin: 0 0 0 0 ;
+      img{
+        width: 50px;
+        height: 50px;
+        display:flex;
+        flex-direction: row;
+      }
+    }
+  }
+
+  .cost-card-grid{
+    grid-area: cost-card-grid;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    .cost-card-container{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      mat-card{
+        width: 400px;
+        height: 600px;
+        background-color: rgba(223, 202, 225, 1);
+        border-radius: 20px;
+        padding: 0 20px 0 20px;
+        mat-card-header{
+          color: black;
+          height: 80px;
+          margin :20px 0 20px 0;
+          mat-card-title{
+            font-size: 50px;
+          }
+        }
+        .standard-fee-box{
+          display:flex;
+          flex-direction: row;
+          justify-content: space-between;
+          margin-top: 30px;
+          margin-bottom: 30px;
+        }
+        .tax-box{
+          display:flex;
+          flex-direction: row;
+          justify-content: space-between;
+          margin-top: 10px;
+          margin-bottom: 100px;
+        }
+        .total-amount-box{
+          display:flex;
+          flex-direction: row;
+          justify-content: space-between;
+          margin-top: 30px;
+
+          .total-title{
+            transform: skewX(-15deg);
+            font-size: 25px;
+            font-weight: bold;
+          }
+          p{
+            transform: skewX(-15deg);
+            font-size: 25px;
+            font-weight: bold;
+
+          }
+
+        }
+
+        mat-card-actions {
+          display: flex;
+          justify-content: center;
+          margin-top: 85px;
+          .pay-button{
+            width:125px;
+            height:61px;
+            border-radius: 10px;
+            background-color: rgba(167, 136, 171, 1);
+            color: white;
+            font-size: 25px;
+          }
+        }
+      }
+    }
+
+  }
+
+  @media (min-width:768px) {
+    grid-template:
+            "mat-toolbar mat-toolbar" 100px
+            "payment-method-card-grid cost-card-grid" 70%/
+            auto 35%;
+
+  }
+  @media (min-width:992px) {
+    grid-template:
+            "mat-toolbar mat-toolbar" 100px
+            "payment-method-card-grid cost-card-grid" 70%/
+            auto 35%;
+  }
+}
+
+p {
+  font-size: 20px;
+  color: black;
+  text-align: center;
+  align-content: center;
+  margin-bottom: 0;
+
+}
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+.toolbar-title{
+  font-weight: bold;
+  font-size: 40px;
+  width: 85%;
+  text-align: left;
+}
+
+.back-button{
+  width: 125px;
+  height: 61px;
+  background-color: rgba(217, 217, 217, 1);
+  border-radius: 10px;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+mat-checkbox{
+  color: black;
+}
+

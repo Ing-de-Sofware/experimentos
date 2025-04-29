@@ -1,0 +1,27 @@
+mat-grid-list {
+  width: 30vw;
+}
+mat-grid-tile {
+  position: static;
+  display: flex;
+  align-items: unset !important;
+  width: 100%;
+}
+.cont{
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  text-align: center;
+  width: 100%;
+  height: 30vw;
+}
+.imgprofile{
+  width: 25vw;
+  border-radius: 20px;
+}
+a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}

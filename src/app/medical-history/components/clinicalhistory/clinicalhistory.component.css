@@ -1,0 +1,27 @@
+button {
+  background-color: #dfcae1;
+  color: black !important;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+mat-toolbar {
+  background: #A788AB;
+  border-radius: 10px;
+}
+
+.buttons {
+  justify-content: center;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: center;
+}
+
+.active-button {
+  background-color: white;
+}

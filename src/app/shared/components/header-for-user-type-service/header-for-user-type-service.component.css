@@ -1,0 +1,4 @@
+.cont {
+  height: 100vh; /* Ajusta esto al tamaño que prefieras */
+  overflow: auto;
+}

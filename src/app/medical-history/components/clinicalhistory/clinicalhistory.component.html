@@ -1,0 +1,13 @@
+<!-- clinicalhistory.component.html -->
+
+<div class="div-toolbar">
+  <mat-toolbar class="buttons" color="primary">
+    <button mat-button [routerLink]="['reasonConsultation']" routerLinkActive="active-button">Reason of consulation</button>
+    <button mat-button [routerLink]="['background']"  routerLinkActive="active-button">Background</button>
+    <button mat-button [routerLink]="['medicalExams']"  routerLinkActive="active-button">Medical exams</button>
+    <button mat-button [routerLink]="['externalReports']"  routerLinkActive="active-button">External reports</button>
+    <button mat-button [routerLink]="['diagnosesAndTreatment']"  routerLinkActive="active-button">Diagnoses and treatment</button>
+  </mat-toolbar>
+</div>
+
+<router-outlet></router-outlet>

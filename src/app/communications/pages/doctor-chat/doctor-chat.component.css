@@ -1,0 +1,91 @@
+/* Estilos generales para el contenedor principal */
+.container {
+  display: flex;
+  height: 100vh; /* Altura total de la ventana */
+}
+
+/* Estilos para la columna de botones */
+.buttons-column {
+  width: 20%; /* Puedes ajustar el ancho según tus necesidades */
+  padding: 10px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Sombras para separar visualmente */
+  background-color: #f7f7f7; /* Fondo gris claro */
+}
+
+.buttons-column div {
+  margin-bottom: 20px;
+}
+.tittle-messages{
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+/* Estilos para los botones */
+.buttons-column button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #A78AAB;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.buttons-column button:hover {
+  background-color: #F4DDF6;
+}
+
+/* Estilos para la columna de chat */
+.chat-column {
+  width: 80%; /* El resto del espacio para el chat */
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.1); /* Sombras para separar visualmente */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Estilos para el label de chat */
+.chat-label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Estilos para el componente de chat */
+.chat-column app-chat {
+  flex-grow: 1; /* Para que el componente de chat ocupe todo el espacio disponible */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Ajustes de responsive design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .buttons-column,
+  .chat-column {
+    width: 100%;
+  }
+
+  .buttons-column {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .buttons-column button {
+    width: auto;
+    flex: 1;
+    margin: 5px;
+  }
+}

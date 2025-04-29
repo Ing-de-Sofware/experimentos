@@ -1,0 +1,40 @@
+/* patient-data.component.css */
+.patient-data-container {
+  width: 250px; /* Ajusta el ancho según tus necesidades */
+  background-color: #A788AB;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 600px;
+}
+
+.patient-data-container h3 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.patient-icon {
+  width: 100px;
+  height: 100px;
+  background-color: #dfcae1;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.patient-info {
+  background: #dfcae1;
+  padding: 40px;
+  border-radius: 5%;
+
+}
+
+
+.patient-info p {
+  text-align: left;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Añade más estilos según tus preferencias */

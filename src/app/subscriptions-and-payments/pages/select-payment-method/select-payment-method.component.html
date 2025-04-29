@@ -1,0 +1,62 @@
+<body class="grid-container">
+
+<mat-toolbar>
+  <span class="toolbar-title">Select Payment Method</span>
+  <span class="spacer"></span>
+  <button mat-button class="back-button" aria-label="back-button">Back
+  </button>
+</mat-toolbar>
+
+<div class="payment-method-card-grid">
+  <div class="payment-method-card-container">
+    <mat-card>
+      <mat-card-content>
+        <mat-checkbox class="credit/debit-card">Credit / Debit Card</mat-checkbox>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-content>
+        <mat-checkbox class="yape">Yape</mat-checkbox>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-content>
+        <mat-checkbox class="plin">Plin</mat-checkbox>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="payment-icons-container">
+    <img src="assets/images/visa-icon.webp" alt="credit-card-icon" class="credit-card-icon">
+    <img src="assets/images/yape-icon.png" alt="yape-icon" class="yape-icon">
+    <img src="assets/images/plin-icon.png" alt="plin-icon" class="plin-icon">
+  </div>
+</div>
+
+<div class="cost-card-grid">
+  <div class="cost-card-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Costs:</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <div class="standard-fee-box">
+          <p>Standard fee: </p>
+          <p>$60</p> <!-- Here we can bring all the information about the fee for the service -->
+        </div>
+        <div class="tax-box">
+          <p>Tax: </p>
+          <p>$5</p> <!--Here we can bring all the information about the tax-->
+        </div>
+        <mat-divider></mat-divider>
+        <div class="total-amount-box">
+          <h1 class="total-title">Total: </h1>
+          <p>$65</p> <!--This is where the total cost of the pension and taxes will be displayed-->
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button class="pay-button">Pay</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

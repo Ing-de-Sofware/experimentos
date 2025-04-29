@@ -1,0 +1,40 @@
+<section class="medication-section">
+  <form [formGroup]="medicationForm" class="medication-form">
+    <div class="form-field">
+      <p>Medication name:</p>
+      <input matInput placeholder="Enter medication name (e.g., Insulin Glargine, Prednisone)" formControlName="name" required>
+    </div>
+    <div class="form-field">
+      <p>Amount:</p>
+      <input matInput placeholder="Enter dosage amount (e.g., 10, 30)" formControlName="amount" required>
+    </div>
+    <div class="form-field">
+      <p>UnitQ:</p>
+      <input matInput placeholder="Enter unit quantity (e.g., tablet, injection)" formControlName="unitQ" required>
+    </div>
+    <div class="form-field">
+      <p>Value:</p>
+      <input matInput placeholder="Enter value (e.g., 1 )" formControlName="value" required>
+    </div>
+    <div class="form-field">
+      <p>Unit:</p>
+      <input matInput placeholder="Enter unit (e.g., mcg, mg, units)" formControlName="unit" required>
+    </div>
+    <div class="form-field">
+      <p>Times per day:</p>
+      <input matInput placeholder="Enter times per day (e.g., 1,2)" formControlName="timesPerDay" required>
+    </div>
+    <div class="form-field">
+      <p>Time period:</p>
+      <input matInput placeholder="Enter time period (e.g., morning, evening)" formControlName="timePeriod" required>
+    </div>
+    <div class="button-group">
+      <button (click)="medicationForm.reset()" mat-fab color="warn">
+        <mat-icon>add</mat-icon>
+      </button>
+      <button (click)="submitMedication()" mat-fab color="primary">
+        <mat-icon>save</mat-icon>
+      </button>
+    </div>
+  </form>
+</section>

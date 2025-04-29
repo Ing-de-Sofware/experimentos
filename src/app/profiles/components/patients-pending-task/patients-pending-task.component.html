@@ -1,0 +1,15 @@
+
+<section>
+  <table matSort (matSortChange)="sortData($event)" >
+    <tr *ngFor="let exam of dataSource; let i = index">
+      <p [@fadeOut]="exam.checked ? 'void' : 'in'"><mat-checkbox (change)="exam.checked = true; removeExam(i)" formControlName="{{exam.name}}"></mat-checkbox><label>{{exam.name}}</label></p>
+    </tr>
+  </table>
+</section>
+
+
+<!--
+    <div class="example-section" [formGroup]="toppings">
+      <h4>You chose:</h4>
+      {{toppings.value | json}}
+    </div>  -->

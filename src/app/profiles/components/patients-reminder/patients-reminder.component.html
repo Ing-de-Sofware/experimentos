@@ -1,0 +1,15 @@
+<section>
+  <table matSort (matSortChange)="sortData($event)">
+    <tr>
+      <th mat-sort-header="drug_name" >Medication</th>
+      <th mat-sort-header="concentration" >Concentration</th>
+      <th mat-sort-header="frequency" >Frequency</th>
+    </tr>
+
+    <tr *ngFor="let treatment of dataSource">
+      <td class="left">{{treatment.drug_name}}</td>
+      <td class="right">{{treatment.concentration}}</td>
+      <td class="right">{{treatment.frequency}}</td>
+    </tr>
+  </table>
+</section>

@@ -1,0 +1,41 @@
+<div class="mat-elevation-z8" matSort>
+  <h1 style="text-align: center; color: #4B0082; font-weight: bold;">TODAY'S PATIENTS</h1>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell> Name </th>
+      <td *matCellDef="let element" mat-cell style="text-align: left; font-size: 10px;">
+        <img src="assets/images/profile-icon.png" alt="Profile-icon" style= "width:15px; height:15px;"> {{element.fullName}}</td>
+    </ng-container>
+    <!-- Age Column -->
+    <ng-container matColumnDef="age">
+      <th *matHeaderCellDef mat-header-cell> Age </th>
+      <td *matCellDef="let element" mat-cell style="font-size: 10px;"> {{element.age}} </td>
+    </ng-container>
+    <!-- Clinic History Column -->
+    <ng-container matColumnDef="clinicHistory">
+    <th *matHeaderCellDef mat-header-cell> Clinic History </th>
+    <td *matCellDef="let element" mat-cell>
+      <button (click)="navigateToMedicalHistory()"> Medical History</button>
+    </td>
+  </ng-container>
+    <!-- Hour Column -->
+    <ng-container matColumnDef="hour">
+      <th *matHeaderCellDef mat-header-cell> Hour </th>
+      <td *matCellDef="let element" mat-cell style="font-size: 10px;"> {{element.hour}} </td>
+    </ng-container>
+
+    <!-- Video Conference Column -->
+    <ng-container matColumnDef="videoConference">
+      <th *matHeaderCellDef mat-header-cell> Video Conference </th>
+      <td *matCellDef="let element" style="text-align: center;">
+        <img src="assets/images/google-meet-icon.png" alt="Google Met Icon" style="width: 30px; height: 30px;">
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns:displayedColumns" mat-row></tr>
+
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 15]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>

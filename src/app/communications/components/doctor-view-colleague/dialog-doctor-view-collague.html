@@ -1,0 +1,47 @@
+<div class="grid-container">
+  <div class="grid-item" style="grid-column: span 1; grid-row: span 2;">
+    <app-photo-profile-colleague></app-photo-profile-colleague>
+  </div>
+  <div class="grid-item" style="grid-column: span 2; grid-row: span 2;">
+    <app-info-profile-colleague></app-info-profile-colleague>
+  </div>
+  <div class="grid-item" style="grid-column: span 1; grid-row: span 1;">
+    <app-titles-profile-colleague></app-titles-profile-colleague>
+  </div>
+  <div class="grid-item" style="grid-column: span 1; grid-row: span 1;">
+    <app-button-send-message></app-button-send-message>
+  </div>
+  <div class="grid-item" style="grid-column: span 1; grid-row: span 1;">
+    <app-datepicker-profile-colleague></app-datepicker-profile-colleague>
+  </div>
+  <div class="grid-item" style="grid-column: span 1; grid-row: span 1;">
+    <app-hourpicker-profile-colleague></app-hourpicker-profile-colleague>
+  </div>
+  <div class="grid-item" style="grid-column: span 1; grid-row: span 1;">
+    <app-space-assign-patient></app-space-assign-patient>
+  </div>
+  <div class="grid-item" style="grid-column: span 1; grid-row: span 1;">
+    <app-button-save-schedule></app-button-save-schedule>
+  </div>
+</div>
+
+
+<style>
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    margin: 20px; /* Agregar un margen alrededor del contenedor */
+  }
+
+  .grid-item {
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+</style>
+
+
+

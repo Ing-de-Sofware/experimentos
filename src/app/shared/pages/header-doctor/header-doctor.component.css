@@ -1,0 +1,61 @@
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-container .logo {
+  border-radius: 60%;
+  width: 50px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logo-container mat-toolbar {
+  margin: 0;
+}
+
+.mat-toolbar {
+  background-color: #A788AB;
+  height: 60px;
+  width: 100%;
+}
+
+.mat-toolbar .mat-primary {
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+.icon-text {
+  top: 8px;
+  position: relative;
+  display: inline-block;
+  margin-left: 0px; /* Mover las imágenes un poco a la derecha */
+}
+
+.option-icon {
+  height: 30px;
+
+  margin-right: 10px;
+}
+
+.first-button {
+  margin-left: 20px;
+}
+
+.nav-button {
+  margin-left: 44px;
+}
+a{
+border-radius: 20px;
+padding: 15px 10px 20px 10px;
+}
+.active-button {
+  background-color: white;
+  box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5); /* Ajusta los valores según tus necesidades */
+}
+

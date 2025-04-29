@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Pending exams</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <section class="example-section" [formGroup]="toppings">
+      <div class="cont"><p><mat-checkbox formControlName="pepperoni"></mat-checkbox><label>Pepperoni</label></p> <input  class="my-input" type="file"></div>
+      <div class="cont"><p><mat-checkbox formControlName="extracheese"></mat-checkbox><label>Extra Cheese</label></p> <input class="my-input" type="file"></div>
+      <div class="cont"><p><mat-checkbox formControlName="mushroom"></mat-checkbox><label>Mushroom</label></p> <input  class="my-input" type="file"></div>
+
+    </section>
+
+
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

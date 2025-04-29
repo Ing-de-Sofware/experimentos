@@ -1,0 +1,55 @@
+.but{
+  box-sizing: border-box;
+  width: 100%;
+  height: 60px;
+  font-size: 30px;
+  border-radius: 20px;
+  background-color: #dfcae1;
+}
+h2{
+  margin-top: 20px;
+  text-align: center;
+  font-size: 30px !important;
+
+}
+p{
+  box-sizing: border-box;
+  width: 50%;
+  font-size: 130%;
+
+}
+input {
+  box-sizing: border-box;
+  width: 50%; /* Cambia esto al tamaño que desees */
+  font-size: 130%;
+}
+
+mat-checkbox{
+  text-decoration: none;
+}
+
+.cont {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+  align-items: center;
+  gap: 30px;
+}
+mat-dialog-content{
+  width: 100%;
+  height: 100%;
+}
+
+mat-dialog-actions{
+  display: flex;
+  justify-content:end;
+  padding: 20px;
+
+}
+
+mat-form-field{
+  width: 100%;
+  height: 100%;
+}

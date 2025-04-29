@@ -1,0 +1,33 @@
+
+
+<section>
+  <mat-grid-list cols="2" rowHeight="2:1" >
+    <mat-grid-tile>
+
+      <div class="box1">
+        <div class="part1">
+          <h2>Treatment</h2>
+        </div>
+        <div class="part2">
+          <mat-form-field >
+            <mat-label>Treatment</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile >
+      <div class="box2">
+        <div class="part1">
+          <h2>Today's reminders</h2>
+          <a mat-flat-button href="https://www.google.com/" target="_blank">Upload medical prescription</a>
+        </div>
+        <div class="part2">
+          <app-medication-form></app-medication-form>
+        </div>
+      </div>
+
+    </mat-grid-tile>
+  </mat-grid-list>
+</section>
+

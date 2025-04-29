@@ -1,0 +1,21 @@
+
+
+
+
+.cont {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
+  flex-direction: row;
+  padding: 10px;
+  background-color: #A788AB;
+  border-radius: 20px;
+  width: 400px;
+  color: white;
+}
+
+p{
+margin: 0;
+font-size: 18px;
+}

@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="buttons-column">
+    <div>
+      <div class="tittle-messages">Messages</div>
+      <div *ngFor="let doctor of doctors">
+        <button (click)="selectChatUser(doctor.email)">Chat with Dr. {{ doctor.name }}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-column">
+    <app-chat [currentUserEmail]="currentUserEmail" [selectedUserEmail]="selectedUserEmail"></app-chat>
+  </div>
+</div>

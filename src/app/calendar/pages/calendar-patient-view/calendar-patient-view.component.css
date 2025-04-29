@@ -1,0 +1,16 @@
+
+.container {
+  display: flex;
+  background-color: #DFCAE1;
+}
+
+.schedule {
+  flex: 1;
+  padding: 20px;
+
+}
+
+.event-card-container {
+  flex: 0 0 400px;
+  padding: 20px;
+}

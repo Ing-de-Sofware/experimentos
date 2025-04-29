@@ -1,0 +1,19 @@
+<mat-grid-list cols="1" >
+  <mat-grid-tile [colspan]="1"  [rowspan]="1">
+    <!-- Vista previa de la imagen seleccionada o la imagen predeterminada -->
+    <img class="imgprofile" [src]="imagenSrc" alt="Imagen de perfil">
+
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1"  [rowspan]="1" >
+    <!-- Input para seleccionar la imagen del dispositivo del usuario -->
+    <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none">
+    <div class="cont">
+      <a (click)="fileInput.click()">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAABFklEQVR4nO2WTYrCMBiGH7DLWcoInmBA9BxzAXsC72GXXmJ2sxBXLj2HhxjozNal8EkhKSEkTX/SiExf+DZN6fM0L/2B9CmAwxO4NVzUJJd4B0pDQJRQMniVD+DHENjrEyTynIBMXbu6y19gbUnUcEaG6+OmhN6ROmPD9ZQGPIstEIKbnc+A7yaBIWkLlzEEusCjCxQBeJWjjyMRBELwRo6MIGDDowh8AtsWAi74YIEZcAX+gAX9MkhgZ6yfUwu8WR8Raagib1lTJ4HCcY6rirl63fpq6iWwBG6ex8yu4hSoqZfAlwduV5E3rPUW2AD3gEC13SvH346rps4ClwBcj68iUbUMqiBmXkdAEk2dSUCeXcGU/5sHUULG9xW6pGsAAAAASUVORK5CYII=">
+        Edit photo
+      </a>
+    </div>
+
+  </mat-grid-tile>
+
+</mat-grid-list>

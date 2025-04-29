@@ -1,0 +1,27 @@
+<section>
+  <h3>Doctor information</h3>
+  <table class="mat-elevation-z8">
+    <tbody>
+    <tr *ngFor="let element of dataSource">
+      <td class="left">Full Name</td>
+      <td class="right">{{element.fullName}}</td>
+    </tr>
+    <tr *ngFor="let element of dataSource">
+      <td class="left">Email</td>
+      <td class="right">{{element.email}}</td>
+    </tr>
+    <tr *ngFor="let element of dataSource">
+      <td class="left">Sub Specialty</td>
+      <td class="right">{{element.subSpecialty}}</td>
+    </tr>
+    <tr *ngFor="let element of dataSource">
+      <td class="left">Professional Identification Number</td>
+      <td class="right">{{element.professionalIdentificationNumber}}</td>
+    </tr>
+    <tr *ngFor="let element of dataSource">
+      <td class="left">Appointment Fee</td>
+      <td class="right">{{element.appointmentFee}}</td>
+    </tr>
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,23 @@
+/* app.component.css */
+.container {
+  display: flex;
+  margin-top: 20px; /* Añade un margen superior para separarlo del encabezado */
+}
+
+.patient-data {
+  /* Estilos para el componente de datos del paciente */
+  flex: 1;
+  margin-left: 20px; /* Espacio entre el componente y el otro componente */
+  margin-right: -50%;
+}
+
+.other-component {
+  /* Estilos para el otro componente */
+  margin-right: 30px;
+  background: #A788AB;
+  border-radius: 8px;
+  flex: 1;
+}
+.cont{
+margin: 20px 0;
+}
