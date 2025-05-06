@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import {UserTypeService} from "../../../shared/services/user-type.service";
+import { Router } from '@angular/router';
+import { UserTypeService } from "../../../shared/services/user-type.service";
+import { UserType } from '../../../shared/model/user-type.model';
 
 @Component({
   selector: 'app-select-user-role',
@@ -8,16 +10,18 @@ import {UserTypeService} from "../../../shared/services/user-type.service";
 })
 export class SelectUserRoleComponent {
   optionRoles = [
-    { path: '/homePatient', title: 'Patient', icon: 'assets/images/patient-icon.png'},
-    { path: '/homeDoctor', title: 'Endocrinologist', icon: 'assets/images/doctor-icon.png'},
-  ]
-  constructor(private userTypeService: UserTypeService) {} // Inyecta el servicio
+    { type: 'patient', title: 'Patient', icon: 'assets/images/patient-icon.png' },
+    { type: 'endocrinologist', title: 'Endocrinologist', icon: 'assets/images/doctor-icon.png' },
+    { type: 'admin', title: 'Administrator', icon: 'assets/images/admin-icon.png' } // si vas a usar admin
+  ];
 
-  setUserType(type: string) {
-    if (type === 'endocrinologist' || type === 'patient') {
-      this.userTypeService.setUserType(type);
-    } else {
-      console.error(`Invalid user type: ${type}`);
-    }
+  constructor(
+    private userTypeService: UserTypeService,
+    private router: Router
+  ) {}
+
+  selectRole(type: UserType) {
+    this.userTypeService.setUserType(type);
+    this.router.navigate(['/register']); // ✅ Aquí se redirige al formulario
   }
 }

@@ -1,27 +1,61 @@
-<!-- src/app/select-user-role/select-user-role.component.html -->
+<!-- ✅ HEADER -->
+<header class="main-header">
+  <div class="header-left">
+    <img src="assets/images/logo.png" alt="HormonalCare Logo" class="logo" />
+    <span class="brand-title">HormonalCare</span>
+  </div>
+  <nav class="nav-links">
+    <a routerLink="/">Home</a>
+    <a routerLink="/features">Features</a>
+    <a routerLink="/plans">Plans</a>
+    <a routerLink="/support">Support</a>
+    <a routerLink="/about">About</a>
+  </nav>
+  <div class="header-right">
+    <a routerLink="/login" class="register-link">Login</a>
+  </div>
+</header>
 
-<mat-toolbar class="toolbar">
-  <span>HormonalCare</span>
-</mat-toolbar>
+<!-- ✅ SELECTOR BODY -->
+<section class="role-selector-wrapper">
+  <div class="role-title-box">
+    <h2>Select your user type</h2>
+    <p class="subtitle">Choose your profile to continue with registration</p>
+  </div>
 
-<div class="full-screen-background">
-  <div class="textAndCards">
-    <div class="selectUserText">
-      <h1>Select your user type</h1>
+  <div class="roles-grid">
+    <div class="role-card" (click)="selectRole('patient')">
+      <img src="assets/images/persona.png" alt="Patient" class="role-image" />
+      <h3>Patient</h3>
+      <p class="card-desc">Access hormonal monitoring and appointments with specialists.</p>
+      <button class="card-btn">Register as Patient</button>
     </div>
-    <div class="userCards">
-      <mat-card *ngFor="let option of optionRoles; let i = index" [class.patientCard]="i === 0" [class.endocrinologistCard]="i === 1">
-        <mat-card-title>
-          {{ option.title }}
-        </mat-card-title>
-        <mat-card-content>
-          <a mat-button [routerLink]="option.path" class="nav-button" [class.first-button]="i === 0" (click)="setUserType(option.title.toLowerCase())">
-            <div class="icon-text">
-              <img [src]="option.icon" alt="{{option.title}}" class="option-icon">
-            </div>
-          </a>
-        </mat-card-content>
-      </mat-card>
+
+    <div class="role-card" (click)="selectRole('endocrinologist')">
+      <img src="assets/images/medico.png" alt="Endocrinologist" class="role-image" />
+      <h3>Endocrinologist</h3>
+      <p class="card-desc">Manage your patients, appointments, and treatment plans.</p>
+      <button class="card-btn">Register as Doctor</button>
+    </div>
+
+    <div class="role-card" (click)="selectRole('admin')">
+      <img src="assets/images/admin.png" alt="Administrator" class="role-image" />
+      <h3>Administrator</h3>
+      <p class="card-desc">Oversee platform operations and control user roles.</p>
+      <button class="card-btn">Register as Admin</button>
     </div>
   </div>
-</div>
+</section>
+
+<!-- ✅ FOOTER -->
+<footer class="main-footer">
+  <div class="footer-left">
+    <img src="assets/images/logo.png" alt="Logo" class="footer-logo" />
+    <p>&copy; 2025 HormonalCare. All rights reserved.</p>
+  </div>
+  <div class="footer-right">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+    <a href="#">Help</a>
+  </div>
+</footer>

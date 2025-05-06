@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {UserTypeService} from "./shared/services/user-type.service";
-import { Router } from '@angular/router'; // Importa el servicio Router
+import { Router } from '@angular/router';
+import { UserTypeService } from './shared/services/user-type.service';
+import { UserType } from './shared/model/user-type.model';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +11,27 @@ import { Router } from '@angular/router'; // Importa el servicio Router
 export class AppComponent {
   title = 'frontend_version0_0';
 
-  userType: 'endocrinologist' | 'patient' | null = null;
+  get isAuthRoute(): boolean {
+    return [
+      '/login',
+      '/register',
+      '/forgot-password',
+      '/selectRole'
+    ].includes(this.router.url);
+  }
 
-  constructor(private userTypeService: UserTypeService, public router: Router) {
+  userType: UserType | null = null;
+
+  constructor(
+    private userTypeService: UserTypeService,
+    public router: Router
+  ) {
     this.userTypeService.userType$.subscribe(type => this.userType = type);
   }
 
   showMedicalHistoryPage: boolean = false;
+
   navigateToMedicalHistory() {
     this.showMedicalHistoryPage = true;
   }
-
 }

@@ -30,9 +30,7 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatCheckbox} from "@angular/material/checkbox";
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-
-
-
+import { AuthModule } from './identity-and-access/auth/auth.module';
 
 import { FooterContentComponent } from './public/components/footer-content/footer-content.component';
 import { PatientsTableComponent } from './profiles/components/patients-table/patients-table.component';
@@ -61,7 +59,6 @@ import { HomeDoctorComponent } from './profiles/pages/home-doctor/home-doctor.co
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatSort} from "@angular/material/sort";
 
-import { SelectUserRoleComponent } from './identity-and-access/pages/select-user-role/select-user-role.component';
 import { PhotoPatientsComponent } from './profiles/components/photo-patients/photo-patients.component';
 import { InfoProfilePatiensComponent } from './profiles/components/info-profile-patiens/info-profile-patiens.component';
 import { InfoCardProfilePatiensComponent } from './profiles/components/info-card-profile-patiens/info-card-profile-patiens.component';
@@ -146,7 +143,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NotificationsViewComponent,
     DoctorProfileComponent,
     HomeDoctorComponent,
-    SelectUserRoleComponent,
     PhotoPatientsComponent,
     InfoProfilePatiensComponent,
     InfoCardProfilePatiensComponent,
@@ -273,9 +269,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDatepickerToggle,
     MatDatepicker,
     MatDatepickerInput,
-    MatNativeDateModule
-
-
+    MatNativeDateModule,
+    AuthModule
 
   ],
   providers: [

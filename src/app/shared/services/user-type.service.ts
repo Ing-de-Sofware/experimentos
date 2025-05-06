@@ -5,10 +5,15 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class UserTypeService {
-  private userTypeSource = new BehaviorSubject<'endocrinologist' | 'patient' | null>(null);
-  userType$ = this.userTypeSource.asObservable();
+  private userTypeSubject = new BehaviorSubject<'endocrinologist' | 'patient' | 'admin' | null>(null);
+  userType$ = this.userTypeSubject.asObservable();
 
-  setUserType(type: 'endocrinologist' | 'patient') {
-    this.userTypeSource.next(type);
+  setUserType(type: 'endocrinologist' | 'patient' | 'admin') {
+    this.userTypeSubject.next(type);
+    localStorage.setItem('userType', type);
+  }
+
+  getUserType(): 'endocrinologist' | 'patient' | 'admin' | null {
+    return this.userTypeSubject.value || localStorage.getItem('userType') as any;
   }
 }

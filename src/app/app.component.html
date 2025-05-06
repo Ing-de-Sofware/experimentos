@@ -1,18 +1,9 @@
-<!--<app-medicalhistorypage></app-medicalhistorypage>-->
+<ng-container *ngIf="!isAuthRoute">
+  <app-header-for-user-type-service></app-header-for-user-type-service>
+</ng-container>
 
+<router-outlet></router-outlet>
 
-<!--<ng-container *ngIf="router.url !== '/medical-history'">-->
-<app-header-for-user-type-service></app-header-for-user-type-service>
-<!--<app-header-doctor *ngIf="userType === 'doctor'"></app-header-doctor>
-<app-header-patient *ngIf="userType === 'patient'"></app-header-patient>-->
-
-  <router-outlet></router-outlet>
-
-  <!--</ng-container>-->
-  <!--
-  <app-medicalhistorypage></app-medicalhistorypage>-->
-
-
-
-
-<!--<app-medicalhistorypage></app-medicalhistorypage>-->
+<ng-container *ngIf="!isAuthRoute">
+  <footer class="main-footer"> ... </footer>
+</ng-container>

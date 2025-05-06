@@ -9,8 +9,6 @@ html, body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #faf7fb;
   color: #333;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 
 /* ==== HEADER ==== */
@@ -43,8 +41,6 @@ html, body {
   color: white;
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.95rem;
-  transition: color 0.3s;
 }
 .nav-links a:hover {
   text-decoration: underline;
@@ -63,92 +59,64 @@ html, body {
   background-color: #e3c7ef;
 }
 
-/* ==== SELECTOR WRAPPER ==== */
-.role-selector-wrapper {
-  height: calc(100vh - 160px);
+/* ==== REGISTER FORM ==== */
+.register-wrapper {
+  min-height: calc(100vh - 160px);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: start;
-  padding: 4rem 2rem;
-  gap: 2rem;
-}
-.role-title-box {
-  text-align: center;
-}
-.role-title-box h2 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #5e2a84;
-}
-.role-title-box .subtitle {
-  color: #7c6991;
-  font-size: 1rem;
-  margin-top: 0.5rem;
-}
-
-/* ==== GRILLA ==== */
-.roles-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
   justify-content: center;
-  max-width: 1200px;
+  background: #f5e6f7;
+  padding: 4rem 2rem;
 }
 
-/* ==== CARD ==== */
-.role-card {
-  background: linear-gradient(to bottom, #e3c2f5, #e7c6f4);
-  width: 320px;
-  height: 440px;
-  border-radius: 24px;
+.register-card {
+  width: 440px;
+  padding: 2.5rem;
+  border-radius: 20px;
+  background-color: white;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 1.5rem;
   text-align: center;
 }
-.role-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
-  background: linear-gradient(to bottom, #d3a8f0, #e0bff1);
-}
-.role-image {
-  width: 130px;
-  margin-bottom: 1rem;
-  transition: transform 0.3s ease;
-}
-.role-card:hover .role-image {
-  transform: scale(1.07);
-}
-.role-card h3 {
-  font-size: 1.3rem;
-  color: #4c1e6e;
-  font-weight: 700;
+.register-card h2 {
+  color: #5e366a;
+  font-size: 1.8rem;
+  font-weight: bold;
   margin-bottom: 0.5rem;
 }
-.card-desc {
+.subtitle {
   font-size: 0.95rem;
-  color: #5e366a;
-  margin-bottom: 1.5rem;
-  line-height: 1.4;
+  color: #777;
+  margin-bottom: 1.8rem;
 }
-.card-btn {
-  padding: 0.6rem 1.2rem;
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.register-button {
+  width: 100%;
+  padding: 0.9rem;
+  font-weight: bold;
+  font-size: 1rem;
   background-color: #7c3a9b;
   color: white;
-  font-weight: 600;
-  border: none;
   border-radius: 8px;
-  font-size: 0.9rem;
-  cursor: pointer;
   transition: background 0.3s ease;
 }
-.card-btn:hover {
+.register-button:hover {
   background-color: #682c87;
+}
+.footer-text {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+.footer-text a {
+  color: #7d4993;
+  font-weight: bold;
+  text-decoration: none;
+}
+.footer-text a:hover {
+  text-decoration: underline;
 }
 
 /* ==== FOOTER ==== */

@@ -1,0 +1,272 @@
+/* ==== HEADER ==== */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #8c5e9b;
+  color: white;
+  padding: 1rem 2rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  height: 40px;
+}
+
+.brand-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.nav-links a {
+  margin: 0 1rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.header-right .register-link {
+  background-color: white;
+  color: #8c5e9b;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.header-right .register-link:hover {
+  background-color: #f1def5;
+}
+
+/* ==== LOGIN SECTION ==== */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 200px); /* sube todo un poco más */
+  background: #f7ebf9;
+  padding: 2rem 1rem;
+}
+
+.login-container {
+  display: flex;
+  gap: 4rem;
+  max-width: 1200px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 2rem;
+}
+
+.left-side {
+  max-width: 500px;
+  text-align: left;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  line-height: 1.4;
+  color: #5d2e82;
+  margin-bottom: 0.7rem;
+  display: inline-block;
+}
+
+.title span {
+  color: #8c5e9b;
+}
+
+.subtitle {
+  font-size: 1.15rem;
+  color: #6c4d7c;
+  margin-top: 0.5rem;
+  margin-bottom: 3.5rem; /* Increased spacing */
+}
+
+.illustration {
+  width: 100%;
+  max-width: 700px; /* antes era 460px */
+  border-radius: 10px;
+  transform: scale(1.1); /* agranda visualmente */
+}
+
+
+/* LOGIN CARD */
+.login-card {
+  width: 400px;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.login-card h2 {
+  font-size: 1.7rem;
+  color: #5e366a;
+  margin-bottom: 0.4rem;
+}
+
+.card-subtitle {
+  font-size: 0.95rem;
+  color: #777;
+  margin-bottom: 1.5rem;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1.2rem;
+}
+
+.extras {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.forgot {
+  font-size: 0.85rem;
+  color: #7a3d8e;
+  text-decoration: underline;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 0.9rem;
+  font-weight: bold;
+  font-size: 1rem;
+  background-color: #8c5e9b !important;
+  color: white;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+}
+
+.login-btn:hover {
+  background-color: #8c5e9b !important;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #999;
+  font-size: 0.9rem;
+  margin: 1.5rem 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ddd;
+  margin: 0 0.75rem;
+}
+
+.google-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.register-text {
+  font-size: 0.9rem;
+  margin-top: 1.4rem;
+  color: #555;
+}
+
+.register-text a {
+  color: #7a3d8e;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ==== FOOTER MEJORADO Y AJUSTADO ==== */
+.main-footer {
+  background-color: #8c5e9b;
+  color: white;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.1);
+  border-top: 2px solid #a875b6;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+  height: 100px;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-logo {
+  height: 28px;
+}
+
+.footer-text {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.footer-right {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-right a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.footer-right a:hover {
+  text-decoration: underline;
+  color: #e0c4f0;
+}
+
+/* ==== AJUSTE GLOBAL PARA ELIMINAR SLIDEBAR Y PEGAR FOOTER ==== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;   /* Quita scroll horizontal */
+  overflow-y: hidden;   /* Quita scroll vertical */
+  font-family: 'Arial', sans-serif;
+}
+
+/* CONTENEDOR PRINCIPAL */
+body > .login-wrapper {
+  min-height: calc(100vh - 80px); /* Altura máxima sin dejar espacio para scroll */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 100px;
+}
