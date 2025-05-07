@@ -73,7 +73,7 @@ import { PatientsUploadExamComponent } from './profiles/components/patients-uplo
 import { PatientsPendingTaskComponent } from './profiles/components/patients-pending-task/patients-pending-task.component';
 import { HeaderPatientComponent } from './shared/pages/header-patient/header-patient.component';
 import { CalendarPatientViewComponent } from './calendar/pages/calendar-patient-view/calendar-patient-view.component';
-import { NotificationsPatientsComponent } from './notifications/pages/notifications-patients/notifications-patients.component';
+
 
 import { BackgroundComponent } from './medical-history/components/background/background.component';
 
@@ -121,6 +121,8 @@ import { AddEventCardComponent } from './calendar/components/add-event-card/add-
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MedicationEntity} from "./medical-history/models/medication.entity";
+import { CalendarModule } from './app/calendar/calendar.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -154,7 +156,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     PatientsPendingTaskComponent,
     HeaderPatientComponent,
     CalendarPatientViewComponent,
-    NotificationsPatientsComponent,
 
     BackgroundComponent,
     ClinicalhistoryComponent,
@@ -270,7 +271,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatDatepicker,
     MatDatepickerInput,
     MatNativeDateModule,
-    AuthModule
+    AuthModule,
+    CalendarModule,
+    NotificationsModule
 
   ],
   providers: [

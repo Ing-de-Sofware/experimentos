@@ -34,7 +34,11 @@ const routes: Routes = [
   { path: 'headerPatient', component: HeaderPatientComponent },
   { path: 'homeDoctor', component: HomeDoctorComponent },
   { path: 'homePatient', component: HomePatientComponent },
-  { path: 'calendar', component: CalendarViewComponent },
+  {
+    path: 'calendar',
+    loadChildren: () =>
+      import('./calendar/calendar.module').then(m => m.CalendarModule)
+  },
   { path: 'messages', component: DoctorChatComponent },
   { path: 'notifications', component: NotificationsViewComponent },
   { path: 'doctorProfile', component: DoctorProfileComponent },

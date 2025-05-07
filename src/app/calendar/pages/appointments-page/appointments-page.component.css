@@ -1,0 +1,9 @@
+.appointments-container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.appointment-card {
+  margin-bottom: 16px;
+}

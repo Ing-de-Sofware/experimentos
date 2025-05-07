@@ -1,11 +1,35 @@
-
 mat-sidenav-container {
   height: calc(100vh - 120px);
-  border: 1px solid #ccc;
+  background-color: #f3eef9;
 }
 
+.notifications-container {
+  padding: 40px 20px;
+}
 
-.content {
-  padding: 20px;
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #5b3573;
+}
 
+.notification-card {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.icon-avatar {
+  background-color: #e0d4f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-data {
+  text-align: center;
+  color: #999;
+  margin-top: 50px;
+  font-size: 16px;
 }

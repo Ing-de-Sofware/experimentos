@@ -1,13 +1,27 @@
-
 <mat-sidenav-container>
-
   <mat-sidenav-content>
-    <div class="content">
-      <p>notifications-patients in process</p>
-
+    <div class="notifications-container">
+      <h1 class="title">🔔 Your Notifications</h1>
+      <div *ngIf="notifications.length > 0; else noNotifications">
+        <mat-card *ngFor="let notif of notifications" class="notification-card">
+          <mat-card-header>
+            <div mat-card-avatar class="icon-avatar">
+              <mat-icon>{{ notif.icon }}</mat-icon>
+            </div>
+            <mat-card-title>{{ notif.title }}</mat-card-title>
+            <mat-card-subtitle>{{ notif.date | date:'short' }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ notif.message }}</p>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-stroked-button color="primary" (click)="acknowledge(notif.id)">Got it</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <ng-template #noNotifications>
+        <p class="no-data">No notifications at this moment</p>
+      </ng-template>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-
-
-
