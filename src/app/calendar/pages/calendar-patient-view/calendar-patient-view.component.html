@@ -1,9 +1,36 @@
+<div class="calendar-container">
 
-<div class="container">
-  <div class="schedule">
+  <main class="calendar-main">
+    <aside class="calendar-sidebar">
+      <mat-form-field appearance="outline" class="calendar-picker">
+        <mat-label>Choose date</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
+      <section class="filter-section">
+        <h3 (click)="toggleSection('appointments')">Medical appointments</h3>
+        <div *ngIf="showAppointments">
+          <mat-checkbox>Follow-up consultation to control hypothyroidism</mat-checkbox>
+          <mat-checkbox>Treatment review hormonal</mat-checkbox>
+          <mat-checkbox>Medication adjustment</mat-checkbox>
+        </div>
+      </section>
+
+      <section class="filter-section">
+        <h3 (click)="toggleSection('medication')">Medication</h3>
+        <div *ngIf="showMedication">
+          <mat-checkbox>Taking Levothyroxine</mat-checkbox>
+        </div>
+      </section>
+    </aside>
+
+    <section class="calendar-grid">
+      <h2>Health Calendar: Medical Appointments and Medication.</h2>
+      <div class="week-grid">
+        <div class="day-column" *ngFor="let day of days"></div>
+      </div>
+    </section>
+  </main>
 </div>
-
-
-
-

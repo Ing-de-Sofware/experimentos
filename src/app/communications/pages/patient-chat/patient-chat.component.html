@@ -1,15 +1,35 @@
-
-
-
-<mat-sidenav-container>
-
-  <mat-sidenav-content>
-    <div class="content">
-      <p>patient-chat works!</p>
-
+<div class="chat-container">
+  <div class="sidebar">
+    <h3>Messages</h3>
+    <div class="chat-preview">
+      <img src="https://i.pravatar.cc/40?img=1" class="avatar" />
+      <div class="chat-info">
+        <div class="name">Emilio Morales</div>
+        <div class="message-preview">OK thank you so much!...</div>
+      </div>
     </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    <button class="see-more-btn">Ver más chats ...</button>
+  </div>
 
-
-
+  <div class="chat-panel">
+    <div class="chat-header">Chat with Dr. Emilio Morales</div>
+    <div class="chat-messages">
+      <div class="message left">
+        <img src="https://i.pravatar.cc/40?img=2" class="avatar" />
+        <div class="bubble">Hello Joseph! I inform you that tomorrow you must upload your hormonal test for our appointment on Saturday.</div>
+      </div>
+      <div class="message right">
+        <div class="bubble">Hello Dr. Emilio, understood, tonight I will go to take the exams so that tomorrow I can upload my results.</div>
+        <img src="https://i.pravatar.cc/40?img=3" class="avatar" />
+      </div>
+      <div class="message left">
+        <img src="https://i.pravatar.cc/40?img=2" class="avatar" />
+        <div class="bubble">OK thank you so much! See you this Sunday</div>
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" placeholder="Write your message..." />
+      <button><mat-icon>send</mat-icon></button>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,63 @@
-
 <mat-sidenav-container>
-
   <mat-sidenav-content>
     <div class="content">
-      <app-patients-table></app-patients-table>
+      <h2 class="section-title">Today's patients</h2>
+
+      <div class="main-layout">
+        <!-- Tabla de pacientes -->
+        <div class="table-container">
+          <table class="patients-table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type of care</th>
+              <th>Hour</th>
+              <th>Diagnosis</th>
+              <th>Alert</th>
+              <th>Video conference</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let patient of filteredPatients">
+              <td>
+                <div class="patient-info">
+                  <img [src]="patient.photo" alt="{{ patient.name }}" class="avatar" />
+                  <div>
+                    <div class="name">{{ patient.name }}</div>
+                    <div class="age">{{ patient.age }} years</div>
+                  </div>
+                </div>
+              </td>
+              <td>{{ patient.typeOfCare }}</td>
+              <td>{{ patient.hour }}</td>
+              <td>{{ patient.diagnosis }}</td>
+              <td>{{ patient.alert }}</td>
+              <td>
+                <button class="video-btn">
+                  <mat-icon>videocam</mat-icon>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Búsqueda lateral -->
+        <div class="side-search">
+          <input type="text" [(ngModel)]="searchTerm" placeholder="Find a patient" />
+          <div class="mini-patient" *ngFor="let patient of filteredPatients">
+            <img [src]="patient.photo" class="mini-avatar" />
+            <div class="mini-info">
+              <strong>{{ patient.name }}</strong>
+              <div class="mini-age">{{ patient.age }} years</div>
+              <div>
+                <button class="tag-btn">Profile</button>
+                <button class="tag-btn">Clinic history</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-

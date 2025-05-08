@@ -1,11 +1,125 @@
-
 mat-sidenav-container {
   height: calc(100vh - 120px);
   border: 1px solid #ccc;
 }
 
-
 .content {
   padding: 20px;
+}
 
+.section-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.main-layout {
+  display: flex;
+  gap: 20px;
+}
+
+.table-container {
+  flex: 3;
+  border: 2px solid #b58fcf;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.patients-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.patients-table thead {
+  background-color: #e7d9f1;
+}
+
+.patients-table th,
+.patients-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.patient-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.age {
+  font-size: 12px;
+  color: gray;
+}
+
+.video-btn {
+  background-color: #9c6ee4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+/* Panel lateral de búsqueda */
+.side-search {
+  flex: 1;
+  background-color: #f0e6f8;
+  padding: 16px;
+  border-radius: 12px;
+  height: fit-content;
+}
+
+.side-search input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+}
+
+.mini-patient {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.mini-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.mini-info {
+  flex: 1;
+}
+
+.mini-age {
+  font-size: 12px;
+  color: #666;
+}
+
+.tag-btn {
+  background-color: #c9b3e5;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 6px;
+  font-size: 11px;
+  margin-right: 4px;
+  cursor: pointer;
 }

@@ -1,11 +1,94 @@
-
-mat-sidenav-container {
-  height: calc(100vh - 120px);
-  border: 1px solid #ccc;
+.profile-container {
+  padding: 30px;
+  background: #eee3f4;
+  font-family: 'Segoe UI', sans-serif;
+  border-radius: 16px;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.sign-out {
+  background: #cbb6d3;
+  color: #333;
+}
 
 .content {
-  padding: 20px;
+  display: flex;
+  gap: 40px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
 
+.photo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.photo-section img {
+  width: 150px;
+  height: 180px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.form-section {
+  background: #d3bddc;
+  border-radius: 12px;
+  padding: 20px;
+  width: 320px;
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+.field label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.input-icon {
+  display: flex;
+  align-items: center;
+}
+
+.input-icon input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  outline: none;
+}
+
+.plan-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 230px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.actions button {
+  width: 30%;
+  min-width: 200px;
+  justify-content: space-between;
 }

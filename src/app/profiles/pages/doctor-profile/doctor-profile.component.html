@@ -1,25 +1,59 @@
+<div class="profile-container">
+  <div class="header">
+    <button mat-icon-button class="back-btn">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>User profile: “ Hello, Dr Emilio”</h2>
+    <button mat-raised-button color="primary" class="sign-out">Sign out</button>
+  </div>
 
-    <mat-grid-list cols="3" >
+  <div class="content">
+    <!-- FOTO -->
+    <div class="photo-section">
+      <img [src]="doctor.photoUrl || defaultPhoto" alt="Doctor photo">
+      <button mat-icon-button (click)="editPhoto()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <p>Edit photo</p>
+    </div>
 
+    <!-- FORMULARIO -->
+    <div class="form-section mat-elevation-z2">
+      <div class="field" *ngFor="let field of profileFields">
+        <label>{{ field.label }}</label>
+        <div class="input-icon">
+          <input [(ngModel)]="field.value" [readonly]="!field.editable" />
+          <button mat-icon-button>
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
 
-      <mat-grid-tile [colspan]="1"  [rowspan]="1">
-        <app-photo-patients></app-photo-patients>
+    <!-- PLAN Y CALENDARIO -->
+    <div class="plan-section">
+      <p><strong>Number of patients:</strong> {{ doctor.patients }}/5</p>
+      <button mat-raised-button color="accent" (click)="improvePlan()">Improve plan</button>
+      <p><strong>Appointment availability:</strong></p>
+      <mat-calendar [(selected)]="selectedDate"></mat-calendar>
+      <button mat-icon-button (click)="editCalendar()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </div>
 
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="2"  [rowspan]="1">
-
-        <app-info-profile-medicals></app-info-profile-medicals>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="1"  [rowspan]="1">
-        <app-info-card-profile-patiens [title]="'Doctor consultations'" [content]="'Schedule your next visit or resolve your medical questions, click here.'" [link]="'https://www.google.com'"></app-info-card-profile-patiens>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="1"  [rowspan]="1">
-        <app-info-card-profile-patiens [title]="'Check the status of my treatment'" [content]="'For a detailed evaluation and adjustments to your treatment, click here.'" [link]="'https://www.google.com'"></app-info-card-profile-patiens>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="1"  [rowspan]="1">
-        <app-info-card-profile-patiens [title]="'Set up notifications'" [content]="'Activate or customize your alerts to stay informed, click here.'" [link]="'https://www.google.com'"></app-info-card-profile-patiens>
-      </mat-grid-tile>
-
-    </mat-grid-list>
-
-
+  <div class="actions">
+    <button mat-stroked-button (click)="configureCertificates()">
+      Configure certificates
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+    <button mat-stroked-button (click)="configurePlan()">
+      Configure current plan
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+    <button mat-stroked-button (click)="setUpNotification()">
+      Set up notification
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </div>
+</div>

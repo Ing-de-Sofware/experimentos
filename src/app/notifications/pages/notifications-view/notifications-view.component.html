@@ -1,13 +1,21 @@
+<div class="notifications-container">
+  <h2><mat-icon>notifications</mat-icon> Notificaciones de citas</h2>
 
-<mat-sidenav-container>
+  <div *ngIf="notifications.length > 0; else emptyMessage">
+    <mat-card *ngFor="let notif of notifications" class="notification-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar color="primary">event</mat-icon>
+        <mat-card-title>{{ notif.title }}</mat-card-title>
+        <mat-card-subtitle>{{ notif.date }} – {{ notif.time }}</mat-card-subtitle>
+      </mat-card-header>
 
-  <mat-sidenav-content>
-    <div class="content">
-      <p>notifications-view in process</p>
+      <mat-card-content>
+        <p>{{ notif.description }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-
-
-
+  <ng-template #emptyMessage>
+    <p class="no-notifications">No hay notificaciones por ahora.</p>
+  </ng-template>
+</div>

@@ -42,7 +42,6 @@ import { DoctorChatComponent } from './communications/pages/doctor-chat/doctor-c
 import { PatientChatComponent } from './communications/pages/patient-chat/patient-chat.component';
 import { NotificationsViewComponent } from './notifications/pages/notifications-view/notifications-view.component';
 import {CalendarViewComponent} from "./calendar/pages/calendar-view/calendar-view.component";
-import { DoctorProfileComponent } from './profiles/pages/doctor-profile/doctor-profile.component';
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 
 import {
@@ -62,7 +61,6 @@ import {MatSort} from "@angular/material/sort";
 import { PhotoPatientsComponent } from './profiles/components/photo-patients/photo-patients.component';
 import { InfoProfilePatiensComponent } from './profiles/components/info-profile-patiens/info-profile-patiens.component';
 import { InfoCardProfilePatiensComponent } from './profiles/components/info-card-profile-patiens/info-card-profile-patiens.component';
-import { PatientProfileComponent } from './profiles/pages/patient-profile/patient-profile.component';
 
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 
@@ -90,7 +88,10 @@ import { HeaderForUserTypeServiceComponent } from './shared/components/header-fo
 import { TreatmentPatientComponent } from './medical-history/pages/treatment-patient/treatment-patient.component';
 import { MedicationFormComponent } from './medical-history/components/medication-form/medication-form.component';
 
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerToggle } from '@angular/material/datepicker';
+import { MatDateRangePicker } from '@angular/material/datepicker';
+import { MatCalendar } from '@angular/material/datepicker';
 
 import { ButtonSendMessageComponent } from './communications/components/button-send-message/button-send-message.component';
 import { DatepickerProfileColleagueComponent } from './communications/components/datepicker-profile-colleague/datepicker-profile-colleague.component';
@@ -118,11 +119,11 @@ import {RouterLink} from "@angular/router";
 
 import {CalendarDoctorComponent} from "./calendar/components/calendar-doctor/calendar-doctor.component";
 import { AddEventCardComponent } from './calendar/components/add-event-card/add-event-card.component';
-import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MedicationEntity} from "./medical-history/models/medication.entity";
 import { CalendarModule } from './app/calendar/calendar.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { ProfilesModule } from './profiles/profiles.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -139,23 +140,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     SearchPatiensComponent,
     HeaderDoctorComponent,
     LanguageSwitcherComponent,
-    CalendarViewComponent,
     DoctorChatComponent,
     PatientChatComponent,
     NotificationsViewComponent,
-    DoctorProfileComponent,
     HomeDoctorComponent,
-    PhotoPatientsComponent,
-    InfoProfilePatiensComponent,
-    InfoCardProfilePatiensComponent,
-    PatientProfileComponent,
     DoctorRegistrationComponent,
     HomePatientComponent,
     PatientsReminderComponent,
     PatientsUploadExamComponent,
     PatientsPendingTaskComponent,
     HeaderPatientComponent,
-    CalendarPatientViewComponent,
 
     BackgroundComponent,
     ClinicalhistoryComponent,
@@ -179,7 +173,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     ColleagueSearchComponent,
     InfoProfileMedicalsComponent,
-    AddEventCardComponent,
       ColleagueSearchComponent,
       InfoProfileMedicalsComponent,
         SelectPaymentMethodComponent,
@@ -267,13 +260,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     DoctorViewColleagueComponent,
     RouterLink,
     CalendarDoctorComponent,
-    MatDatepickerToggle,
-    MatDatepicker,
-    MatDatepickerInput,
+
     MatNativeDateModule,
+    MatDatepickerModule,
+    MatCalendar,
+
     AuthModule,
     CalendarModule,
-    NotificationsModule
+    NotificationsModule,
+    ProfilesModule
 
   ],
   providers: [
