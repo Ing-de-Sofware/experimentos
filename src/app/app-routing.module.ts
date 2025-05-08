@@ -20,7 +20,6 @@ import { MedicalexamsComponent } from './medical-history/components/medicalexams
 import { ExternalreportsComponent } from './medical-history/components/externalreports/externalreports.component';
 import { DignosesandtreatmentComponent } from './medical-history/components/dignosesandtreatment/dignosesandtreatment.component';
 import { TreatmentPatientComponent } from './medical-history/pages/treatment-patient/treatment-patient.component';
-import { MedicalhistorypageComponent } from './medical-history/pages/medicalhistorypage/medicalhistorypage.component';
 import { LoginComponent } from './identity-and-access/auth/components/login/login.component';
 import { RegisterComponent } from './identity-and-access/auth/components/register/register.component';
 import { ForgotPasswordComponent } from './identity-and-access/auth/components/forgot-password/forgot-password.component';
@@ -48,15 +47,8 @@ const routes: Routes = [
   { path: 'patientProfile', component: PatientProfileComponent },
   {
     path: 'medical-history',
-    component: MedicalhistorypageComponent,
-    children: [
-      { path: 'reasonConsultation', component: ReasonconsultationComponent },
-      { path: 'background', component: BackgroundComponent },
-      { path: 'medicalExams', component: MedicalexamsComponent },
-      { path: 'externalReports', component: ExternalreportsComponent },
-      { path: 'diagnosesAndTreatment', component: DignosesandtreatmentComponent },
-      { path: 'treatmentPatient', component: TreatmentPatientComponent }
-    ]
+    loadChildren: () =>
+      import('./medical-history/medical-history.module').then(m => m.MedicalHistoryModule)
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }

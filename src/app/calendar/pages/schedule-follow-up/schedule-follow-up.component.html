@@ -1,0 +1,33 @@
+<div class="main-container">
+  <h1>Main Menu</h1>
+
+  <div class="content">
+    <!-- Patient Medication -->
+    <div class="section medication">
+      <h2>Patient Medication</h2>
+      <div *ngFor="let med of medications" class="pill">
+        <input type="checkbox" />
+        <span>{{ med }}</span>
+      </div>
+    </div>
+
+    <!-- Exams to evaluate -->
+    <div class="section">
+      <h2>Exams to evaluate</h2>
+      <div class="card">
+        <div *ngFor="let exam of exams">
+          <input type="checkbox" [(ngModel)]="selectedExams[exam]" />
+          <label>{{ exam }}</label>
+        </div>
+      </div>
+
+      <!-- Schedule appointment -->
+      <h2>Schedule next appointment</h2>
+      <div class="card">
+        <input type="datetime-local" [(ngModel)]="selectedDateTime" />
+      </div>
+
+      <button class="history-btn">View clinical history</button>
+    </div>
+  </div>
+</div>

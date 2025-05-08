@@ -18,13 +18,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ScheduleFollowUpComponent } from './pages/schedule-follow-up/schedule-follow-up.component';
 
 @NgModule({
   declarations: [
     AppointmentsPageComponent,
     AddEventCardComponent,
     CalendarViewComponent,
-    CalendarPatientViewComponent
+    CalendarPatientViewComponent,
+    ScheduleFollowUpComponent
   ],
   imports: [
     CommonModule,

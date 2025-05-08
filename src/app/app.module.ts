@@ -165,7 +165,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     MedicalexamsComponent,
     PatientdataComponent,
     ReasonconsultationComponent,
-    MedicalhistorypageComponent,
 
     HeaderForUserTypeServiceComponent,
     TreatmentPatientComponent,

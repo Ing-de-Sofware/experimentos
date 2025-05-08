@@ -51,8 +51,12 @@
               <strong>{{ patient.name }}</strong>
               <div class="mini-age">{{ patient.age }} years</div>
               <div>
-                <button class="tag-btn">Profile</button>
-                <button class="tag-btn">Clinic history</button>
+                <button class="tag-btn" [routerLink]="['/calendar/schedule-follow-up', patient.id]">
+                  Schedule follow-up
+                </button>
+                <button class="tag-btn" [routerLink]="['/medical-history/medical-history-page', patient.id]">
+                  Clinic history
+                </button>
               </div>
             </div>
           </div>

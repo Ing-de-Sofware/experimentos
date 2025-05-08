@@ -1,0 +1,53 @@
+.main-container {
+  background-color: #e7dce7;
+  padding: 30px;
+  font-family: 'Arial', sans-serif;
+}
+
+h1 {
+  color: #fff;
+  background-color: #9e83ac;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.section {
+  flex: 1;
+  margin: 0 15px;
+}
+
+.card {
+  background-color: #b393bf;
+  border-radius: 10px;
+  padding: 15px;
+  color: #fff;
+  margin-top: 10px;
+}
+
+.pill {
+  background-color: #b393bf;
+  color: #fff;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.history-btn {
+  background-color: #c1a6d9;
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  font-size: 16px;
+  margin-top: 25px;
+  border-radius: 15px;
+  cursor: pointer;
+}

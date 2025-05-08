@@ -1,13 +1,59 @@
-<div class="cont">
-  <app-header></app-header>
-  <div class="container">
-    <div class="patient-data">
-      <app-patientdata></app-patientdata>
+<div class="container">
+  <div style="margin-bottom: 20px;">
+    <button routerLink="/homeDoctor" style="padding: 8px 12px; background-color: #8e44ad; color: white; border: none; border-radius: 4px;">
+      ← Back to Home
+    </button>
+  </div>
+  <div class="profile">
+    <img [src]="patient.photo" alt="Patient photo" class="avatar" />
+    <div class="info">
+      <h2>{{ patient.name }}</h2>
+      <p>{{ patient.age }} years • {{ patient.gender }}</p>
     </div>
-    <div class="other-component">
-      <app-clinicalhistory></app-clinicalhistory>
-      <router-outlet></router-outlet>
+  </div>
+
+  <div class="main-data">
+    <h3>Clinical Data</h3>
+    <ul>
+      <li><strong>Weight:</strong> {{ patient.mainInfo.weight }}</li>
+      <li><strong>Height:</strong> {{ patient.mainInfo.height }}</li>
+      <li><strong>Blood Type:</strong> {{ patient.mainInfo.bloodType }}</li>
+      <li><strong>Allergies:</strong> {{ patient.mainInfo.allergies }}</li>
+    </ul>
+  </div>
+
+  <div class="history-section">
+    <h3>Medical History</h3>
+
+    <div class="history-card">
+      <h4>Reason for Consultation</h4>
+      <p>{{ patient.history.reason }}</p>
+    </div>
+
+    <div class="history-card">
+      <h4>Antecedents</h4>
+      <p>{{ patient.history.antecedents }}</p>
+    </div>
+
+    <div class="history-card">
+      <h4>Exams</h4>
+      <ul>
+        <li *ngFor="let exam of patient.history.exams">{{ exam }}</li>
+      </ul>
+    </div>
+
+    <div class="history-card">
+      <h4>External Reports</h4>
+      <ul>
+        <li *ngFor="let report of patient.history.externalReports">{{ report }}</li>
+      </ul>
+    </div>
+
+    <div class="history-card">
+      <h4>Treatments</h4>
+      <ul>
+        <li *ngFor="let treatment of patient.history.treatments">{{ treatment }}</li>
+      </ul>
     </div>
   </div>
 </div>
-

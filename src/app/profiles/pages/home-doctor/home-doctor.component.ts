@@ -14,6 +14,7 @@ export class HomeDoctorComponent implements OnInit {
 
   patients = [
     {
+      id: 1,
       name: 'Diego Jara',
       age: 31,
       typeOfCare: 'First date',
@@ -23,6 +24,7 @@ export class HomeDoctorComponent implements OnInit {
       photo: 'https://i.pravatar.cc/150?img=1'
     },
     {
+      id: 2,
       name: 'Matias Lopez',
       age: 27,
       typeOfCare: 'Second date',
@@ -32,6 +34,7 @@ export class HomeDoctorComponent implements OnInit {
       photo: 'https://i.pravatar.cc/150?img=2'
     },
     {
+      id: 3,
       name: 'Gabriel Ramirez',
       age: 31,
       typeOfCare: 'Third date',
@@ -41,6 +44,7 @@ export class HomeDoctorComponent implements OnInit {
       photo: 'https://i.pravatar.cc/150?img=3'
     },
     {
+      id: 4,
       name: 'Juan Ramirez',
       age: 28,
       typeOfCare: 'Fifth date',
@@ -50,6 +54,7 @@ export class HomeDoctorComponent implements OnInit {
       photo: 'https://i.pravatar.cc/150?img=4'
     },
     {
+      id: 5,
       name: 'Milagros Ramos',
       age: 34,
       typeOfCare: 'Sixth date',
@@ -59,6 +64,7 @@ export class HomeDoctorComponent implements OnInit {
       photo: 'https://i.pravatar.cc/150?img=5'
     },
     {
+      id: 6,
       name: 'Camila Flores',
       age: 26,
       typeOfCare: 'Seventh date',

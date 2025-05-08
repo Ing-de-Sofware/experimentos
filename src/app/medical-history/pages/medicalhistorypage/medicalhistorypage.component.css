@@ -1,23 +1,54 @@
-/* app.component.css */
 .container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.profile {
   display: flex;
-  margin-top: 20px; /* Añade un margen superior para separarlo del encabezado */
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.patient-data {
-  /* Estilos para el componente de datos del paciente */
-  flex: 1;
-  margin-left: 20px; /* Espacio entre el componente y el otro componente */
-  margin-right: -50%;
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 20px;
+  border: 2px solid #ccc;
 }
 
-.other-component {
-  /* Estilos para el otro componente */
-  margin-right: 30px;
-  background: #A788AB;
-  border-radius: 8px;
-  flex: 1;
+.info h2 {
+  margin: 0;
+  font-size: 24px;
 }
-.cont{
-margin: 20px 0;
+
+.main-data ul {
+  list-style: none;
+  padding: 0;
+}
+
+.main-data li {
+  margin: 5px 0;
+}
+
+.history-section {
+  margin-top: 30px;
+}
+
+.history-card {
+  background-color: #e9e3f5;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.history-card h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 18px;
 }
