@@ -8,6 +8,7 @@ import { AddEventCardComponent } from './components/add-event-card/add-event-car
 import { CalendarViewComponent } from './pages/calendar-view/calendar-view.component';
 import { CalendarDoctorComponent } from './components/calendar-doctor/calendar-doctor.component'; // standalone
 import { CalendarPatientViewComponent } from './pages/calendar-patient-view/calendar-patient-view.component';
+import { ScheduleFollowUpComponent } from './pages/schedule-follow-up/schedule-follow-up.component';
 
 // Angular Material
 import { MatCardModule } from '@angular/material/card';
@@ -17,8 +18,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+
+// Otros módulos
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ScheduleFollowUpComponent } from './pages/schedule-follow-up/schedule-follow-up.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,8 @@ import { ScheduleFollowUpComponent } from './pages/schedule-follow-up/schedule-f
     CommonModule,
     CalendarRoutingModule,
     MatCardModule,
+    FullCalendarModule,
+    CalendarDoctorComponent, // standalone
     MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
@@ -39,8 +44,7 @@ import { ScheduleFollowUpComponent } from './pages/schedule-follow-up/schedule-f
     MatIconModule,
     MatCheckboxModule,
     FormsModule,
-    ReactiveFormsModule,
-    CalendarDoctorComponent
+    ReactiveFormsModule
   ]
 })
-export class CalendarModule { }
+export class CalendarModule {}

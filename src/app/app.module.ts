@@ -121,7 +121,7 @@ import {CalendarDoctorComponent} from "./calendar/components/calendar-doctor/cal
 import { AddEventCardComponent } from './calendar/components/add-event-card/add-event-card.component';
 import {MatNativeDateModule} from "@angular/material/core";
 import {MedicationEntity} from "./medical-history/models/medication.entity";
-import { CalendarModule } from './app/calendar/calendar.module';
+import { CalendarModule } from './calendar/calendar.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { ProfilesModule } from './profiles/profiles.module';
 
@@ -258,7 +258,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ButtonSaveScheduleComponent,
     DoctorViewColleagueComponent,
     RouterLink,
-    CalendarDoctorComponent,
 
     MatNativeDateModule,
     MatDatepickerModule,

@@ -1,4 +1,12 @@
-import { Component , signal, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  signal,
+  ChangeDetectorRef,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  OnDestroy
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -8,6 +16,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { INITIAL_EVENTS, createEventId } from './event-utils';
+import { EventCalendarService } from '../../services/event-calendar.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-calendar-doctor',
@@ -16,8 +26,11 @@ import { INITIAL_EVENTS, createEventId } from './event-utils';
   imports: [CommonModule, RouterOutlet, FullCalendarModule],
   standalone: true
 })
-export class CalendarDoctorComponent
-{
+export class CalendarDoctorComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('calendar') calendarComponent: any;
+
+  private subscription: Subscription = new Subscription();
+
   calendarVisible = signal(true);
   calendarOptions = signal<CalendarOptions>({
     plugins: [
@@ -32,7 +45,7 @@ export class CalendarDoctorComponent
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     initialView: 'dayGridMonth',
-    initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+    initialEvents: INITIAL_EVENTS,
     weekends: true,
     editable: true,
     selectable: true,
@@ -41,15 +54,38 @@ export class CalendarDoctorComponent
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this)
-    /* you can update a remote database when these fire:
-    eventAdd:
-    eventChange:
-    eventRemove:
-    */
   });
+
   currentEvents = signal<EventApi[]>([]);
 
-  constructor(private changeDetector: ChangeDetectorRef) {
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private eventCalendarService: EventCalendarService
+  ) {}
+
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    this.subscription = this.eventCalendarService.events$.subscribe(events => {
+      const calendarApi = this.calendarComponent?.getApi();
+      if (calendarApi) {
+        calendarApi.removeAllEvents();
+        events.forEach(event => {
+          calendarApi.addEvent({
+            id: createEventId(),
+            title: event.title,
+            start: event.start,
+            end: event.end,
+            allDay: event.allDay ?? false
+          });
+        });
+        this.changeDetector.detectChanges();
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   handleCalendarToggle() {
@@ -67,7 +103,7 @@ export class CalendarDoctorComponent
     const title = prompt('Please enter a new title for your event');
     const calendarApi = selectInfo.view.calendar;
 
-    calendarApi.unselect(); // clear date selection
+    calendarApi.unselect();
 
     if (title) {
       calendarApi.addEvent({
@@ -88,6 +124,11 @@ export class CalendarDoctorComponent
 
   handleEvents(events: EventApi[]) {
     this.currentEvents.set(events);
-    this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
+    this.changeDetector.detectChanges();
+  }
+
+  handleEventsFromDOM(event: any) {
+    const detail = event?.detail || event;
+    this.handleEvents(detail);
   }
 }

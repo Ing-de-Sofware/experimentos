@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://hormonal-care-backend.up.railway.app",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

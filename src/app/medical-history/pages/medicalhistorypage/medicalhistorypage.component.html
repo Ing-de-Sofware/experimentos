@@ -1,13 +1,14 @@
-<div class="container">
+<div class="container" *ngIf="!isLoading">
   <div style="margin-bottom: 20px;">
     <button routerLink="/homeDoctor" style="padding: 8px 12px; background-color: #8e44ad; color: white; border: none; border-radius: 4px;">
       ← Back to Home
     </button>
   </div>
   <div class="profile">
-    <img [src]="patient.photo" alt="Patient photo" class="avatar" />
+    <img *ngIf="patient" [src]="patient.image || 'https://via.placeholder.com/150'" alt="Patient photo" class="avatar" />
+
     <div class="info">
-      <h2>{{ patient.name }}</h2>
+      <h2>{{ patient.firstName }} {{ patient.lastName }}</h2>
       <p>{{ patient.age }} years • {{ patient.gender }}</p>
     </div>
   </div>
@@ -15,10 +16,9 @@
   <div class="main-data">
     <h3>Clinical Data</h3>
     <ul>
-      <li><strong>Weight:</strong> {{ patient.mainInfo.weight }}</li>
-      <li><strong>Height:</strong> {{ patient.mainInfo.height }}</li>
-      <li><strong>Blood Type:</strong> {{ patient.mainInfo.bloodType }}</li>
-      <li><strong>Allergies:</strong> {{ patient.mainInfo.allergies }}</li>
+      <li><strong>Weight:</strong> {{ medicalHistory?.physical_test || 'N/A' }}</li>
+      <li><strong>Blood Type:</strong> {{ patient.typeofblood }}</li>
+      <li><strong>Allergies:</strong> {{ medicalHistory?.personal_background || 'None' }}</li>
     </ul>
   </div>
 
@@ -27,33 +27,37 @@
 
     <div class="history-card">
       <h4>Reason for Consultation</h4>
-      <p>{{ patient.history.reason }}</p>
+      <p>{{ medicalHistory?.reason }}</p>
     </div>
 
     <div class="history-card">
       <h4>Antecedents</h4>
-      <p>{{ patient.history.antecedents }}</p>
+      <p>{{ medicalHistory?.family_background }}</p>
     </div>
 
     <div class="history-card">
       <h4>Exams</h4>
       <ul>
-        <li *ngFor="let exam of patient.history.exams">{{ exam }}</li>
+        <li *ngFor="let exam of medicalHistory?.medical_exams">{{ exam }}</li>
       </ul>
     </div>
 
     <div class="history-card">
       <h4>External Reports</h4>
       <ul>
-        <li *ngFor="let report of patient.history.externalReports">{{ report }}</li>
+        <li *ngFor="let report of medicalHistory?.external_reports">{{ report }}</li>
       </ul>
     </div>
 
     <div class="history-card">
       <h4>Treatments</h4>
       <ul>
-        <li *ngFor="let treatment of patient.history.treatments">{{ treatment }}</li>
+        <li *ngFor="let treatment of medicalHistory?.treatment_and_medication">
+          {{ treatment.drug_name }} – {{ treatment.quantity }} {{ treatment.concentration }} – {{ treatment.frequency }} for {{ treatment.duration }}
+        </li>
       </ul>
     </div>
   </div>
 </div>
+
+<div *ngIf="isLoading" class="loading">Loading patient data...</div>

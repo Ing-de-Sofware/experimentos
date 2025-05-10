@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {GoogleCalendarService} from "../../services/google-calendar-service";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { GoogleCalendarService } from '../../services/google-calendar-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { EventCalendarService, CalendarEvent } from '../../services/event-calendar.service';
 
 @Component({
   selector: 'app-add-event-card',
@@ -11,7 +12,12 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class AddEventCardComponent implements OnInit {
   eventForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private googleCalendarService: GoogleCalendarService, private snackBar: MatSnackBar) {
+  constructor(
+    private fb: FormBuilder,
+    private googleCalendarService: GoogleCalendarService,
+    private snackBar: MatSnackBar,
+    private eventCalendarService: EventCalendarService
+  ) {
     this.eventForm = this.fb.group({
       eventDate: [null, Validators.required],
       startTime: [null, Validators.required],
@@ -21,12 +27,12 @@ export class AddEventCardComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   createEvent() {
     if (this.eventForm.valid) {
       const formValue = this.eventForm.value;
+
       const startDateTime = new Date(formValue.eventDate);
       const [startHours, startMinutes] = formValue.startTime.split(':');
       startDateTime.setHours(startHours, startMinutes);
@@ -35,6 +41,19 @@ export class AddEventCardComponent implements OnInit {
       const [endHours, endMinutes] = formValue.endTime.split(':');
       endDateTime.setHours(endHours, endMinutes);
 
+      const localEvent: CalendarEvent = {
+        title: formValue.title,
+        start: startDateTime.toISOString(),
+        end: endDateTime.toISOString(),
+        allDay: false
+      };
+
+      // ✅ Agrega el evento localmente (Frontend)
+      this.eventCalendarService.addEvent(localEvent);
+
+      // ❌ Comentado: Integración real con Google Calendar API
+      // TODO: Descomentar esto cuando el backend y autenticación OAuth estén listos
+      /*
       const eventDetails = {
         startTime: startDateTime.toISOString(),
         endTime: endDateTime.toISOString(),
@@ -57,8 +76,17 @@ export class AddEventCardComponent implements OnInit {
       }).catch((error) => {
         console.error('Error creating event', error);
       });
+      */
+
+      // ✅ Feedback básico sin usar Google API
+      this.snackBar.open('Local event created', '', {
+        duration: 3000,
+      });
+      this.eventForm.reset();
+
     } else {
       console.error('Form is not valid');
     }
   }
+
 }

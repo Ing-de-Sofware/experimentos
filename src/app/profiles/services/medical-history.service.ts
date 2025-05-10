@@ -12,7 +12,7 @@ export class MedicalHistoryService extends BaseService<MedicalHistoryEntity> {
 
   constructor(http: HttpClient) {
     super(http);
-    this.basePath = 'https://json-server-vercel-open.vercel.app';
+    this.basePath = '/api/v1';
     this.resourceEndpoint = '/medical_history';
   }
 
