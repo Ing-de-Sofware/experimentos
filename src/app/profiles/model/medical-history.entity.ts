@@ -21,6 +21,7 @@ export class MedicalHistoryEntity {
   date: string;
   reason: string;
   symptoms: string[];
+  weight: number;
   personal_background: string | string[];
   family_background: string;
   lab_results_id: number;
@@ -36,6 +37,7 @@ export class MedicalHistoryEntity {
     this.doctors_id = [];
     this.date = "";
     this.reason = "";
+    this.weight = 0;
     this.symptoms = [];
     this.personal_background = "";
     this.family_background = "";

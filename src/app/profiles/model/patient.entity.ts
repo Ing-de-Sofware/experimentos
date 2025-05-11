@@ -4,6 +4,7 @@ export class PatientEntity {
   lastName: string;
   gender: string;
   age: number;
+  weight: number;
   phoneNumber: string;
   email: string;
   image: string;
@@ -15,6 +16,7 @@ export class PatientEntity {
     this.firstName = "";
     this.lastName = "";
     this.gender = "";
+    this.weight = 0;
     this.age = 0;
     this.phoneNumber = "";
     this.email = "";

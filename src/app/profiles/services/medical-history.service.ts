@@ -21,7 +21,16 @@ export class MedicalHistoryService extends BaseService<MedicalHistoryEntity> {
   getByPatientId(patientId: string): Observable<MedicalHistoryEntity> {
     return this.http.get<MedicalHistoryEntity[]>(`${this.basePath}${this.resourceEndpoint}?patient_id=${patientId}`)
       .pipe(
-        map((results) => results[0]) // tomamos solo el primer historial del paciente
+        map((results) => {
+          const history = results[0];
+          console.log('Cargado desde servicio:', history);
+          // Aseguramos que weight sea número
+          return {
+            ...history,
+            weight: Number(history?.weight) || 0
+          } as MedicalHistoryEntity;
+
+        })
       );
   }
 }

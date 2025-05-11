@@ -4,6 +4,7 @@ export class MedicalEntity {
   lastName: string ;
   gender: string ;
   age :number;
+  weight: number;
   phoneNumber: string ;
   email: string ;
   Image: string ;
@@ -23,6 +24,7 @@ export class MedicalEntity {
     this.lastName = "";
     this.gender = "";
     this.age = 0;
+    this.weight = 0;
     this.phoneNumber = "";
     this.email = "";
     this.Image = "";
