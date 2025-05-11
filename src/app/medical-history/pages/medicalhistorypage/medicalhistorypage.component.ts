@@ -24,18 +24,16 @@ export class MedicalhistorypageComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
+      console.log("ID recibido:", id);
       this.loadData(id);
     }
-    console.log("ID recibido:", id);
-    console.log("Patient data:", this.patient);
-    console.log("Medical history:", this.medicalHistory);
-
   }
 
   private loadData(id: string): void {
     this.patientService.getById(id).subscribe({
       next: (data) => {
         this.patient = data;
+        console.log("Patient data:", this.patient);
         this.loadMedicalHistory(id);
       },
       error: (err) => {
@@ -45,10 +43,11 @@ export class MedicalhistorypageComponent implements OnInit {
     });
   }
 
-  private loadMedicalHistory(id: string): void {
-    this.medicalHistoryService.getById(id).subscribe({
+  private loadMedicalHistory(patientId: string): void {
+    this.medicalHistoryService.getByPatientId(patientId).subscribe({
       next: (history) => {
         this.medicalHistory = history;
+        console.log("Medical history:", this.medicalHistory);
         this.isLoading = false;
       },
       error: (err) => {
@@ -58,3 +57,4 @@ export class MedicalhistorypageComponent implements OnInit {
     });
   }
 }
+

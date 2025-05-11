@@ -21,17 +21,17 @@
             <tr *ngFor="let patient of filteredPatients">
               <td>
                 <div class="patient-info">
-                  <img [src]="patient.photo" alt="{{ patient.name }}" class="avatar" />
+                  <img [src]="patient.image || 'https://via.placeholder.com/150'" alt="{{ patient.firstName }}" class="avatar" />
                   <div>
-                    <div class="name">{{ patient.name }}</div>
+                    <div class="name">{{ patient.firstName }} {{ patient.lastName }}</div>
                     <div class="age">{{ patient.age }} years</div>
                   </div>
                 </div>
               </td>
-              <td>{{ patient.typeOfCare }}</td>
-              <td>{{ patient.hour }}</td>
-              <td>{{ patient.diagnosis }}</td>
-              <td>{{ patient.alert }}</td>
+              <td>—</td> <!-- Puedes personalizar si tienes typeOfCare -->
+              <td>—</td> <!-- Puedes personalizar si tienes hora -->
+              <td>—</td>
+              <td>—</td>
               <td>
                 <button class="video-btn">
                   <mat-icon>videocam</mat-icon>
@@ -46,9 +46,9 @@
         <div class="side-search">
           <input type="text" [(ngModel)]="searchTerm" placeholder="Find a patient" />
           <div class="mini-patient" *ngFor="let patient of filteredPatients">
-            <img [src]="patient.photo" class="mini-avatar" />
+            <img [src]="patient.image || 'https://via.placeholder.com/150'" class="mini-avatar" />
             <div class="mini-info">
-              <strong>{{ patient.name }}</strong>
+              <strong>{{ patient.firstName }} {{ patient.lastName }}</strong>
               <div class="mini-age">{{ patient.age }} years</div>
               <div>
                 <button class="tag-btn" [routerLink]="['/calendar/schedule-follow-up', patient.id]">

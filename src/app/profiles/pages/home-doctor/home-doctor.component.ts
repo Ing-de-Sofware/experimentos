@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserTypeService } from '../../../shared/services/user-type.service';
 import { Location } from '@angular/common';
+import { PatientsDataService } from '../../../medical-history/services/patients-data.service';
+import { PatientEntity } from '../../../profiles/model/patient.entity';
 
 @Component({
   selector: 'app-home-doctor',
@@ -11,74 +13,13 @@ import { Location } from '@angular/common';
 export class HomeDoctorComponent implements OnInit {
 
   searchTerm: string = '';
-
-  patients = [
-    {
-      id: 1,
-      name: 'Diego Jara',
-      age: 31,
-      typeOfCare: 'First date',
-      hour: '8:00 am',
-      diagnosis: 'To evaluate',
-      alert: '-',
-      photo: 'https://i.pravatar.cc/150?img=1'
-    },
-    {
-      id: 2,
-      name: 'Matias Lopez',
-      age: 27,
-      typeOfCare: 'Second date',
-      hour: '10:00 am',
-      diagnosis: 'To evaluate',
-      alert: '-',
-      photo: 'https://i.pravatar.cc/150?img=2'
-    },
-    {
-      id: 3,
-      name: 'Gabriel Ramirez',
-      age: 31,
-      typeOfCare: 'Third date',
-      hour: '12:00 pm',
-      diagnosis: 'To evaluate',
-      alert: '-',
-      photo: 'https://i.pravatar.cc/150?img=3'
-    },
-    {
-      id: 4,
-      name: 'Juan Ramirez',
-      age: 28,
-      typeOfCare: 'Fifth date',
-      hour: '5:00 pm',
-      diagnosis: 'To evaluate',
-      alert: '-',
-      photo: 'https://i.pravatar.cc/150?img=4'
-    },
-    {
-      id: 5,
-      name: 'Milagros Ramos',
-      age: 34,
-      typeOfCare: 'Sixth date',
-      hour: '7:00 pm',
-      diagnosis: 'To evaluate',
-      alert: '-',
-      photo: 'https://i.pravatar.cc/150?img=5'
-    },
-    {
-      id: 6,
-      name: 'Camila Flores',
-      age: 26,
-      typeOfCare: 'Seventh date',
-      hour: '11:00 am',
-      diagnosis: 'To evaluate',
-      alert: '-',
-      photo: 'https://i.pravatar.cc/150?img=6'
-    }
-  ];
+  patients: PatientEntity[] = [];
 
   constructor(
     private userTypeService: UserTypeService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private patientsDataService: PatientsDataService
   ) {}
 
   ngOnInit(): void {
@@ -88,15 +29,28 @@ export class HomeDoctorComponent implements OnInit {
       this.router.navigate(['/login'], { replaceUrl: true });
     }
 
+    this.loadPatients();
+
     history.pushState(null, '', location.href);
     window.onpopstate = () => {
       history.pushState(null, '', location.href);
     };
   }
 
+  loadPatients(): void {
+    this.patientsDataService.getAll().subscribe({
+      next: (data: PatientEntity[]) => {
+        this.patients = data;
+      },
+      error: (err) => {
+        console.error('Error loading patients', err);
+      }
+    });
+  }
+
   get filteredPatients() {
     return this.patients.filter(p =>
-      p.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+      `${p.firstName} ${p.lastName}`.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 }

@@ -32,7 +32,7 @@ export class InfoProfilePatiensComponent implements OnInit {
           });
 
         // Obtén los detalles del paciente
-        this.patientsDataService.getPatientDetails(patientId)
+        this.patientsDataService.getById(patientId)
           .subscribe((data: PatientEntity) => {
             console.log('Patient details:', data); // Log the patient details
             this.patient.typeofblood = data.typeofblood; // Solo guarda el tipo de sangre

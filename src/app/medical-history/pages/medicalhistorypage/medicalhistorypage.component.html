@@ -1,12 +1,11 @@
 <div class="container" *ngIf="!isLoading">
   <div style="margin-bottom: 20px;">
-    <button routerLink="/homeDoctor" style="padding: 8px 12px; background-color: #8e44ad; color: white; border: none; border-radius: 4px;">
+    <button routerLink="/homeDoctor" class="back-btn">
       ← Back to Home
     </button>
   </div>
   <div class="profile">
     <img *ngIf="patient" [src]="patient.image || 'https://via.placeholder.com/150'" alt="Patient photo" class="avatar" />
-
     <div class="info">
       <h2>{{ patient.firstName }} {{ patient.lastName }}</h2>
       <p>{{ patient.age }} years • {{ patient.gender }}</p>
@@ -17,7 +16,7 @@
     <h3>Clinical Data</h3>
     <ul>
       <li><strong>Weight:</strong> {{ medicalHistory?.physical_test || 'N/A' }}</li>
-      <li><strong>Blood Type:</strong> {{ patient.typeofblood }}</li>
+      <li><strong>Blood Type:</strong> {{ patient.typeofblood || 'Unknown' }}</li>
       <li><strong>Allergies:</strong> {{ medicalHistory?.personal_background || 'None' }}</li>
     </ul>
   </div>
@@ -27,35 +26,38 @@
 
     <div class="history-card">
       <h4>Reason for Consultation</h4>
-      <p>{{ medicalHistory?.reason }}</p>
+      <p>{{ medicalHistory?.reason || 'Not provided' }}</p>
     </div>
 
     <div class="history-card">
       <h4>Antecedents</h4>
-      <p>{{ medicalHistory?.family_background }}</p>
+      <p>{{ medicalHistory?.family_background || 'None reported' }}</p>
     </div>
 
     <div class="history-card">
       <h4>Exams</h4>
-      <ul>
+      <ul *ngIf="medicalHistory?.medical_exams?.length; else noExams">
         <li *ngFor="let exam of medicalHistory?.medical_exams">{{ exam }}</li>
       </ul>
+      <ng-template #noExams><p>No exams recorded.</p></ng-template>
     </div>
 
     <div class="history-card">
       <h4>External Reports</h4>
-      <ul>
+      <ul *ngIf="medicalHistory?.external_reports?.length; else noReports">
         <li *ngFor="let report of medicalHistory?.external_reports">{{ report }}</li>
       </ul>
+      <ng-template #noReports><p>No external reports uploaded.</p></ng-template>
     </div>
 
     <div class="history-card">
       <h4>Treatments</h4>
-      <ul>
+      <ul *ngIf="medicalHistory?.treatment_and_medication?.length; else noTreatments">
         <li *ngFor="let treatment of medicalHistory?.treatment_and_medication">
           {{ treatment.drug_name }} – {{ treatment.quantity }} {{ treatment.concentration }} – {{ treatment.frequency }} for {{ treatment.duration }}
         </li>
       </ul>
+      <ng-template #noTreatments><p>No treatments prescribed.</p></ng-template>
     </div>
   </div>
 </div>
