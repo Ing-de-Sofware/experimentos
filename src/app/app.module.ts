@@ -185,6 +185,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         MedicationFormComponent,
 
 
+
   ],
   imports: [
     BrowserModule,

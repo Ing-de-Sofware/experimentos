@@ -4,14 +4,15 @@ import { MedicalhistorypageComponent } from './pages/medicalhistorypage/medicalh
 import { MedicalHistoryRoutingModule } from './medical-history-routing.module';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {IsImagePipe} from "../shared/pipes/is-image.pipe";
 
 @NgModule({
-  declarations: [MedicalhistorypageComponent],
+  declarations: [MedicalhistorypageComponent,IsImagePipe],
   imports: [
     CommonModule,
     MedicalHistoryRoutingModule,
     ReactiveFormsModule,
-    MatSnackBarModule// 👈 importante
+    MatSnackBarModule
   ]
 })
 export class MedicalHistoryModule {}

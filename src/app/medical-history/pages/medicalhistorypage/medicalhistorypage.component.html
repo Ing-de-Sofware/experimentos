@@ -49,36 +49,99 @@
 
     <div class="history-card">
       <h4>Exams</h4>
-      <ul *ngIf="medicalHistory?.medical_exams?.length; else noExams">
-        <li *ngFor="let exam of medicalHistory?.medical_exams">{{ exam }}</li>
-      </ul>
-      <ng-template #noExams><p>No exams recorded.</p></ng-template>
+
+      <!-- Modo lectura -->
+      <ng-container *ngIf="!isEditMode; else editExams">
+        <ul *ngIf="medicalHistory?.medical_exams?.length; else noExams">
+          <li *ngFor="let exam of medicalHistory?.medical_exams">{{ exam }}</li>
+        </ul>
+        <ng-template #noExams>
+          <p>No exams recorded.</p>
+        </ng-template>
+      </ng-container>
+
+      <!-- Modo edición -->
+      <ng-template #editExams>
+        <div *ngIf="medicalExams.controls.length > 0; else noExamsEdit">
+          <div *ngFor="let examControl of medicalExams.controls; let i = index"
+               [formGroup]="getMedicalExamFormGroup(examControl)"
+               style="margin-bottom: 10px;">
+            <input formControlName="value" placeholder="Enter exam" />
+            <button type="button" (click)="removeMedicalExam(i)">Remove</button>
+          </div>
+        </div>
+        <ng-template #noExamsEdit>
+          <p>No exams recorded.</p>
+        </ng-template>
+        <button type="button" (click)="addMedicalExam()">Add Exam</button>
+      </ng-template>
     </div>
+
 
     <div class="history-card">
       <h4>External Reports</h4>
-      <ul *ngIf="!isEditMode && medicalHistory?.external_reports?.length; else noReports">
-        <li *ngFor="let report of medicalHistory?.external_reports">{{ report }}</li>
-      </ul>
-      <textarea *ngIf="isEditMode" rows="3" [formControl]="externalReportsControl"></textarea>
-      <ng-template #noReports><p>No external reports uploaded.</p></ng-template>
-    </div>
 
-    <div class="history-card">
-      <h4>Treatments</h4>
-
-      <ul *ngIf="!isEditMode && medicalHistory?.treatment_and_medication?.length; else noTreatments">
-        <li *ngFor="let treatment of medicalHistory?.treatment_and_medication">
-          {{ treatment.drug_name }} – {{ treatment.quantity }} {{ treatment.concentration }} – {{ treatment.frequency }} for {{ treatment.duration }}
-        </li>
-      </ul>
+      <!-- Modo lectura -->
+      <ng-container *ngIf="!isEditMode">
+        <ul *ngIf="hasValidExternalReports(); else noReports">
+        <li *ngFor="let report of medicalHistory.external_reports">
+            {{ getExternalReportName(report) }}
+          </li>
+        </ul>
+        <ng-template #noReports>
+          <p>No external reports uploaded.</p>
+        </ng-template>
+      </ng-container>
 
       <div *ngIf="isEditMode">
-        <div
-          *ngFor="let control of treatmentAndMedication.controls; let i = index"
-          [formGroup]="getTreatmentFormGroup(control)"
-          style="margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; border-radius: 6px;"
-        >
+        <ul>
+          <li *ngFor="let reportControl of externalReports.controls; let i = index">
+            <ng-container *ngIf="reportControl.value">
+              <ng-container *ngIf="getExternalReportData(reportControl.value) as fileData">
+                <div style="margin-bottom: 10px;">
+                  <img *ngIf="isImage(fileData)" [src]="fileData" width="200" alt="Report Image" />
+                  <a *ngIf="isPDF(fileData)" [href]="fileData" download="{{ getExternalReportName(reportControl.value) }}">
+                    {{ getExternalReportName(reportControl.value) }} (PDF)
+                  </a>
+                  <p *ngIf="!isImage(fileData) && !isPDF(fileData)">
+                    {{ getExternalReportName(reportControl.value) }} – Unsupported file
+                  </p>
+                  <button type="button" (click)="removeExternalReport(i)">Remove</button>
+                </div>
+              </ng-container>
+            </ng-container>
+          </li>
+        </ul>
+
+        <label>
+          Upload File:
+          <input type="file" (change)="handleFileInput($event)" />
+        </label>
+      </div>
+    </div>
+
+
+
+
+
+
+
+      <div class="history-card">
+      <h4>Treatments</h4>
+
+      <ng-container *ngIf="!isEditMode; else editTreatments">
+        <ul *ngIf="medicalHistory?.treatment_and_medication?.length; else noTreatments">
+          <li *ngFor="let treatment of medicalHistory?.treatment_and_medication">
+            {{ treatment.drug_name }} – {{ treatment.quantity }} {{ treatment.concentration }} – {{ treatment.frequency }} for {{ treatment.duration }}
+          </li>
+        </ul>
+        <ng-template #noTreatments><p>No treatments prescribed.</p></ng-template>
+      </ng-container>
+
+      <ng-template #editTreatments>
+        <div *ngFor="let control of treatmentAndMedication.controls; let i = index"
+             [formGroup]="getTreatmentFormGroup(control)"
+             style="margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
           <label>Drug Name:</label>
           <input formControlName="drug_name" placeholder="e.g. Paracetamol" />
 
@@ -98,43 +161,38 @@
         </div>
 
         <button type="button" (click)="addTreatment()">Add Treatment</button>
-      </div>
-
-      <ng-template #noTreatments>
-        <p>No treatments prescribed.</p>
       </ng-template>
     </div>
+
 
     <div class="history-card">
       <h4>Diagnoses</h4>
 
-      <ul *ngIf="!isEditMode && medicalHistory?.diagnostic?.length; else noDiagnoses">
-        <li *ngFor="let diag of medicalHistory?.diagnostic">{{ diag }}</li>
-      </ul>
+      <ng-container *ngIf="!isEditMode; else editDiagnoses">
+        <ul *ngIf="medicalHistory?.diagnostic?.length; else noDiagnoses">
+          <li *ngFor="let diag of medicalHistory?.diagnostic">{{ diag }}</li>
+        </ul>
+        <ng-template #noDiagnoses><p>No diagnoses recorded.</p></ng-template>
+      </ng-container>
 
-      <div *ngIf="isEditMode">
-        <div
-          *ngFor="let diagControl of diagnostic.controls; let i = index"
-          [formGroup]="getDiagnosisFormGroup(diagControl)"
-          style="margin-bottom: 10px;"
-        >
+      <ng-template #editDiagnoses>
+        <div *ngFor="let diagControl of diagnostic.controls; let i = index"
+             [formGroup]="getDiagnosisFormGroup(diagControl)"
+             style="margin-bottom: 10px;">
           <input formControlName="value" placeholder="Enter diagnosis" />
           <button type="button" (click)="removeDiagnostic(i)">Remove</button>
         </div>
         <button type="button" (click)="addDiagnostic()">Add Diagnosis</button>
-      </div>
-
-      <ng-template #noDiagnoses>
-        <p>No diagnoses recorded.</p>
       </ng-template>
     </div>
 
 
-    <div class="actions" style="margin-top: 20px;">
-    <button (click)="toggleEdit()" *ngIf="!isEditMode">Edit</button>
-    <button (click)="saveChanges()" *ngIf="isEditMode">Save</button>
-  </div>
-</div>
 
-<div *ngIf="isLoading" class="loading">Loading patient data...</div>
+    <div class="actions" style="margin-top: 20px;">
+      <button (click)="toggleEdit()" *ngIf="!isEditMode">Edit</button>
+      <button (click)="saveChanges()" *ngIf="isEditMode">Save</button>
+    </div>
+
+    <div *ngIf="isLoading" class="loading">Loading patient data...</div>
+  </div>
 </div>
