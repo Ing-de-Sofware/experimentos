@@ -4,62 +4,82 @@
       <h2 class="section-title">Today's patients</h2>
 
       <div class="main-layout">
+
         <!-- Tabla de pacientes -->
         <div class="table-container">
-          <table class="patients-table">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type of care</th>
-              <th>Hour</th>
-              <th>Diagnosis</th>
-              <th>Alert</th>
-              <th>Video conference</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let patient of filteredPatients">
-              <td>
-                <div class="patient-info">
-                  <img [src]="patient.image || 'https://via.placeholder.com/150'" alt="{{ patient.firstName }}" class="avatar" />
-                  <div>
-                    <div class="name">{{ patient.firstName }} {{ patient.lastName }}</div>
-                    <div class="age">{{ patient.age }} years</div>
+          <ng-container *ngIf="!isLoading; else loadingTable">
+            <table class="patients-table">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type of care</th>
+                <th>Hour</th>
+                <th>Diagnosis</th>
+                <th>Alert</th>
+                <th>Video conference</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let patient of filteredPatients">
+                <td>
+                  <div class="patient-info">
+                    <img [src]="patient.image || 'https://via.placeholder.com/150'" alt="{{ patient.firstName }}" class="avatar" />
+                    <div>
+                      <div class="name">{{ patient.firstName }} {{ patient.lastName }}</div>
+                      <div class="age">{{ patient.age }} years</div>
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td>—</td> <!-- Puedes personalizar si tienes typeOfCare -->
-              <td>—</td> <!-- Puedes personalizar si tienes hora -->
-              <td>—</td>
-              <td>—</td>
-              <td>
-                <button class="video-btn">
-                  <mat-icon>videocam</mat-icon>
-                </button>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+                </td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td>
+                  <button class="video-btn">
+                    <mat-icon>videocam</mat-icon>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </ng-container>
+          <ng-template #loadingTable>
+            <div style="text-align: center; padding: 40px 0;">
+              <mat-spinner diameter="50" strokeWidth="4"></mat-spinner>
+              <p style="margin-top: 10px;">Loading patients table...</p>
+            </div>
+          </ng-template>
         </div>
 
         <!-- Búsqueda lateral -->
         <div class="side-search">
           <input type="text" [(ngModel)]="searchTerm" placeholder="Find a patient" />
-          <div class="mini-patient" *ngFor="let patient of filteredPatients">
-            <img [src]="patient.image || 'https://via.placeholder.com/150'" class="mini-avatar" />
-            <div class="mini-info">
-              <strong>{{ patient.firstName }} {{ patient.lastName }}</strong>
-              <div class="mini-age">{{ patient.age }} years</div>
-              <div>
-                <button class="tag-btn" [routerLink]="['/calendar/schedule-follow-up', patient.id]">
-                  Schedule follow-up
-                </button>
-                <button class="tag-btn" [routerLink]="['/medical-history/medical-history-page', patient.id]">
-                  Clinic history
-                </button>
+
+          <ng-container *ngIf="!isLoading; else loadingSearch">
+            <div class="mini-patient" *ngFor="let patient of filteredPatients">
+              <img [src]="patient.image || 'https://via.placeholder.com/150'" class="mini-avatar" />
+              <div class="mini-info">
+                <strong>{{ patient.firstName }} {{ patient.lastName }}</strong>
+                <div class="mini-age">{{ patient.age }} years</div>
+                <div>
+                  <button class="tag-btn" [routerLink]="['/calendar/schedule-follow-up', patient.id]">
+                    Schedule follow-up
+                  </button>
+                  <button class="tag-btn" [routerLink]="['/medical-history/medical-history-page', patient.id]">
+                    Clinic history
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          </ng-container>
+
+          <ng-template #loadingSearch>
+            <div style="margin-top: 30px; text-align: center;">
+              <mat-spinner diameter="40" strokeWidth="3"></mat-spinner>
+              <p style="margin-top: 10px;">Loading search results...</p>
+            </div>
+          </ng-template>
+
         </div>
       </div>
     </div>

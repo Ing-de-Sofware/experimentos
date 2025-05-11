@@ -1,9 +1,10 @@
-<div class="container" *ngIf="!isLoading">
-  <div style="margin-bottom: 20px;">
-    <button routerLink="/homeDoctor" class="back-btn">
-      ← Back to Home
-    </button>
-  </div>
+<ng-container *ngIf="!isLoading; else loading">
+  <div class="container">
+    <div style="margin-bottom: 20px;">
+      <button routerLink="/homeDoctor" class="back-btn">
+        ← Back to Home
+      </button>
+    </div>
 
   <div class="profile">
     <img *ngIf="patient" [src]="patient.image || 'https://via.placeholder.com/150'" alt="Patient photo" class="avatar" />
@@ -192,7 +193,13 @@
       <button (click)="toggleEdit()" *ngIf="!isEditMode">Edit</button>
       <button (click)="saveChanges()" *ngIf="isEditMode">Save</button>
     </div>
-
-    <div *ngIf="isLoading" class="loading">Loading patient data...</div>
   </div>
-</div>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner diameter="50" strokeWidth="4"></mat-spinner>
+    Loading patient data...
+  </div>
+</ng-template>

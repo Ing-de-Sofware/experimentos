@@ -1,3 +1,64 @@
+/* ==== RESET GLOBAL ==== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #faf7fb;
+  color: #333;
+}
+
+/* ==== HEADER ==== */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #8c5e9b;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.logo {
+  height: 36px;
+}
+.brand-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+.nav-links a:hover {
+  text-decoration: underline;
+  color: #f1def5;
+}
+.header-right .register-link {
+  background-color: white;
+  color: #8c5e9b;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.header-right .register-link:hover {
+  background-color: #e3c7ef;
+}
+
 .container {
   max-width: 800px;
   margin: 40px auto;
@@ -60,3 +121,65 @@
   border-radius: 4px;
   cursor: pointer;
 }
+ul {
+  padding-left: 1rem; /* o 16px */
+  margin: 0;
+  list-style-position: inside;
+}
+
+li {
+  word-wrap: break-word;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+  padding-bottom: 40px; /* para que el footer no lo pise */
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  font-size: 1.5rem;
+  color: #5e366a;
+}
+
+.main-footer {
+  background-color: #8c5e9b;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.06);
+}
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.footer-logo {
+  height: 28px;
+}
+.footer-right {
+  display: flex;
+  gap: 1.5rem;
+}
+.footer-right a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+.footer-right a:hover {
+  text-decoration: underline;
+  color: #e0c4f0;
+}
+

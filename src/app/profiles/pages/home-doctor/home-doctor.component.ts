@@ -11,7 +11,7 @@ import { PatientEntity } from '../../../profiles/model/patient.entity';
   styleUrls: ['./home-doctor.component.css']
 })
 export class HomeDoctorComponent implements OnInit {
-
+  isLoading:boolean=true;
   searchTerm: string = '';
   patients: PatientEntity[] = [];
 
@@ -38,15 +38,20 @@ export class HomeDoctorComponent implements OnInit {
   }
 
   loadPatients(): void {
+    this.isLoading = true;
     this.patientsDataService.getAll().subscribe({
       next: (data: PatientEntity[]) => {
+        console.log('Patients loaded', data);
         this.patients = data;
+        this.isLoading = false;
       },
       error: (err) => {
         console.error('Error loading patients', err);
+        this.isLoading = false;
       }
     });
   }
+
 
   get filteredPatients() {
     return this.patients.filter(p =>

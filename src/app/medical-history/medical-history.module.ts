@@ -5,6 +5,7 @@ import { MedicalHistoryRoutingModule } from './medical-history-routing.module';
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {IsImagePipe} from "../shared/pipes/is-image.pipe";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [MedicalhistorypageComponent,IsImagePipe],
@@ -12,7 +13,8 @@ import {IsImagePipe} from "../shared/pipes/is-image.pipe";
     CommonModule,
     MedicalHistoryRoutingModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinner
   ]
 })
 export class MedicalHistoryModule {}

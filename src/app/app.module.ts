@@ -124,6 +124,7 @@ import {MedicationEntity} from "./medical-history/models/medication.entity";
 import { CalendarModule } from './calendar/calendar.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { ProfilesModule } from './profiles/profiles.module';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -202,6 +203,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatSidenavContent,
     MatCardModule,
     MatButton,
+    MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
 

@@ -264,7 +264,25 @@
       "disease_id": 4,
       "medical_history_id": 4,
       "occupation": "Nurse"
+    },
+    {
+      "id": 5,
+      "name": "Lucia",
+      "lastname": "Fernandez",
+      "gender": "F",
+      "birthdate": "1992-06-20",
+      "civil_status": "Married",
+      "nationality": "Peruvian",
+      "type_of_blood": "A-",
+      "image": "https://via.placeholder.com/150",
+      "phone": "999888777",
+      "email": "luciafernandez5@gmail.com",
+      "password": "password321",
+      "disease_id": 5,
+      "medical_history_id": 5,
+      "occupation": "Lawyer"
     }
+
   ],
   "diseases": [
     {
