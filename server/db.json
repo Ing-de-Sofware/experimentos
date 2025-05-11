@@ -301,6 +301,7 @@
       "personal_background": "No significant history",
       "family_background": "Thyroid disorders",
       "lab_results_id": 1,
+      "weight": 72,
       "physical_test": "Elevated TSH levels",
       "external_reports": [
         "reports.pdf"
@@ -357,6 +358,7 @@
         "Diabetes"
       ],
       "lab_results_id": 2,
+      "weight": 60,
       "physical_test": "High blood glucose levels",
       "external_reports": [
         "reports.pdf"
@@ -399,6 +401,7 @@
         "No significant history"
       ],
       "lab_results_id": 3,
+      "weight": 72,
       "physical_test": "Elevated androgen levels",
       "external_reports": [
         "reports.pdf"
@@ -439,6 +442,7 @@
         "Thyroid disorders"
       ],
       "lab_results_id": 4,
+      "weight": 86,
       "physical_test": "Elevated T3 and T4 levels",
       "external_reports": [
         "reports.pdf"
@@ -479,6 +483,7 @@
         "No significant history"
       ],
       "lab_results_id": 5,
+      "weight": 78,
       "physical_test": "Low cortisol levels",
       "external_reports": [
         "reports.pdf"
