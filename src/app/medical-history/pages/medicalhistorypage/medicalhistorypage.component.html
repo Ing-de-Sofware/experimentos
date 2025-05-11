@@ -66,15 +66,44 @@
 
     <div class="history-card">
       <h4>Treatments</h4>
+
       <ul *ngIf="!isEditMode && medicalHistory?.treatment_and_medication?.length; else noTreatments">
         <li *ngFor="let treatment of medicalHistory?.treatment_and_medication">
           {{ treatment.drug_name }} – {{ treatment.quantity }} {{ treatment.concentration }} – {{ treatment.frequency }} for {{ treatment.duration }}
         </li>
       </ul>
-      <textarea *ngIf="isEditMode" rows="3" [formControl]="treatmentAndMedicationControl"></textarea>
-      <ng-template #noTreatments><p>No treatments prescribed.</p></ng-template>
+
+      <div *ngIf="isEditMode">
+        <div
+          *ngFor="let control of treatmentAndMedication.controls; let i = index"
+          [formGroup]="getTreatmentFormGroup(control)"
+          style="margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; border-radius: 6px;"
+        >
+          <label>Drug Name:</label>
+          <input formControlName="drug_name" placeholder="e.g. Paracetamol" />
+
+          <label>Quantity:</label>
+          <input formControlName="quantity" placeholder="e.g. 500mg" />
+
+          <label>Concentration:</label>
+          <input formControlName="concentration" placeholder="e.g. 5%" />
+
+          <label>Frequency:</label>
+          <input formControlName="frequency" placeholder="e.g. Twice a day" />
+
+          <label>Duration:</label>
+          <input formControlName="duration" placeholder="e.g. 7 days" />
+
+          <button type="button" (click)="removeTreatment(i)">Remove</button>
+        </div>
+
+        <button type="button" (click)="addTreatment()">Add Treatment</button>
+      </div>
+
+      <ng-template #noTreatments>
+        <p>No treatments prescribed.</p>
+      </ng-template>
     </div>
-  </div>
 
   <div class="actions" style="margin-top: 20px;">
     <button (click)="toggleEdit()" *ngIf="!isEditMode">Edit</button>
