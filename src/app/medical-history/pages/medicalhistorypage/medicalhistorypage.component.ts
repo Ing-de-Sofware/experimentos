@@ -4,7 +4,14 @@ import { PatientsDataService } from '../../services/patients-data.service';
 import { MedicalHistoryService } from '../../../profiles/services/medical-history.service';
 import { PatientEntity } from '../../../profiles/model/patient.entity';
 import { MedicalHistoryEntity } from '../../../profiles/model/medical-history.entity';
-import {FormBuilder, FormGroup, FormControl, FormArray, Validators, AbstractControl} from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  FormArray,
+  Validators,
+  AbstractControl
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -69,12 +76,12 @@ export class MedicalhistorypageComponent implements OnInit {
       physical_test: [this.medicalHistory.physical_test],
       external_reports: [this.medicalHistory.external_reports?.join('\n') || ''],
       weight: [Number(this.medicalHistory.weight)],
-      treatment_and_medication: this.fb.array([]) // inicializamos vacío
+      treatment_and_medication: this.fb.array([]),
+      diagnostic: this.fb.array([]) // NEW
     });
 
     this.loadTreatments();
-    console.log('INIT FORM VALUE:', this.medicalForm.value);
-    console.log('Peso encontrado: ', this.medicalHistory.weight);
+    this.loadDiagnostics();
   }
 
   loadTreatments(): void {
@@ -94,8 +101,25 @@ export class MedicalhistorypageComponent implements OnInit {
     });
   }
 
+  loadDiagnostics(): void {
+    this.diagnostic.clear();
+    this.medicalHistory.diagnostic.forEach(d => {
+      this.diagnostic.push(this.createDiagnosisFormGroup(d));
+    });
+  }
+
+  createDiagnosisFormGroup(value = ''): FormGroup {
+    return this.fb.group({
+      value: [value, Validators.required]
+    });
+  }
+
   get treatmentAndMedication(): FormArray {
     return this.medicalForm.get('treatment_and_medication') as FormArray;
+  }
+
+  get diagnostic(): FormArray {
+    return this.medicalForm.get('diagnostic') as FormArray;
   }
 
   addTreatment(): void {
@@ -104,6 +128,22 @@ export class MedicalhistorypageComponent implements OnInit {
 
   removeTreatment(index: number): void {
     this.treatmentAndMedication.removeAt(index);
+  }
+
+  addDiagnostic(): void {
+    this.diagnostic.push(this.createDiagnosisFormGroup());
+  }
+
+  removeDiagnostic(index: number): void {
+    this.diagnostic.removeAt(index);
+  }
+
+  getTreatmentFormGroup(control: AbstractControl): FormGroup {
+    return control as FormGroup;
+  }
+
+  getDiagnosisFormGroup(control: AbstractControl): FormGroup {
+    return control as FormGroup;
   }
 
   get reasonControl(): FormControl {
@@ -124,9 +164,6 @@ export class MedicalhistorypageComponent implements OnInit {
   get weightControl(): FormControl {
     return this.medicalForm.get('weight') as FormControl;
   }
-  getTreatmentFormGroup(control: AbstractControl): FormGroup {
-    return control as FormGroup;
-  }
 
   toggleEdit(): void {
     this.isEditMode = !this.isEditMode;
@@ -143,7 +180,8 @@ export class MedicalhistorypageComponent implements OnInit {
       external_reports: formValue.external_reports
         ? formValue.external_reports.split('\n').map((r: string) => r.trim()).filter(Boolean)
         : [],
-      treatment_and_medication: formValue.treatment_and_medication
+      treatment_and_medication: formValue.treatment_and_medication,
+      diagnostic: formValue.diagnostic.map((d: { value: string }) => d.value)
     };
 
     this.medicalHistory = updatedHistory;
@@ -154,26 +192,25 @@ export class MedicalhistorypageComponent implements OnInit {
     });
     this.isEditMode = false;
   }
-
-    // Si más adelante activas backend, descomenta esto:
-    /*
-    this.medicalHistoryService.update(this.medicalHistory.id, updatedHistory).subscribe({
-      next: () => {
-        this.snackBar.open('Historia clínica actualizada correctamente', 'Cerrar', {
-          duration: 3000,
-          verticalPosition: 'top'
-        });
-        this.isEditMode = false;
-        this.medicalHistory = updatedHistory;
-      },
-      error: (err) => {
-        console.error('Error updating medical history', err);
-        this.snackBar.open('No se pudo actualizar la historia clínica.', 'Cerrar', {
-          duration: 3000,
-          verticalPosition: 'top'
-        });
-      }
-    });
-    */
+  // Si más adelante activas backend, descomenta esto:
+  /*
+  this.medicalHistoryService.update(this.medicalHistory.id, updatedHistory).subscribe({
+    next: () => {
+      this.snackBar.open('Historia clínica actualizada correctamente', 'Cerrar', {
+        duration: 3000,
+        verticalPosition: 'top'
+      });
+      this.isEditMode = false;
+      this.medicalHistory = updatedHistory;
+    },
+    error: (err) => {
+      console.error('Error updating medical history', err);
+      this.snackBar.open('No se pudo actualizar la historia clínica.', 'Cerrar', {
+        duration: 3000,
+        verticalPosition: 'top'
+      });
+    }
+  });
+  */
 
 }

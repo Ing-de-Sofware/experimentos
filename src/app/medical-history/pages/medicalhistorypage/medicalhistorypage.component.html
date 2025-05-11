@@ -105,10 +105,36 @@
       </ng-template>
     </div>
 
-  <div class="actions" style="margin-top: 20px;">
+    <div class="history-card">
+      <h4>Diagnoses</h4>
+
+      <ul *ngIf="!isEditMode && medicalHistory?.diagnostic?.length; else noDiagnoses">
+        <li *ngFor="let diag of medicalHistory?.diagnostic">{{ diag }}</li>
+      </ul>
+
+      <div *ngIf="isEditMode">
+        <div
+          *ngFor="let diagControl of diagnostic.controls; let i = index"
+          [formGroup]="getDiagnosisFormGroup(diagControl)"
+          style="margin-bottom: 10px;"
+        >
+          <input formControlName="value" placeholder="Enter diagnosis" />
+          <button type="button" (click)="removeDiagnostic(i)">Remove</button>
+        </div>
+        <button type="button" (click)="addDiagnostic()">Add Diagnosis</button>
+      </div>
+
+      <ng-template #noDiagnoses>
+        <p>No diagnoses recorded.</p>
+      </ng-template>
+    </div>
+
+
+    <div class="actions" style="margin-top: 20px;">
     <button (click)="toggleEdit()" *ngIf="!isEditMode">Edit</button>
     <button (click)="saveChanges()" *ngIf="isEditMode">Save</button>
   </div>
 </div>
 
 <div *ngIf="isLoading" class="loading">Loading patient data...</div>
+</div>
