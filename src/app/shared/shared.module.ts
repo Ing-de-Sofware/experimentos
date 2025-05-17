@@ -17,6 +17,10 @@ import {
 } from "./components/header-for-user-type-service/header-for-user-type-service.component";
 import {MatSidenavContainer} from "@angular/material/sidenav";
 import {MatNavList} from "@angular/material/list";
+import { PrivacyDialogComponent } from './components/privacy-dialog/privacy-dialog.component';
+import { TermsDialogComponent } from './components/terms-dialog/terms-dialog.component';
+import { PrivacyPolicyPersonalDataProcessingComponent } from './components/privacy-policy-personal-data-processing/privacy-policy-personal-data-processing.component';
+import {MatDialogActions, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 
 
 @NgModule({
@@ -27,7 +31,9 @@ import {MatNavList} from "@angular/material/list";
     LanguageSwitcherComponent,
     FooterContentComponent,
     ColleagueSearchComponent,
-    HeaderForUserTypeServiceComponent
+    HeaderForUserTypeServiceComponent,
+    PrivacyPolicyPersonalDataProcessingComponent
+
   ],
   imports: [
     CommonModule,
@@ -38,7 +44,12 @@ import {MatNavList} from "@angular/material/list";
     MatIconModule,
     MatButtonModule,
     MatSidenavContainer,
-    MatNavList
+    MatNavList,
+    PrivacyDialogComponent,
+    TermsDialogComponent,
+    MatDialogActions,
+    MatDialogContent,
+    MatDialogTitle
   ],
   exports: [
     HeaderDoctorComponent,
