@@ -23,6 +23,8 @@ import { TreatmentPatientComponent } from './medical-history/pages/treatment-pat
 import { LoginComponent } from './identity-and-access/auth/components/login/login.component';
 import { RegisterComponent } from './identity-and-access/auth/components/register/register.component';
 import { ForgotPasswordComponent } from './identity-and-access/auth/components/forgot-password/forgot-password.component';
+import {AdminDashboardComponent} from "./admin/pages/admin-dashboard/admin-dashboard.component";
+import {AnnouncementsAdminComponent} from "./notifications/pages/announcements-admin/announcements-admin.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -33,11 +35,41 @@ const routes: Routes = [
   { path: 'headerPatient', component: HeaderPatientComponent },
   { path: 'homeDoctor', component: HomeDoctorComponent },
   { path: 'homePatient', component: HomePatientComponent },
+  { path: 'adminDashboard', component: AdminDashboardComponent },
+  {path: 'available-doctors',
+  loadComponent: () =>
+  import('../../src/app/profiles/components/available-doctors/available-doctors.component').then(m => m.AvailableDoctorsComponent)
+},
+  {
+    path: 'doctor-profile/:id',
+    loadComponent: () => import('../../src/app/profiles/components/doctor-profile/doctor-profile.component').then(m => m.DoctorProfileComponent)
+  },
+
+  {
+    path: 'appointments/:id',
+    loadComponent: () => import('../../src/app/profiles/components/appointments/appointments.component').then(m => m.AppointmentsComponent)
+  },
+  //{ path: 'notifications', component: NotificationsComponent },
+  //{ path: 'settings', component: SettingsComponent },
+ // { path: 'appointments', component: AppointmentsComponent },
+  { path: 'announcements', component: AnnouncementsAdminComponent},
+  //{path: 'user-management', component: UserManagementComponent},
+ // { path: 'reassing-Patients', component: ReassignPatientsComponent},
+  //{path: 'accessLogs', component: AccessLogsComponent // Este deberás crearlo },
+  //{path: 'supportChat', component: SupportChatComponent // Este deberás crearlo}
+  //{ path: 'admin-stats', component: AdminStatsComponent }
+  //{path: 'logs', component: LogsComponent
+  //{path: 'support', component: SupportComponent
   {
     path: 'calendar',
     loadChildren: () =>
       import('./calendar/calendar.module').then(m => m.CalendarModule)
   },
+  {
+    path: 'notificaciones',
+    loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsModule)
+  },
+
   { path: 'messages', component: DoctorChatComponent },
   { path: 'notifications', component: NotificationsViewComponent },
   { path: 'doctorProfile', component: DoctorProfileComponent },

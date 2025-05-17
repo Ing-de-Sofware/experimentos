@@ -1,10 +1,18 @@
-<section>
+<!-- 🔝 Sección de Doctores (Encima de todo) -->
+<section class="find-doctors-wrapper">
+  <app-find-doctors-patient></app-find-doctors-patient>
+</section>
+
+<!-- 🔽 Luego todo el contenido de recordatorios y tareas -->
+<section class="main-dashboard">
   <mat-grid-list cols="2" rowHeight="2:1">
     <mat-grid-tile>
       <div class="box1">
         <div class="part1">
           <h2>Today's reminders</h2>
-          <button mat-flat-button color="primary" routerLink="/calendar/appointments">Your next appointment...</button>
+          <button mat-flat-button color="primary" routerLink="/calendar/appointments">
+            Your next appointment...
+          </button>
         </div>
         <div class="part2">
           <app-patients-reminder></app-patients-reminder>
@@ -19,12 +27,9 @@
           <app-patients-pending-task></app-patients-pending-task>
         </div>
         <div class="part2">
-          <!-- Reemplazo de app-patients-upload-exam -->
           <div class="upload-exam-wrapper">
-            <label for="examFile" class="upload-exam-button">
-              Upload your exams
-            </label>
-            <input type="file" id="examFile" (change)="onExamSelected($event)" hidden>
+            <label for="examFile" class="upload-exam-button">Upload your exams</label>
+            <input type="file" id="examFile" (change)="onExamSelected($event)" hidden />
             <div *ngIf="selectedExam" class="exam-preview">
               <strong>Selected file:</strong> {{ selectedExam.name }}
             </div>

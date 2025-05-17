@@ -2,10 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { MedicalHistoryEntity, TreatmentAndMedication } from "../../model/medical-history.entity";
 import { MedicalHistoryService } from "../../services/medical-history.service";
 import { forkJoin } from 'rxjs';
+import {CommonModule} from "@angular/common";
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
 @Component({
   selector: 'app-patients-reminder',
+  standalone: true,
   templateUrl: './patients-reminder.component.html',
-  styleUrls: ['./patients-reminder.component.css']
+  styleUrls: ['./patients-reminder.component.css'],
+  imports:[    CommonModule,
+    MatTableModule,
+    MatSortModule]
 })
 export class PatientsReminderComponent implements OnInit {
   medicalHistoryData!: MedicalHistoryEntity[];

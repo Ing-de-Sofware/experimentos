@@ -22,9 +22,7 @@ export class DoctorChatComponent implements OnInit {
   }
 
   loadDoctors(): void {
-    this.doctorService.getDoctors().subscribe(data => {
-      this.doctors = data;
-    });
+      this.doctors = this.doctorService.getDoctors();
   }
 
   switchUser(user: string) {

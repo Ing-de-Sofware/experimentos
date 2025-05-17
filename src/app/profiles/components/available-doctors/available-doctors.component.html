@@ -1,0 +1,64 @@
+<div class="container">
+  <header class="main-header">
+    <div class="header-left">
+      <button class="back-button" (click)="goBack()">←</button>
+      <span class="brand-title">Doctors Available</span>
+    </div>
+    <nav class="header-nav">
+    </nav>
+  </header>
+  <div class="main-content">
+    <div class="filters">
+      <div class="search-bar">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Find an endocrinologist">
+      </div>
+      <div class="filter-item">
+        <h3>Genre:</h3>
+        <label><input type="radio" name="gender" value="F"> F</label>
+        <label><input type="radio" name="gender" value="M"> M</label>
+      </div>
+
+      <div class="filter-item">
+        <h3>Subspecialty:</h3>
+        <p>Polycystic ovary Hyperandrogenism</p>
+      </div>
+
+      <div class="filter-item">
+        <h3>Price range:</h3>
+        <label><input type="checkbox" name="price" value="50-60"> s/.50 - s/.60</label><br>
+        <label><input type="checkbox" name="price" value="60-70"> s/.60 - s/.70</label><br>
+        <label><input type="checkbox" name="price" value="70-80"> s/.70 - s/.80</label><br>
+        <label><input type="checkbox" name="price" value="80-90"> s/.80 - s/.90</label><br>
+        <label><input type="checkbox" name="price" value="90-100"> s/.90 - s/.100</label><br>
+        <label><input type="checkbox" name="price" value="100+"> s/.100 or more</label>
+      </div>
+    </div>
+
+    <div class="doctor-section">
+      <div class="top-bar">
+
+        <div class="sort-bar">
+          Sort by:
+          <select [(ngModel)]="sortOption">
+            <option value="">None</option>
+            <option value="price">Price</option>
+            <option value="rating">Rating</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="doctor-list">
+        <div *ngFor="let doctor of filteredDoctors" (click)="goToDoctorProfile(doctor.id)" class="doctor-card">
+          <h3>{{ doctor.name }}</h3>
+          <img [src]="doctor.image" alt="{{ doctor.name }}" class="doctor-image">          <p>{{ doctor.specialty }}</p>
+          <p>s/. {{ doctor.price }}</p>
+          <p class="rating">★ {{ doctor.rating }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+

@@ -6,11 +6,9 @@ import { AppComponent } from './app.component';
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatIcon} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
-import { HeaderDoctorComponent } from './shared/pages/header-doctor/header-doctor.component';
 import {NgOptimizedImage} from "@angular/common";
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {MatAnchor, MatButton, MatIconButton} from "@angular/material/button";
-import {LanguageSwitcherComponent} from "./shared/pages/language-switcher/language-switcher.component";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
@@ -32,7 +30,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AuthModule } from './identity-and-access/auth/auth.module';
 
-import { FooterContentComponent } from './public/components/footer-content/footer-content.component';
 import { PatientsTableComponent } from './profiles/components/patients-table/patients-table.component';
 import { SearchDoctorsComponent } from './shared/pages/search-doctors/search-doctors.component';
 import { SearchPatiensComponent } from './profiles/components/search-patiens/search-patiens.component';
@@ -40,8 +37,6 @@ import { SearchPatiensComponent } from './profiles/components/search-patiens/sea
 
 import { DoctorChatComponent } from './communications/pages/doctor-chat/doctor-chat.component';
 import { PatientChatComponent } from './communications/pages/patient-chat/patient-chat.component';
-import { NotificationsViewComponent } from './notifications/pages/notifications-view/notifications-view.component';
-import {CalendarViewComponent} from "./calendar/pages/calendar-view/calendar-view.component";
 import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
 
 import {
@@ -58,10 +53,6 @@ import { HomeDoctorComponent } from './profiles/pages/home-doctor/home-doctor.co
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatSort} from "@angular/material/sort";
 
-import { PhotoPatientsComponent } from './profiles/components/photo-patients/photo-patients.component';
-import { InfoProfilePatiensComponent } from './profiles/components/info-profile-patiens/info-profile-patiens.component';
-import { InfoCardProfilePatiensComponent } from './profiles/components/info-card-profile-patiens/info-card-profile-patiens.component';
-
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 
 import { DoctorRegistrationComponent } from './identity-and-access/pages/doctor-registration/doctor-registration.component';
@@ -69,8 +60,6 @@ import { HomePatientComponent } from './profiles/pages/home-patient/home-patient
 import { PatientsReminderComponent } from './profiles/components/patients-reminder/patients-reminder.component';
 import { PatientsUploadExamComponent } from './profiles/components/patients-upload-exam/patients-upload-exam.component';
 import { PatientsPendingTaskComponent } from './profiles/components/patients-pending-task/patients-pending-task.component';
-import { HeaderPatientComponent } from './shared/pages/header-patient/header-patient.component';
-import { CalendarPatientViewComponent } from './calendar/pages/calendar-patient-view/calendar-patient-view.component';
 
 
 import { BackgroundComponent } from './medical-history/components/background/background.component';
@@ -83,14 +72,10 @@ import { ExternalreportsComponent } from './medical-history/components/externalr
 import { MedicalexamsComponent } from './medical-history/components/medicalexams/medicalexams.component';
 import { PatientdataComponent } from './medical-history/components/patientdata/patientdata.component';
 import { ReasonconsultationComponent } from './medical-history/components/reasonconsultation/reasonconsultation.component';
-import { MedicalhistorypageComponent } from './medical-history/pages/medicalhistorypage/medicalhistorypage.component';
-import { HeaderForUserTypeServiceComponent } from './shared/components/header-for-user-type-service/header-for-user-type-service.component';
 import { TreatmentPatientComponent } from './medical-history/pages/treatment-patient/treatment-patient.component';
 import { MedicationFormComponent } from './medical-history/components/medication-form/medication-form.component';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDatepickerToggle } from '@angular/material/datepicker';
-import { MatDateRangePicker } from '@angular/material/datepicker';
 import { MatCalendar } from '@angular/material/datepicker';
 
 import { ButtonSendMessageComponent } from './communications/components/button-send-message/button-send-message.component';
@@ -99,7 +84,6 @@ import { HourpickerProfileColleagueComponent } from './communications/components
 import { SpaceAssignPatientComponent } from './communications/components/space-assign-patient/space-assign-patient.component';
 import { ButtonSaveScheduleComponent } from './communications/components/button-save-schedule/button-save-schedule.component';
 import { DoctorViewColleagueComponent } from './communications/components/doctor-view-colleague/doctor-view-colleague.component';
-import { ColleagueSearchComponent } from './communications/pages/colleague-search/colleague-search.component';
 import { InfoProfileMedicalsComponent } from './profiles/components/info-profile-medicals/info-profile-medicals.component';
 
 import {
@@ -117,14 +101,14 @@ import { DoctorService } from './communications/services/doctor.service';
 import {RouterLink} from "@angular/router";
 
 
-import {CalendarDoctorComponent} from "./calendar/components/calendar-doctor/calendar-doctor.component";
-import { AddEventCardComponent } from './calendar/components/add-event-card/add-event-card.component';
 import {MatNativeDateModule} from "@angular/material/core";
-import {MedicationEntity} from "./medical-history/models/medication.entity";
 import { CalendarModule } from './calendar/calendar.module';
-import { NotificationsModule } from './notifications/notifications.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+
+import {SharedModule} from "./shared/shared.module";
+import {AdminModule} from "./admin/admin.module";
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -135,22 +119,15 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    FooterContentComponent,
     PatientsTableComponent,
     SearchDoctorsComponent,
     SearchPatiensComponent,
-    HeaderDoctorComponent,
-    LanguageSwitcherComponent,
     DoctorChatComponent,
     PatientChatComponent,
-    NotificationsViewComponent,
     HomeDoctorComponent,
     DoctorRegistrationComponent,
-    HomePatientComponent,
-    PatientsReminderComponent,
     PatientsUploadExamComponent,
-    PatientsPendingTaskComponent,
-    HeaderPatientComponent,
+
 
     BackgroundComponent,
     ClinicalhistoryComponent,
@@ -167,28 +144,24 @@ export function HttpLoaderFactory(http: HttpClient) {
     PatientdataComponent,
     ReasonconsultationComponent,
 
-    HeaderForUserTypeServiceComponent,
     TreatmentPatientComponent,
     MedicationFormComponent,
 
-    ColleagueSearchComponent,
+
     InfoProfileMedicalsComponent,
-      ColleagueSearchComponent,
-      InfoProfileMedicalsComponent,
-        SelectPaymentMethodComponent,
-        CardModalComponent,
+    SelectPaymentMethodComponent,
+    CardModalComponent,
 
-        Role1Component,
-        Role2Component,
+    Role1Component,
+    Role2Component,
 
-        UserListComponent,
-        ChatComponent,
-        MedicationFormComponent,
-
-
+    UserListComponent,
+    ChatComponent,
+    MedicationFormComponent,
 
   ],
   imports: [
+    AdminModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -206,7 +179,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
-
+    PatientsPendingTaskComponent,
+    PatientsReminderComponent,
     /*
     TranslateModule.forRoot({
       loader: {
@@ -268,15 +242,21 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     AuthModule,
     CalendarModule,
-    NotificationsModule,
-    ProfilesModule
+    HomePatientComponent,
+    ProfilesModule,
+    SharedModule
 
   ],
   providers: [
-  provideAnimationsAsync(),
+    provideAnimationsAsync(),
     DoctorService
 
   ],
+  exports: [
+    PatientsReminderComponent,
+    PatientsPendingTaskComponent
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

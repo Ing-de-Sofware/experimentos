@@ -5,7 +5,8 @@
     <img src="assets/images/logo.png" alt="Logo" class="logo">
     <mat-toolbar>HormonalCare</mat-toolbar>
   </div>
-  <h3> Doctors available.</h3>
+  <button (click)="navigateToDoctors()" class="btn btn-primary">Available Doctors</button>
+
   <span class="spacer"></span>
   <a mat-button *ngFor="let option of optionsPatients; let i = index" [routerLink]="option.path" routerLinkActive="active-button" class="nav-button" [class.first-button]="i === 0">
     <div class="icon-text">

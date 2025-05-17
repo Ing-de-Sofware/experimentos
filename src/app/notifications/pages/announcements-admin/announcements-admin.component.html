@@ -1,0 +1,34 @@
+<app-header-admin></app-header-admin>
+
+<div class="announcement-wrapper">
+  <div class="announcement-card-container">
+    <h2>📢 Enviar Comunicado</h2>
+
+    <form [formGroup]="announcementForm" (ngSubmit)="submit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Mensaje</mat-label>
+        <textarea matInput formControlName="message" rows="3"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Audiencia</mat-label>
+        <mat-select formControlName="audience">
+          <mat-option value="medico">Médicos</mat-option>
+          <mat-option value="paciente">Pacientes</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button class="send-button" type="submit" [disabled]="announcementForm.invalid">
+        Publicar Comunicado
+      </button>
+    </form>
+
+    <div class="sent-announcements">
+      <h3>📄 Comunicados Enviados</h3>
+      <mat-card *ngFor="let ann of announcements">
+        <mat-card-title>{{ ann.message }}</mat-card-title>
+        <mat-card-subtitle>Para: {{ ann.audience }} — {{ ann.createdAt | date:'short' }}</mat-card-subtitle>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="profile-container" *ngIf="doctor; else noDoctor">
+  <div class="header">
+    <button class="back-button" (click)="goBack()">←</button>
+    <h1>{{ doctor.name }}</h1>
+  </div>
+
+  <div class="main-content">
+    <div class="left-side">
+      <img class="doctor-photo" [src]="doctor.image" alt="Doctor Photo">
+
+      <div class="rate-card">
+        <p class="rate-title">Standard rate:</p>
+        <p class="rate-price">s/. {{ doctor.price }}</p>
+        <button mat-raised-button color="primary" (click)="scheduleAppointment(doctor.id)">
+          Schedule Appointment
+        </button>
+      </div>
+    </div>
+
+    <div class="right-side">
+      <div class="info-box">
+        <div class="info-item" *ngIf="doctor.specialty">
+          <label>Speciality</label>
+          <input type="text" [value]="doctor.specialty" disabled>
+        </div>
+        <div class="info-item" *ngIf="doctor.subspecialty">
+          <label>Subspeciality</label>
+          <input type="text" [value]="doctor.subspecialty" disabled>
+        </div>
+        <div class="info-item" *ngIf="doctor.schoolNumber">
+          <label>School No.</label>
+          <input type="text" [value]="doctor.schoolNumber" disabled>
+        </div>
+        <div class="info-item" *ngIf="doctor.rne">
+          <label>RNE</label>
+          <input type="text" [value]="doctor.rne" disabled>
+        </div>
+        <div class="info-item" *ngIf="doctor.undergraduate">
+          <label>Undergraduate</label>
+          <input type="text" [value]="doctor.undergraduate" disabled>
+        </div>
+        <div class="info-item" *ngIf="doctor.postgraduate">
+          <label>Postgraduate</label>
+          <input type="text" [value]="doctor.postgraduate" disabled>
+        </div>
+      </div>
+
+      <div class="certificates-section">
+        <div class="certificates-grid">
+          <img *ngFor="let certificate of doctor.certificates" [src]="certificate" class="certificate-image" alt="Certificate">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noDoctor>
+  <p>Loading doctor information...</p>
+</ng-template>

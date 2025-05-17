@@ -2,11 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { MedicalHistoryEntity } from "../../model/medical-history.entity";
 import { MedicalHistoryService } from "../../services/medical-history.service";
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import {CommonModule} from "@angular/common";
+import {MatTableModule} from "@angular/material/table";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSortModule} from "@angular/material/sort";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-patients-pending-task',
+  standalone: true,
   templateUrl: './patients-pending-task.component.html',
   styleUrls: ['./patients-pending-task.component.css'],
+  imports: [CommonModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatSortModule,
+    ReactiveFormsModule],
   animations: [
     trigger('fadeOut', [
       state('in', style({opacity: 1})),
@@ -17,11 +28,13 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   ]
 })
 export class PatientsPendingTaskComponent implements OnInit {
+
   patientMedicalHistory!: MedicalHistoryEntity;
   dataSource: any[] = []; // Change this to be a list of any
   displayed: string[] = ['medical_exams'];
 
-  constructor(private medicalHistoryService: MedicalHistoryService) {}
+  constructor(private medicalHistoryService: MedicalHistoryService) {
+  }
 
   ngOnInit() {
     this.getHistoryDetailsByPatientId('1'); // replace '4' with the actual patient ID
@@ -31,7 +44,10 @@ export class PatientsPendingTaskComponent implements OnInit {
     this.medicalHistoryService.getAll()
       .subscribe((allMedicalHistories: any) => { // Change the type to any
         const filteredHistories = allMedicalHistories.filter((medicalHistory: MedicalHistoryEntity) => medicalHistory.patient_id.toString() === patientId);
-        const allExams = filteredHistories.flatMap((medicalHistory: MedicalHistoryEntity) => medicalHistory.medical_exams.map(exam => ({ name: exam, checked: false })));
+        const allExams = filteredHistories.flatMap((medicalHistory: MedicalHistoryEntity) => medicalHistory.medical_exams.map(exam => ({
+          name: exam,
+          checked: false
+        })));
 
         this.dataSource = allExams;
       }, error => {
@@ -39,7 +55,7 @@ export class PatientsPendingTaskComponent implements OnInit {
       });
   }
 
-  sortData(sort: {active: string, direction: string}): void {
+  sortData(sort: { active: string, direction: string }): void {
     if (!sort.active || sort.direction === '') {
       return;
     }
@@ -47,8 +63,10 @@ export class PatientsPendingTaskComponent implements OnInit {
     this.dataSource = this.dataSource.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'medical_exams': return compare(a.name, b.name, isAsc); // Compare the name property of the exams
-        default: return 0;
+        case 'medical_exams':
+          return compare(a.name, b.name, isAsc); // Compare the name property of the exams
+        default:
+          return 0;
       }
     });
   }

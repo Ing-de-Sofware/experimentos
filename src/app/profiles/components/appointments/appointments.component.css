@@ -1,0 +1,260 @@
+/* Fondo morado de header */
+.header {
+  background-color: #7b2cbf;
+  color: white;
+  width: 100vw;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+
+.back-and-title {
+  display: flex;
+  align-items: center;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 15px; /* separación entre flecha y texto */
+}
+
+.title {
+  font-size: 24px;
+  margin: 0; /* QUITAR margen por defecto del h1 */
+}
+
+/* Fondo general */
+.appointments-container {
+  background-color: #f3f0ff;
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Controles del calendario */
+.calendar-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.month-select {
+  margin: 0 15px;
+  display: flex;
+  align-items: center;
+}
+
+.month-select select {
+  margin-right: 8px;
+  padding: 4px;
+  font-size: 16px;
+}
+
+/* Calendario */
+.calendar-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.day-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+  width: 80px;
+}
+
+.day-name {
+  font-weight: bold;
+}
+
+.day-number {
+  font-size: 18px;
+}
+
+/* Horarios */
+.time-slots-container {
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+.time-slots {
+  display: flex;
+  flex-direction: column;
+}
+
+.time-row {
+  display: flex;
+  justify-content: center;
+  margin: 5px 0;
+}
+
+.time-cell {
+  margin: 0 10px;
+}
+
+.time-cell button {
+  width: 80px;
+  height: 40px;
+}
+
+/* Estilos para horarios */
+.past-time {
+  background-color: #ccc;
+  color: #666;
+}
+
+.selected-time {
+  background-color: #7b2cbf !important;
+  color: white !important;
+}
+
+.selected-appointment {
+  margin-top: 30px;
+  text-align: center;
+}
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 100px repeat(5, 1fr); /* 1 columna para horas + 5 días */
+  gap: 0;
+  background-color: #cfe2f3; /* fondo celeste */
+  border: 1px solid #999; /* borde general */
+}
+
+.cell {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #999; /* líneas divisorias */
+  background-color: #e0f0ff; /* color de fondo de cada celda */
+  font-size: 14px;
+}
+
+.header-cell {
+  background-color: #b2d7ff;
+  font-weight: bold;
+}
+.bordered-box {
+  background-color: #f9f9f9; /* Fondo diferente */
+  border: 1px solid #ccc;    /* Borde general */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.day-header, .time-cell {
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.day-header:last-child, .time-cell:last-child {
+  border-right: none;
+}
+
+.time-row {
+  display: flex;
+}
+.calendar-and-selected {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.calendar-wrapper {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 60%; /* Ahora más reducido para que entre todo horizontal */
+}
+
+.selected-appointment {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 250px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+.day-column {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px 0;
+}
+
+/* Opcional: Mejor aspecto para botones pasados y seleccionados */
+.past-time {
+  background-color: #e0e0e0 !important;
+  color: #9e9e9e;
+}
+
+.selected-time {
+  background-color: #673ab7 !important;
+  color: white;
+}
+.calendar-wrapper {
+  background-color: #f9f9f9; /* Fondo suave */
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 80%; /* Controlamos el ancho */
+  margin: 20px auto; /* Centramos */
+}
+
+.calendar-grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-header {
+  display: flex;
+}
+
+.day-column, .time-cell {
+  flex: 1;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  padding: 10px 5px;
+}
+
+.day-column:last-child, .time-cell:last-child {
+  border-right: none;
+}
+
+.time-row {
+  display: flex;
+}
+
+.day-name {
+  font-weight: bold;
+}
+
+.past-time {
+  background-color: #e0e0e0 !important;
+  color: #9e9e9e;
+}
+
+.selected-time {
+  background-color: #673ab7 !important;
+  color: white;
+}
+
+

@@ -1,0 +1,61 @@
+<div class="header">
+  <div class="back-and-title">
+    <button class="back-button" (click)="goBack()">←</button>
+    <h1 class="title">Available Times</h1>
+  </div>
+</div>
+
+<div class="appointments-container">
+  <div class="calendar-controls">
+    <button mat-button (click)="previousWeek()">Previous</button>
+
+    <div class="month-select">
+      <select [(ngModel)]="selectedMonth" (change)="updateCalendar()">
+        <option *ngFor="let month of months">{{ month }}</option>
+      </select>
+      <span>{{ currentYear }}</span>
+    </div>
+
+    <button mat-button (click)="nextWeek()">Next</button>
+  </div>
+
+  <!-- Nuevo contenedor para alinear calendario y selected -->
+  <div class="calendar-and-selected">
+    <div class="calendar-wrapper">
+      <div class="calendar-grid">
+        <div class="calendar-header">
+          <div *ngFor="let date of weekDates" class="day-column day-header">
+            <div class="day-name">{{ date.toLocaleDateString('en-US', { weekday: 'long' }) }}</div>
+            <div class="day-number">{{ date.getDate() }}</div>
+          </div>
+        </div>
+
+        <div class="time-slots-container">
+          <div class="time-slots">
+            <div *ngFor="let time of times" class="time-row">
+              <div *ngFor="let date of weekDates" class="time-cell">
+                <button
+                  mat-button
+                  [disabled]="isPast(date, time)"
+                  [ngClass]="{
+                    'past-time': isPast(date, time),
+                    'selected-time': isSelected(date, time)
+                  }"
+                  (click)="selectTime(time, date)">
+                  {{ time }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parte Selected a la derecha -->
+    <div *ngIf="selectedDate" class="selected-appointment">
+      <h2>Selected:</h2>
+      <p>{{ selectedDate.dayName }}, {{ selectedDate.dayNumber }} {{ selectedDate.monthName }} {{ selectedDate.year }} at {{ selectedDate.time }}</p>
+      <button mat-raised-button color="primary" (click)="confirmAppointment()">Confirm Appointment</button>
+    </div>
+  </div>
+</div>

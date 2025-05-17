@@ -1,11 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { UserTypeService } from '../../../shared/services/user-type.service';
+import { FindDoctorsPatientComponent} from "../../components/find-doctors-patient/find-doctors-patient.component";
+import {CommonModule} from "@angular/common";
+
+import { MatGridListModule} from "@angular/material/grid-list";
+import {PatientsReminderComponent} from "../../components/patients-reminder/patients-reminder.component";
+import {AppModule} from "../../../app.module";
+import {PatientsPendingTaskComponent} from "../../components/patients-pending-task/patients-pending-task.component";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-home-patient',
+  standalone:true,
   templateUrl: './home-patient.component.html',
-  styleUrls: ['./home-patient.component.css']
+  styleUrls: ['./home-patient.component.css'],
+  imports: [CommonModule, PatientsReminderComponent, PatientsPendingTaskComponent, MatGridListModule, FindDoctorsPatientComponent, MatButton, RouterLink]
 })
 export class HomePatientComponent implements OnInit {
 

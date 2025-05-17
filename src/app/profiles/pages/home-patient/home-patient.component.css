@@ -8,6 +8,12 @@ section {
   display: flex;
   justify-content: center;
 }
+.find-doctors-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background-color: #f4eef6;
+}
 
 /* ==== GRID ==== */
 mat-grid-list {

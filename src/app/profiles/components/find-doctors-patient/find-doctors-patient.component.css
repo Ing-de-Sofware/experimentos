@@ -1,0 +1,200 @@
+/* ==== RESET GLOBAL ==== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4eef6;
+  color: #333;
+  height: 100%;
+  width: 100%;
+}
+
+/* ==== HEADER ==== */
+.main-header {
+  background-color: #8c5e9b;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+.logo {
+  height: 36px;
+}
+.brand-title {
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-left: 0.5rem;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+}
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.header-nav mat-icon {
+  font-size: 26px;
+  cursor: pointer;
+}
+
+/* ==== MAIN WRAPPER ==== */
+.dashboard-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  min-height: calc(100vh - 100px);
+}
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  width: 100%;
+  max-width: 1700px;
+  align-items: center;
+}
+
+/* ==== DOCTOR SECTION ==== */
+.doctor-section {
+  background-color: #e1cde9;
+  border-radius: 20px;
+  padding: 2.5rem 3rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+.section-title {
+  font-size: 2rem;
+  color: #4b2e83;
+  margin-bottom: 0.8rem;
+}
+.section-description {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 2.5rem;
+}
+.doctor-card:hover {
+  transform: translateY(-8px);
+}
+.doctor-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+.doctor-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #4c2a70;
+  text-align: center;
+}
+.see-more-btn {
+  align-self: center;
+  padding: 0.8rem 1.8rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* ==== FEATURE SECTION ==== */
+.feature-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+.feature-card {
+  background-color: #caa3e7;
+  padding: 2rem 2.2rem;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+}
+.feature-content {
+  max-width: 80%;
+}
+.feature-card h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 0.4rem;
+}
+.feature-card p {
+  font-size: 1rem;
+  color: #f0e8f7;
+  margin: 0;
+}
+.feature-card mat-icon {
+  font-size: 32px;
+  color: white;
+  background-color: rgba(255,255,255,0.15);
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+.doctor-rating-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
+}
+
+.rating-text {
+  font-size: 1rem;
+  color: #4c2a70;
+}
+
+.favorite-button {
+  min-width: 0;
+  padding: 0;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+}
+
+.favorite-button .mat-icon {
+  font-size: 20px;
+}
+
+.doctor-cards {
+  display: flex;
+  flex-wrap: wrap; /* Permite que bajen si no entran */
+  gap: 2rem;
+  justify-content: center; /* Centrado horizontal */
+}
+
+.doctor-card {
+  width: 250px;
+  height: auto;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.doctor-name {
+  margin-bottom: 0.3rem;
+}
+
+.doctor-price {
+  margin-bottom: 0.3rem;
+}

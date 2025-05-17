@@ -18,6 +18,7 @@ import { PatientProfileComponent } from './pages/patient-profile/patient-profile
 import { PhotoPatientsComponent } from './components/photo-patients/photo-patients.component';
 import { InfoProfilePatiensComponent } from './components/info-profile-patiens/info-profile-patiens.component';
 import { InfoCardProfilePatiensComponent } from './components/info-card-profile-patiens/info-card-profile-patiens.component';
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { InfoCardProfilePatiensComponent } from './components/info-card-profile-
     PhotoPatientsComponent,
     InfoProfilePatiensComponent,
     InfoCardProfilePatiensComponent
+
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { InfoCardProfilePatiensComponent } from './components/info-card-profile-
     MatInputModule,
     MatFormFieldModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    SharedModule
   ],
   exports: [
     DoctorProfileComponent,

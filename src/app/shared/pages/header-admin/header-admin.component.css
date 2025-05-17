@@ -1,0 +1,82 @@
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #8c5e9b;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.logo {
+  height: 36px;
+}
+.brand-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+.nav-links a:hover {
+  text-decoration: underline;
+  color: #f1def5;
+}
+.header-right .register-link {
+  background-color: white;
+  color: #8c5e9b;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.header-right .register-link:hover {
+  background-color: #e3c7ef;
+}
+.admin-toolbar {
+  background-color: #8c5e9b;
+  height: 64px;
+  color: white;
+  padding: 0 1.5rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.brand-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-button {
+  color: white;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.nav-button:hover {
+  background-color: #a671b4;
+}
