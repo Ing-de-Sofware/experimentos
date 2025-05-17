@@ -1,36 +1,57 @@
 <div class="calendar-container">
 
   <main class="calendar-main">
+
+    <!-- Sidebar -->
     <aside class="calendar-sidebar">
+
+      <!-- Date Picker -->
       <mat-form-field appearance="outline" class="calendar-picker">
         <mat-label>Choose date</mat-label>
-        <input matInput [matDatepicker]="picker">
+        <input matInput [matDatepicker]="picker" placeholder="Select date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
+      <!-- Appointments Filters -->
       <section class="filter-section">
-        <h3 (click)="toggleSection('appointments')">Medical appointments</h3>
-        <div *ngIf="showAppointments">
+        <h3 class="filter-title" (click)="toggleSection('appointments')">Medical Appointments</h3>
+        <div *ngIf="showAppointments" class="checkbox-group">
           <mat-checkbox>Follow-up consultation to control hypothyroidism</mat-checkbox>
           <mat-checkbox>Treatment review hormonal</mat-checkbox>
           <mat-checkbox>Medication adjustment</mat-checkbox>
         </div>
       </section>
 
+      <!-- Medication Filters -->
       <section class="filter-section">
-        <h3 (click)="toggleSection('medication')">Medication</h3>
-        <div *ngIf="showMedication">
+        <h3 class="filter-title" (click)="toggleSection('medication')">Medication</h3>
+        <div *ngIf="showMedication" class="checkbox-group">
           <mat-checkbox>Taking Levothyroxine</mat-checkbox>
         </div>
       </section>
+
     </aside>
 
+    <!-- Calendar Main View -->
     <section class="calendar-grid">
-      <h2>Health Calendar: Medical Appointments and Medication.</h2>
-      <div class="week-grid">
-        <div class="day-column" *ngFor="let day of days"></div>
+      <h2>Health Calendar: Medical Appointments and Medication</h2>
+
+      <!-- FullCalendar embebido -->
+      <full-calendar [options]="calendarOptions"></full-calendar>
+
+      <!-- Lista de eventos extraída desde gapi -->
+      <div *ngIf="calendarEvents.length > 0" class="events-list">
+        <h3>Upcoming Events</h3>
+        <ul>
+          <li *ngFor="let event of calendarEvents">
+            <strong>{{ event.summary }}</strong> <br />
+            <span>{{ event.start.dateTime || event.start.date }}</span>
+          </li>
+        </ul>
       </div>
     </section>
+
   </main>
+
 </div>
