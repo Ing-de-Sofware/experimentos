@@ -13,7 +13,7 @@ html, body {
   overflow-y: auto;
 }
 
-/* ==== HEADER ==== */
+/* ==== HEADER (RESPONSIVE) ==== */
 .main-header {
   display: flex;
   justify-content: space-between;
@@ -22,6 +22,7 @@ html, body {
   color: white;
   padding: 1rem 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  flex-wrap: wrap;
 }
 .header-left {
   display: flex;
@@ -38,6 +39,7 @@ html, body {
 .nav-links {
   display: flex;
   gap: 1.5rem;
+  flex-wrap: wrap;
 }
 .nav-links a {
   color: white;
@@ -65,15 +67,13 @@ html, body {
 
 /* ==== SELECTOR WRAPPER ==== */
 .role-selector-wrapper {
-  height: calc(100vh - 160px);
+  min-height: calc(100vh - 160px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
   padding: 4rem 2rem;
   gap: 2rem;
-}
-.role-title-box {
   text-align: center;
 }
 .role-title-box h2 {
@@ -94,6 +94,8 @@ html, body {
   gap: 3rem;
   justify-content: center;
   max-width: 1200px;
+  width: 100%;
+  padding: 0 1rem;
 }
 
 /* ==== CARD ==== */
@@ -151,7 +153,7 @@ html, body {
   background-color: #682c87;
 }
 
-/* ==== FOOTER ==== */
+/* ==== FOOTER (RESPONSIVE Y FIJO) ==== */
 .main-footer {
   background-color: #8c5e9b;
   color: white;
@@ -161,25 +163,143 @@ html, body {
   align-items: center;
   font-size: 0.95rem;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.06);
+  flex-wrap: wrap;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  z-index: 10;
 }
+
 .footer-left {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
 }
+
 .footer-logo {
   height: 28px;
 }
+
+.footer-text {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
 .footer-right {
   display: flex;
   gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
+
 .footer-right a {
   color: white;
   text-decoration: none;
   font-weight: 500;
+  transition: color 0.2s;
 }
+
 .footer-right a:hover {
   text-decoration: underline;
   color: #e0c4f0;
+}
+
+@media (max-width: 700px) {
+  .main-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.8rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .footer-left, .footer-right {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .footer-text {
+    text-align: center;
+  }
+}
+
+/* ==== MEDIA QUERIES ==== */
+@media (max-width: 900px) {
+  .main-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .brand-title {
+    font-size: 1.2rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .role-title-box h2 {
+    font-size: 2rem;
+  }
+
+  .roles-grid {
+    gap: 2rem;
+  }
+
+  .role-card {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+  }
+
+  .main-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.8rem;
+    padding: 1.5rem;
+  }
+
+  .footer-left,
+  .footer-right {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .role-title-box h2 {
+    font-size: 1.7rem;
+  }
+
+  .role-title-box .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .role-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .card-desc {
+    font-size: 0.9rem;
+  }
+
+  .card-btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .main-header {
+    padding: 1rem;
+  }
+
+  .main-footer {
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
 }

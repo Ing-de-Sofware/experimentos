@@ -1,76 +1,195 @@
+/* ==== SECTION ==== */
 section {
-
   box-sizing: border-box;
   width: 100%;
   height: 100vh;
-  border: 1px solid black;
   padding: 10px;
+  border: 1px solid black;
+  display: flex;
   justify-content: center;
 }
-mat-grid-list{
-  box-sizing: border-box;
+
+/* ==== GRID ==== */
+mat-grid-list {
   width: 100%;
   height: 100%;
-}
-mat-grid-tile{
   box-sizing: border-box;
+}
+
+/* ==== TILE ==== */
+mat-grid-tile {
   width: 100%;
   height: 100%;
   background-color: #e5dde6;
   border: 1px solid black;
   padding: 10px;
-
+  box-sizing: border-box;
 }
 
-.box1, .box2{
-  box-sizing: border-box;
+/* ==== BOXES ==== */
+.box1, .box2 {
   width: 100%;
   height: 100%;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  box-sizing: border-box;
 }
 
-.box1 .part1{
+/* ==== BOX1 PART1 ==== */
+.box1 .part1 {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  gap: 1rem;
 }
-.box1 .part1 h2{
-  font-size: calc(10vw/4);
+
+.box1 .part1 h2 {
+  font-size: 1.8rem;
   margin: 0;
+  flex: 1 1 auto;
+  min-width: 200px;
 }
-.box1 .part1 a{
-  width: auto;
-  height: auto;
-  font-size: 1vw;
+
+.box1 .part1 a,
+.box1 .part1 button {
+  font-size: 1rem;
   background-color: #dfcae1;
-  padding: 30px 15px;
+  padding: 15px 20px;
   border-radius: 20px;
   text-align: center;
-
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  border: none;
 }
-.box1 .part2{
+
+/* ==== BOX1 PART2 ==== */
+.box1 .part2 {
   background-color: #a788ab;
   border-radius: 10px;
+  padding: 15px;
+  overflow-x: auto;
 }
 
-.box2 .part1{
+/* ==== BOX2 PART1 ==== */
+.box2 .part1 {
   background-color: #a788ab;
   border-radius: 10px 20px;
   padding: 20px;
   margin-bottom: 30px;
-
-}
-.box2 .part1 h2{
-  margin: 30px;
-  font-size: calc(10vw/4);
+  overflow-x: auto;
 }
 
-.box2 .part2{
-
+.box2 .part1 h2 {
+  margin: 0;
+  font-size: 1.8rem;
 }
 
+/* ==== BOX2 PART2 ==== */
+.box2 .part2 {
+  padding: 20px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ==== UPLOAD BUTTON ==== */
+.upload-exam-button {
+  background-color: #dfcae1;
+  color: #111;
+  font-weight: 600;
+  padding: 16px 32px;
+  border-radius: 20px;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  border: none;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.upload-exam-button:hover {
+  background-color: #c8b4c9;
+}
+
+/* ==== FILE PREVIEW ==== */
+.exam-preview {
+  margin-top: 10px;
+  background-color: #f8f8f8;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #333;
+  max-width: 320px;
+  width: 100%;
+}
+
+/* ==== MEDIA QUERIES ==== */
+@media (max-width: 1024px) {
+  mat-grid-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  mat-grid-tile {
+    height: auto !important;
+  }
+
+  .box1 .part1,
+  .box2 .part1 {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .box1 .part1 h2,
+  .box2 .part1 h2 {
+    font-size: 1.5rem;
+  }
+
+  .box1 .part1 a,
+  .box1 .part1 button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .upload-exam-button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .box1 .part1 h2,
+  .box2 .part1 h2 {
+    font-size: 1.3rem;
+  }
+
+  .box1 .part1 a,
+  .box1 .part1 button {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+
+  .box1 .part2,
+  .box2 .part1 {
+    padding: 15px;
+  }
+
+  .box1,
+  .box2 {
+    padding: 10px;
+    gap: 1rem;
+  }
+
+  .upload-exam-button {
+    padding: 14px 24px;
+    font-size: 0.95rem;
+  }
+}

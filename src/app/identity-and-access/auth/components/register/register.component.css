@@ -9,9 +9,10 @@ html, body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #faf7fb;
   color: #333;
+  overflow-x: hidden;
 }
 
-/* ==== HEADER ==== */
+/* ==== HEADER (RESPONSIVO) ==== */
 .main-header {
   display: flex;
   justify-content: space-between;
@@ -20,6 +21,7 @@ html, body {
   color: white;
   padding: 1rem 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  flex-wrap: wrap;
 }
 .header-left {
   display: flex;
@@ -36,11 +38,13 @@ html, body {
 .nav-links {
   display: flex;
   gap: 1.5rem;
+  flex-wrap: wrap;
 }
 .nav-links a {
   color: white;
   text-decoration: none;
   font-weight: 500;
+  transition: color 0.3s;
 }
 .nav-links a:hover {
   text-decoration: underline;
@@ -68,9 +72,9 @@ html, body {
   background: #f5e6f7;
   padding: 4rem 2rem;
 }
-
 .register-card {
-  width: 440px;
+  width: 100%;
+  max-width: 440px;
   padding: 2.5rem;
   border-radius: 20px;
   background-color: white;
@@ -99,8 +103,10 @@ html, body {
   font-size: 1rem;
   background-color: #7c3a9b;
   color: white;
+  border: none;
   border-radius: 8px;
   transition: background 0.3s ease;
+  cursor: pointer;
 }
 .register-button:hover {
   background-color: #682c87;
@@ -119,21 +125,24 @@ html, body {
   text-decoration: underline;
 }
 
-/* ==== FOOTER ==== */
+/* ==== FOOTER (RESPONSIVO) ==== */
 .main-footer {
   background-color: #8c5e9b;
   color: white;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.95rem;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.06);
+  flex-wrap: wrap;
+  width: 100%;
 }
 .footer-left {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-wrap: wrap;
 }
 .footer-logo {
   height: 28px;
@@ -141,6 +150,8 @@ html, body {
 .footer-right {
   display: flex;
   gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .footer-right a {
   color: white;
@@ -150,4 +161,62 @@ html, body {
 .footer-right a:hover {
   text-decoration: underline;
   color: #e0c4f0;
+}
+
+/* ==== MEDIA QUERIES (HEADER, FORM, FOOTER) ==== */
+@media (max-width: 768px) {
+  .main-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .register-wrapper {
+    padding: 2rem 1rem;
+  }
+
+  .register-card {
+    padding: 2rem 1.2rem;
+  }
+
+  .main-footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .footer-left, .footer-right {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-title {
+    font-size: 1.25rem;
+  }
+
+  .register-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .register-button {
+    font-size: 0.95rem;
+    padding: 0.8rem;
+  }
+
+  .main-footer {
+    padding: 1rem;
+    font-size: 0.88rem;
+  }
 }
