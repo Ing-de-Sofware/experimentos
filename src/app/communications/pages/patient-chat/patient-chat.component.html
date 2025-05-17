@@ -1,4 +1,6 @@
 <div class="chat-container">
+
+  <!-- Sidebar -->
   <div class="sidebar">
     <h3>Messages</h3>
     <div class="chat-preview">
@@ -8,28 +10,26 @@
         <div class="message-preview">OK thank you so much!...</div>
       </div>
     </div>
-    <button class="see-more-btn">Ver más chats ...</button>
+    <button class="see-more-btn">See more chats...</button>
   </div>
 
+  <!-- Chat Panel -->
   <div class="chat-panel">
+
     <div class="chat-header">Chat with Dr. Emilio Morales</div>
+
     <div class="chat-messages">
-      <div class="message left">
-        <img src="https://i.pravatar.cc/40?img=2" class="avatar" />
-        <div class="bubble">Hello Joseph! I inform you that tomorrow you must upload your hormonal test for our appointment on Saturday.</div>
-      </div>
-      <div class="message right">
-        <div class="bubble">Hello Dr. Emilio, understood, tonight I will go to take the exams so that tomorrow I can upload my results.</div>
-        <img src="https://i.pravatar.cc/40?img=3" class="avatar" />
-      </div>
-      <div class="message left">
-        <img src="https://i.pravatar.cc/40?img=2" class="avatar" />
-        <div class="bubble">OK thank you so much! See you this Sunday</div>
+      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender === 'patient' ? 'right' : 'left'">
+        <img *ngIf="msg.sender === 'doctor'" src="https://i.pravatar.cc/40?img=2" class="avatar" />
+        <div class="bubble">{{ msg.text }}</div>
+        <img *ngIf="msg.sender === 'patient'" src="https://i.pravatar.cc/40?img=3" class="avatar" />
       </div>
     </div>
+
     <div class="chat-input">
-      <input type="text" placeholder="Write your message..." />
-      <button><mat-icon>send</mat-icon></button>
+      <input [(ngModel)]="newMessage" type="text" placeholder="Write your message..." (keydown.enter)="sendMessage()" />
+      <button (click)="sendMessage()"><mat-icon>send</mat-icon></button>
     </div>
+
   </div>
 </div>
