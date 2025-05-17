@@ -17,6 +17,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 
+// ✅ Import reCAPTCHA module
+import { RecaptchaModule } from 'ng-recaptcha';
+
 @NgModule({
   declarations: [
     LoginComponent,
@@ -36,7 +39,10 @@ import { MatButtonModule } from '@angular/material/button';
     MatCardModule,
     MatIconModule,
     MatCheckboxModule,
-    MatButtonModule
+    MatButtonModule,
+
+    // ✅ reCAPTCHA
+    RecaptchaModule
   ],
   exports: [
     LoginComponent,

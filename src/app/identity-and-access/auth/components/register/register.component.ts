@@ -11,6 +11,7 @@ import { UserTypeService } from '../../../../shared/services/user-type.service';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   userType: string | null = null;
+  recaptchaToken: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -30,17 +31,25 @@ export class RegisterComponent implements OnInit {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
+      confirmPassword: ['', Validators.required],
+      recaptcha: ['', Validators.required]
     });
   }
 
+  // ✅ Handler para el captcha
+  onCaptchaResolved(token: string): void {
+    this.recaptchaToken = token;
+    this.registerForm.get('recaptcha')?.setValue(token);
+    console.log('reCAPTCHA token:', token);
+  }
+
   onSubmit(): void {
-    if (this.registerForm.invalid || !this.userType) return;
+    if (this.registerForm.invalid || !this.userType || !this.recaptchaToken) return;
 
     console.log('Usuario registrado:', this.registerForm.value);
     console.log('Rol:', this.userType);
+    console.log('reCAPTCHA:', this.recaptchaToken);
 
-    // 🔁 Redirección según el rol simulado
     if (this.userType === 'patient') {
       this.router.navigate(['/homePatient']);
     } else if (this.userType === 'endocrinologist') {
