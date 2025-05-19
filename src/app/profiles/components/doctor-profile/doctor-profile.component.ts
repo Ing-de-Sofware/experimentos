@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import { DoctorService } from '../../../../../../../experimentos-hormonal-care-web-frontend/src/app/patient/services/doctor.service';
-import { Doctor } from '../../../../../../../experimentos-hormonal-care-web-frontend/src/app/patient/models/doctor.models';
-import { CommonModule} from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import {Doctor} from "../../../communications/model/doctor.models";
+import {DoctorService} from "../../../communications/services/doctor.service";
 
 @Component({
   selector: 'app-doctor-profile',

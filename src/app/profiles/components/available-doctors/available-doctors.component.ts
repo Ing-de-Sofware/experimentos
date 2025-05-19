@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import {MatIconModule } from '@angular/material/icon';
 import { CommonModule} from '@angular/common';
 import { Router} from '@angular/router';
-import { DoctorService } from '../../../../../../../experimentos-hormonal-care-web-frontend/src/app/patient/services/doctor.service';
-import { Doctor } from '../../../../../../../experimentos-hormonal-care-web-frontend/src/app/patient/models/doctor.models';
 import {FormsModule} from '@angular/forms';
+import {Doctor} from "../../../communications/model/doctor.models";
+import {DoctorService} from "../../../communications/services/doctor.service";
 @Component({
   selector: 'app-available-doctors',
   standalone: true,
