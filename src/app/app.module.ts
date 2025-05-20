@@ -136,13 +136,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     PatientdataComponent,
     DignosesandtreatmentComponent,
     ReasonconsultationComponent,
-    HeaderComponent,
-    ClinicalhistoryComponent,
-    DignosesandtreatmentComponent,
-    ExternalreportsComponent,
+
     MedicalexamsComponent,
-    PatientdataComponent,
-    ReasonconsultationComponent,
 
     TreatmentPatientComponent,
     MedicationFormComponent,
@@ -242,7 +237,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     AuthModule,
     CalendarModule,
-    HomePatientComponent,
     ProfilesModule,
     SharedModule
 

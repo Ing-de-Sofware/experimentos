@@ -46,6 +46,9 @@
         </div>
 
         <button mat-raised-button color="primary" class="login-btn" type="submit">Enter</button>
+        <mat-error *ngIf="loginError" class="login-error">
+          Invalid email or password.
+        </mat-error>
       </form>
 
       <p class="register-text">
