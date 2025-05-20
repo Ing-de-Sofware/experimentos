@@ -7,7 +7,7 @@
     <a routerLink="/">Home</a>
   </nav>
   <div class="header-right">
-    <a class="register-link" href="javascript:void(0)" (click)="goToRegister()">Register</a>
+    <a class="register-link" routerLink="/selectRole">Register</a>
   </div>
 </header>
 
@@ -46,12 +46,11 @@
         </div>
 
         <button mat-raised-button color="primary" class="login-btn" type="submit">Enter</button>
-
       </form>
 
       <p class="register-text">
         Don’t have an account?
-        <a class="register-link" href="javascript:void(0)" (click)="goToRegister()">Register</a>
+        <a class="register-link" routerLink="/selectRole">Register</a>
       </p>
     </mat-card>
   </div>
