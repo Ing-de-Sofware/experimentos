@@ -44,8 +44,13 @@ const routes: Routes = [
     path: 'doctor-profile/:id',
     loadComponent: () => import('../../src/app/profiles/components/doctor-profile/doctor-profile.component').then(m => m.DoctorProfileComponent)
   },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
 
   {
+
     path: 'appointments/:id',
     loadComponent: () => import('../../src/app/profiles/components/appointments/appointments.component').then(m => m.AppointmentsComponent)
   },

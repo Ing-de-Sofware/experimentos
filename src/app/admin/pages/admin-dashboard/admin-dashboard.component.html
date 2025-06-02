@@ -1,18 +1,37 @@
 <app-header-for-user-type-service></app-header-for-user-type-service>
 
-<div class="dashboard-container">
-  <h1>Panel de Administración</h1>
-  <div class="cards-grid">
-    <mat-card class="admin-card" *ngFor="let card of cards" [routerLink]="card.route">
-      <mat-card-header>
-        <mat-icon>{{ card.icon }}</mat-icon>
-        <mat-card-title>{{ card.title }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>{{ card.description }}</p>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
+<<div class="admin-layout">
+  <aside class="sidebar">
+    <img src="assets/images/logo.png" class="logo" />
+    <nav>
+      <a routerLink="/admin/dashboard" class="active">Dashboard</a>
+      <a routerLink="/announcementsAdmin">Comunicados</a>
+      <a routerLink="/logs">Logs</a>
+      <a routerLink="/reassign">Reasignar</a>
+      <a routerLink="/support">Soporte</a>
+      <a routerLink="/user-management">Usuarios</a>
+    </nav>
+  </aside>
 
+  <main class="dashboard-main">
+    <header class="dashboard-header">
+      <h2>Panel de Control</h2>
+      <div class="user-box">
+        <span>Admin</span>
+        <img src="assets/images/admin.png" alt="admin" />
+      </div>
+    </header>
+
+    <section class="cards">
+      <div class="card pink"> <h3>15,000</h3><p>Comunicados enviados</p></div>
+      <div class="card blue"> <h3>45,633</h3><p>Logs registrados</p></div>
+      <div class="card green"> <h3>3,012</h3><p>Pacientes reasignados</p></div>
+    </section>
+
+    <section class="charts">
+      <div class="chart-box">Gráfico de visitas (placeholder)</div>
+      <div class="chart-box">Fuentes de tráfico (placeholder)</div>
+    </section>
+  </main>
+</div>
 

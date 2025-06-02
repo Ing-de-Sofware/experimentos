@@ -40,3 +40,106 @@ mat-card-content p {
   color: #555;
   margin-top: 8px;
 }
+.admin-layout {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.sidebar {
+  width: 220px;
+  background: #7b3ca0;
+  color: white;
+  padding: 1rem;
+}
+
+.sidebar .logo {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.sidebar nav a {
+  display: block;
+  margin: 1rem 0;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+
+.sidebar nav a.active,
+.sidebar nav a:hover {
+  background: #9e58cc;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.dashboard-main {
+  flex: 1;
+  background: #f3e5f5;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-header h2 {
+  margin: 0;
+}
+
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-box img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.cards {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.card.pink { background: linear-gradient(to right, #f48fb1, #f06292); color: white; }
+.card.blue { background: linear-gradient(to right, #64b5f6, #1976d2); color: white; }
+.card.green { background: linear-gradient(to right, #81c784, #388e3c); color: white; }
+
+.charts {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.chart-box {
+  flex: 1;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  height: 250px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  text-align: center;
+  font-size: 1.1rem;
+  color: #777;
+}
+

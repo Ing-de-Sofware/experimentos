@@ -56,7 +56,6 @@ import {MatSort} from "@angular/material/sort";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 
 import { DoctorRegistrationComponent } from './identity-and-access/pages/doctor-registration/doctor-registration.component';
-import { HomePatientComponent } from './profiles/pages/home-patient/home-patient.component';
 import { PatientsReminderComponent } from './profiles/components/patients-reminder/patients-reminder.component';
 import { PatientsUploadExamComponent } from './profiles/components/patients-upload-exam/patients-upload-exam.component';
 import { PatientsPendingTaskComponent } from './profiles/components/patients-pending-task/patients-pending-task.component';
@@ -107,14 +106,12 @@ import { ProfilesModule } from './profiles/profiles.module';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 import {SharedModule} from "./shared/shared.module";
-import {AdminModule} from "./admin/admin.module";
 
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-;
 
 @NgModule({
   declarations: [
@@ -156,7 +153,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 
   ],
   imports: [
-    AdminModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

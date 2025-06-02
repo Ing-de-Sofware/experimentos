@@ -20,6 +20,7 @@ import { UserManagementComponent } from './pages/user-management/user-management
 import { AdminStatsComponent } from './pages/admin-stats/admin-stats.component';
 
 import { SharedModule } from '../shared/shared.module';
+import {ADMIN_ROUTES} from "./admin-routing.module";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { SharedModule } from '../shared/shared.module';
     MatSelectModule,
     MatTableModule,
     MatTooltipModule,
-    SharedModule
+    SharedModule,
+    RouterModule.forChild(ADMIN_ROUTES),
   ],
   exports: [
     AdminDashboardComponent
