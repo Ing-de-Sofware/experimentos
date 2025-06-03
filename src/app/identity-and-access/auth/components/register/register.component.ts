@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { UserTypeService } from '../../../../shared/services/user-type.service';
+import { PrivacyDialogComponent } from '../../../../shared/components/privacy-dialog/privacy-dialog.component';
+import { TermsDialogComponent } from '../../../../shared/components/terms-dialog/terms-dialog.component';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +19,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private userTypeService: UserTypeService
+    private userTypeService: UserTypeService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -32,11 +36,11 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
+      acceptPolicies: [false, Validators.requiredTrue],
       recaptcha: ['', Validators.required]
     });
   }
 
-  // ✅ Handler para el captcha
   onCaptchaResolved(token: string): void {
     this.recaptchaToken = token;
     this.registerForm.get('recaptcha')?.setValue(token);
@@ -55,7 +59,17 @@ export class RegisterComponent implements OnInit {
     } else if (this.userType === 'endocrinologist') {
       this.router.navigate(['/homeDoctor']);
     } else if (this.userType === 'admin') {
-      this.router.navigate(['/adminDashboard']);
+      this.router.navigate(['/admin/dashboard']);
     }
+  }
+
+  openPrivacyDialog(event: Event): void {
+    event.preventDefault();
+    this.dialog.open(PrivacyDialogComponent);
+  }
+
+  openTermsDialog(event: Event): void {
+    event.preventDefault();
+    this.dialog.open(TermsDialogComponent);
   }
 }

@@ -125,6 +125,21 @@ html, body {
   text-decoration: underline;
 }
 
+/*  CHECKBOX de aceptación */
+.policy-checkbox {
+  margin: 1rem 0;
+  text-align: left;
+  font-size: 0.9rem;
+}
+.policy-checkbox a {
+  color: #7a3d8e;
+  text-decoration: underline;
+  font-weight: 500;
+}
+.policy-checkbox a:hover {
+  color: #5e2a70;
+}
+
 /* ==== FOOTER (RESPONSIVO) ==== */
 .main-footer {
   background-color: #8c5e9b;
