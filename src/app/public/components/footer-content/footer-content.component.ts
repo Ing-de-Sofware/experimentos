@@ -5,6 +5,7 @@ import { TermsDialogComponent } from '../../../shared/components/terms-dialog/te
 import {
   PrivacyPolicyPersonalDataProcessingComponent
 } from "../../../shared/components/privacy-policy-personal-data-processing/privacy-policy-personal-data-processing.component";
+import {HelpDialogComponent} from "../../../shared/components/help-dialog/help-dialog.component";
 
 @Component({
   selector: 'app-footer-content',
@@ -24,5 +25,8 @@ export class FooterContentComponent {
 
   openPrivacyPolicyPersonalDataProcessing(): void {
     this.dialog.open(PrivacyPolicyPersonalDataProcessingComponent);
+  }
+  openHelp(): void {
+    this.dialog.open(HelpDialogComponent);
   }
 }
