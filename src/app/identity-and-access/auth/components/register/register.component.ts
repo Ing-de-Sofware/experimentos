@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
     } else if (this.userType === 'endocrinologist') {
       this.router.navigate(['/homeDoctor']);
     } else if (this.userType === 'admin') {
-      this.router.navigate(['/admin/dashboard']);
+      this.router.navigate(['/adminDashboard']);
     }
   }
 
