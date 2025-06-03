@@ -1,4 +1,5 @@
-.cont {
-  height: 100vh; /* Ajusta esto al tamaño que prefieras */
-  overflow: auto;
+
+:host {
+  display: block;        /* ocupa su lugar en el flujo */
+  width: 100%;
 }
