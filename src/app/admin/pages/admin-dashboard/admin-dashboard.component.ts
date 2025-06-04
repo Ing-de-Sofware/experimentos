@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { NgChartsModule } from 'ng2-charts';
 
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.css']
+  styleUrls: ['./admin-dashboard.component.css'],
+  standalone: true,
+  imports: [NgChartsModule]
 })
 export class AdminDashboardComponent {
   cards = [
@@ -39,8 +43,34 @@ export class AdminDashboardComponent {
     }
   ];
 
+  // Gráfico de barras
+  barChartOptions: ChartConfiguration<'bar'>['options'] = {
+    responsive: true,
+    scales: {
+      x: {},
+      y: { beginAtZero: true }
+    }
+  };
+
+  barChartData: ChartData<'bar'> = {
+    labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'],
+    datasets: [
+      { data: [35, 49, 32, 50, 40], label: 'Pacientes' },
+      { data: [20, 34, 27, 44, 30], label: 'Seguimientos' }
+    ]
+  };
+
+  // Gráfico de torta
+  pieChartData: ChartData<'pie', number[], string> = {
+    labels: ['Search Engines', 'Direct Click', 'Referral'],
+    datasets: [
+      { data: [30, 30, 40] }
+    ]
+  };
+
+  pieChartType: ChartType = 'pie';
 
   goTo(route: string) {
-    // Aquí se usaría router.navigate, pero puede hacerse también por routerLink
+    // Puedes usar router.navigate si lo deseas
   }
 }

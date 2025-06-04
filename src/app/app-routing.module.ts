@@ -61,17 +61,7 @@ const routes: Routes = [
     path: 'appointments/:id',
     loadComponent: () => import('../../src/app/profiles/components/appointments/appointments.component').then(m => m.AppointmentsComponent)
   },
-  //{ path: 'notifications', component: NotificationsComponent },
-  //{ path: 'settings', component: SettingsComponent },
-  // { path: 'appointments', component: AppointmentsComponent },
-  {path: 'announcements', component: AnnouncementsAdminComponent},
-  //{path: 'user-management', component: UserManagementComponent},
-  // { path: 'reassing-Patients', component: ReassignPatientsComponent},
-  //{path: 'accessLogs', component: AccessLogsComponent // Este deberás crearlo },
-  //{path: 'supportChat', component: SupportChatComponent // Este deberás crearlo}
-  //{ path: 'admin-stats', component: AdminStatsComponent }
-  //{path: 'logs', component: LogsComponent
-  //{path: 'support', component: SupportComponent
+
   {
     path: 'calendar',
     loadChildren: () =>

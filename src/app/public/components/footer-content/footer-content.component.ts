@@ -10,7 +10,8 @@ import {HelpDialogComponent} from "../../../shared/components/help-dialog/help-d
 @Component({
   selector: 'app-footer-content',
   templateUrl: './footer-content.component.html',
-  styleUrl: './footer-content.component.css'
+  styleUrl: './footer-content.component.css',
+  standalone: true
 })
 export class FooterContentComponent {
   constructor(private dialog: MatDialog) {}

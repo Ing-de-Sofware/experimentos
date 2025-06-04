@@ -21,10 +21,10 @@ import { AdminStatsComponent } from './pages/admin-stats/admin-stats.component';
 
 import { SharedModule } from '../shared/shared.module';
 import {ADMIN_ROUTES} from "./admin-routing.module";
+import {NgChartsModule} from "ng2-charts";
 
 @NgModule({
   declarations: [
-    AdminDashboardComponent,
     ReassignPatientComponent,
     LogsComponent,
     SupportComponent,
@@ -45,10 +45,11 @@ import {ADMIN_ROUTES} from "./admin-routing.module";
     MatTableModule,
     MatTooltipModule,
     SharedModule,
+    NgChartsModule,
+    AdminDashboardComponent,
     RouterModule.forChild(ADMIN_ROUTES),
   ],
   exports: [
-    AdminDashboardComponent
   ]
 })
 export class AdminModule {}

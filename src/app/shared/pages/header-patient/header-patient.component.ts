@@ -2,11 +2,20 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserTypeService } from '../../services/user-type.service';
 import { UserType } from '../../model/user-type.model';
+import {MatDialogActions, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-header-patient',
   templateUrl: './header-patient.component.html',
-  styleUrl: './header-patient.component.css'
+  styleUrls: ['./header-patient.component.css'],
+  standalone: true,
+  imports: [
+    MatDialogContent,
+    MatDialogTitle,
+    MatDialogActions,
+    MatButton
+  ]
 
 })
 export class HeaderPatientComponent {

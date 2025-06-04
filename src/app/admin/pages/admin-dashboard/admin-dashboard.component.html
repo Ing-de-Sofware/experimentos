@@ -3,7 +3,7 @@
   <aside class="sidebar">
     <img src="assets/images/logo.png" class="logo" />
     <nav>
-      <a routerLink="/admin/dashboard" class="active">Dashboard</a>
+      <a routerLink="/adminDashboard" class="active">Dashboard</a>
       <a routerLink="/announcementsAdmin">Comunicados</a>
       <a routerLink="/logs">Logs</a>
       <a routerLink="/reassign">Reasignar</a>
@@ -28,8 +28,26 @@
     </section>
 
     <section class="charts">
-      <div class="chart-box">Gráfico de visitas (placeholder)</div>
-      <div class="chart-box">Fuentes de tráfico (placeholder)</div>
+      <div class="dashboard-charts">
+        <div class="chart-card">
+          <h3>Visit and Follow-up Statistics</h3>
+          <canvas baseChart
+                  [data]="barChartData"
+                  [options]="barChartOptions"
+                  [type]="'bar'">
+          </canvas>
+        </div>
+
+        <div class="chart-card pie">
+          <h3>Traffic Sources</h3>
+          <canvas baseChart
+                  [data]="pieChartData"
+                  [type]="pieChartType">
+          </canvas>
+        </div>
+
+      </div>
+
     </section>
   </main>
 </div>

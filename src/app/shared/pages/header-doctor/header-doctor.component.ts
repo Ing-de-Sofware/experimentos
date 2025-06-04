@@ -1,9 +1,19 @@
 import { Component } from '@angular/core';
+import {MatDialogActions, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-header-doctor',
   templateUrl: './header-doctor.component.html',
-  styleUrl: './header-doctor.component.css'
+  styleUrls: ['./header-doctor.component.css'],
+  standalone: true,
+  imports: [
+    MatDialogContent,
+    MatDialogTitle,
+    MatDialogActions,
+    MatButton
+  ]
+
 })
 export class HeaderDoctorComponent {
   options = [

@@ -4,7 +4,7 @@ import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard
 
 export const ADMIN_ROUTES: Routes = [
   {
-    path: 'login',
+    path: '',
     component: AdminDashboardComponent,
   },
 ];
