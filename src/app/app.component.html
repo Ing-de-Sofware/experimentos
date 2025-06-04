@@ -5,4 +5,6 @@
 <router-outlet></router-outlet>
 
 
-<app-footer-content></app-footer-content>
+<ng-container *ngIf="!isAuthRoute">
+  <app-footer-content></app-footer-content>
+</ng-container>

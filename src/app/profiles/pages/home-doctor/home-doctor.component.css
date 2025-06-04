@@ -23,6 +23,8 @@ mat-sidenav-container {
   border: 2px solid #b58fcf;
   border-radius: 10px;
   overflow: hidden;
+  background-color: #faf5ff;
+  padding: 16px;
 }
 
 .patients-table {
@@ -31,7 +33,7 @@ mat-sidenav-container {
 }
 
 .patients-table thead {
-  background-color: #e7d9f1;
+  background: linear-gradient(to right, #e6d4f9, #f3e7ff);
 }
 
 .patients-table th,
@@ -41,10 +43,16 @@ mat-sidenav-container {
   border-bottom: 1px solid #ddd;
 }
 
+.patients-table th {
+  color: #6b298c;
+  font-weight: 600;
+}
+
 .patient-info {
   display: flex;
   align-items: center;
   gap: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .avatar {
@@ -69,6 +77,12 @@ mat-sidenav-container {
   border-radius: 6px;
   padding: 6px;
   cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.video-btn:hover {
+  background-color: #7e4bd1;
 }
 
 /* Panel lateral de búsqueda */
@@ -78,6 +92,8 @@ mat-sidenav-container {
   padding: 16px;
   border-radius: 12px;
   height: fit-content;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border: 1px solid #e2d6f3;
 }
 
 .side-search input {
@@ -91,11 +107,18 @@ mat-sidenav-container {
 .mini-patient {
   display: flex;
   align-items: center;
-  background: #fff;
-  padding: 10px;
-  margin-bottom: 12px;
-  border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  background: linear-gradient(135deg, #faf7fd, #f3eaff);
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  border: 1px solid #d5c2f0;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.mini-patient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
 }
 
 .mini-avatar {
@@ -115,12 +138,13 @@ mat-sidenav-container {
 }
 
 .tag-btn {
-  background-color: #c9b3e5;
+  background-color: #d8c7f3;
   border: none;
   border-radius: 5px;
   padding: 3px 6px;
   font-size: 11px;
   margin-right: 4px;
   cursor: pointer;
+  font-weight: 500;
+  color: #4c2e76;
 }
-

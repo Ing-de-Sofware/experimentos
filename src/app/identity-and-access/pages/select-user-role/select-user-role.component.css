@@ -223,6 +223,9 @@ html, body {
   .footer-left, .footer-right {
     justify-content: center;
     width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
   }
 
   .footer-text {
@@ -234,8 +237,9 @@ html, body {
 @media (max-width: 900px) {
   .main-header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.8rem;
+    text-align: center;
   }
 
   .brand-title {
@@ -245,6 +249,8 @@ html, body {
   .nav-links {
     gap: 1rem;
     margin-top: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .role-title-box h2 {
@@ -305,5 +311,12 @@ html, body {
   .main-footer {
     padding: 1rem;
     font-size: 0.85rem;
+    gap: 1rem;
+  }
+
+  .footer-right a:not(:last-child)::after {
+    content: "|";
+    margin: 0 0.4rem;
+    color: #ccc;
   }
 }
