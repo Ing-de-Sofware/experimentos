@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router, RouterLink, RouterModule} from '@angular/router';
 import { UserTypeService } from '../../services/user-type.service';
 import { UserType } from '../../model/user-type.model';
 import {MatDialogActions, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatButtonModule} from "@angular/material/button";
+import {MatToolbar, MatToolbarModule} from "@angular/material/toolbar";
+import {CommonModule} from "@angular/common";
+import {ColleagueSearchComponent} from "../../../communications/pages/colleague-search/colleague-search.component";
 
 @Component({
   selector: 'app-header-patient',
@@ -11,10 +14,14 @@ import {MatButton} from "@angular/material/button";
   styleUrls: ['./header-patient.component.css'],
   standalone: true,
   imports: [
-    MatDialogContent,
-    MatDialogTitle,
-    MatDialogActions,
-    MatButton
+
+    RouterLink,
+    MatToolbar,
+    CommonModule,
+    RouterModule,
+    MatToolbarModule,
+    MatButtonModule,
+
   ]
 
 })

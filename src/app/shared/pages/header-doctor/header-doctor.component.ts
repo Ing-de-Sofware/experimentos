@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import {MatDialogActions, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
-import {MatButton} from "@angular/material/button";
+import {MatButton, MatButtonModule} from "@angular/material/button";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {ColleagueSearchComponent} from "../../../communications/pages/colleague-search/colleague-search.component";
+import {RouterModule} from "@angular/router";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-header-doctor',
@@ -11,7 +15,12 @@ import {MatButton} from "@angular/material/button";
     MatDialogContent,
     MatDialogTitle,
     MatDialogActions,
-    MatButton
+    MatButton,
+    RouterModule,
+    CommonModule,
+    MatToolbarModule,
+    ColleagueSearchComponent,
+    MatButtonModule,
   ]
 
 })

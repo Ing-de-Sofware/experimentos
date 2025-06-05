@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import {UserTypeService} from "../../../../shared/services/user-type.service";
+
 
 @Component({
   selector: 'app-login',
@@ -15,13 +17,14 @@ export class LoginComponent implements OnInit {
   // ✅ Usuarios simulados localmente
   MOCK_USERS = [
     { email: 'paciente@gmail.com', password: '123456', role: 'patient' },
-    { email: 'doctor@gmail.com', password: '123456', role: 'doctor' },
+    { email: 'doctor@gmail.com', password: '123456', role: 'endocrinologist' },
     { email: 'admin@gmail.com', password: '123456', role: 'admin' }
   ];
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private userTypeService: UserTypeService,
   ) {}
 
   ngOnInit(): void {
@@ -56,11 +59,14 @@ export class LoginComponent implements OnInit {
 
     console.log('Redirigiendo al dashboard del rol:', foundUser.role);
 
+
+    this.userTypeService.setUserType(foundUser.role as 'patient' | 'endocrinologist' | 'admin');
+
     switch (foundUser.role) {
       case 'patient':
         this.router.navigate(['/homePatient']);
         break;
-      case 'doctor':
+      case 'endocrinologist':
         this.router.navigate(['/homeDoctor']);
         break;
       case 'admin':
@@ -69,6 +75,7 @@ export class LoginComponent implements OnInit {
       default:
         this.loginError = true;
     }
+
   }
 
   goToRegister(): void {

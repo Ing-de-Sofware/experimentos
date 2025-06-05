@@ -3,11 +3,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { DoctorViewColleagueComponent } from "../../components/doctor-view-colleague/doctor-view-colleague.component";
 import { DoctorProfileService } from "../../services/doctor-profile.service";
 import { Router } from '@angular/router';
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-colleague-search',
   templateUrl: './colleague-search.component.html',
-  styleUrls: ['./colleague-search.component.css']
+  styleUrls: ['./colleague-search.component.css'],
+  standalone: true,
+
+  imports: [
+    FormsModule
+  ]
 })
 export class ColleagueSearchComponent {
   searchEmail: string = '';

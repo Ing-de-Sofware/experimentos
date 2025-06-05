@@ -29,7 +29,7 @@ import { PrivacyPolicyPersonalDataProcessingComponent } from './components/priva
 @NgModule({
   declarations: [
     LanguageSwitcherComponent,
-    ColleagueSearchComponent
+
   ],
   imports: [
     CommonModule,
@@ -49,7 +49,8 @@ import { PrivacyPolicyPersonalDataProcessingComponent } from './components/priva
     PrivacyPolicyPersonalDataProcessingComponent,
     HeaderDoctorComponent,
     HeaderPatientComponent,
-    HeaderAdminComponent
+    HeaderAdminComponent,
+    ColleagueSearchComponent
   ],
   exports: [
     HeaderDoctorComponent,
