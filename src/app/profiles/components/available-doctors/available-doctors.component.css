@@ -1,5 +1,8 @@
 /* ==== RESET GLOBAL ==== */
-
+:host {
+  display: block;
+  margin-top: 64px; /* altura real de tu <mat-toolbar> */
+}
 * {
   margin: 0;
   padding: 0;

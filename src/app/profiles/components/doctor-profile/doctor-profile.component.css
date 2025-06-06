@@ -1,3 +1,7 @@
+:host {
+  display: block;
+  margin-top: 64px; /* altura real de tu <mat-toolbar> */
+}
 .profile-container {
   background-color: #e6d8e7;
   padding: 0;
