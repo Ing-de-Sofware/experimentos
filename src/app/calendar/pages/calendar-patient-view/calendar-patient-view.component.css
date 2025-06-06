@@ -1,3 +1,7 @@
+:host {
+  display: block;
+  margin-top: 64px; /* altura real de tu <mat-toolbar> */
+}
 /* ==== CONTENEDOR GENERAL ==== */
 .calendar-container {
   display: flex;

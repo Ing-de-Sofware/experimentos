@@ -8,10 +8,16 @@
   <button (click)="navigateToDoctors()" class="btn btn-primary">Available Doctors</button>
 
   <span class="spacer"></span>
-  <a mat-button *ngFor="let option of optionsPatients; let i = index" [routerLink]="option.path" routerLinkActive="active-button" class="nav-button" [class.first-button]="i === 0">
-    <div class="icon-text">
-      <img [src]="option.icon" alt="{{option.title}}" class="option-icon">
-    </div>
-    {{ option.title }}
+  <a mat-button
+     *ngFor="let option of optionsPatients; let i = index"
+     [routerLink]="option.path"
+     routerLinkActive="active-button"
+     class="nav-button"
+     [class.first-button]="i === 0">
+  <span class="icon-text">
+    <img [src]="option.icon" class="option-icon" alt="{{option.title}}">
+    <span class="option-label">{{ option.title }}</span>
+  </span>
   </a>
+
 </mat-toolbar>

@@ -12,37 +12,6 @@ html, body {
   width: 100%;
 }
 
-/* ==== HEADER ==== */
-.main-header {
-  background-color: #8c5e9b;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-}
-.logo {
-  height: 36px;
-}
-.brand-title {
-  font-weight: bold;
-  font-size: 1.4rem;
-  margin-left: 0.5rem;
-}
-.header-left {
-  display: flex;
-  align-items: center;
-}
-.header-nav {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-.header-nav mat-icon {
-  font-size: 26px;
-  cursor: pointer;
-}
-
 /* ==== MAIN WRAPPER ==== */
 .dashboard-wrapper {
   display: flex;
@@ -174,12 +143,12 @@ html, body {
 .doctor-cards {
   display: flex;
   flex-wrap: wrap; /* Permite que bajen si no entran */
-  gap: 2rem;
+  gap: 1.5rem;
   justify-content: center; /* Centrado horizontal */
 }
 
 .doctor-card {
-  width: 250px;
+  max-width: 200px;
   height: auto;
   background-color: white;
   padding: 1.5rem;
@@ -198,3 +167,4 @@ html, body {
 .doctor-price {
   margin-bottom: 0.3rem;
 }
+

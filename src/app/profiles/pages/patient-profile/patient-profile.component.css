@@ -1,3 +1,7 @@
+:host {
+  display: block;
+  margin-top: 64px; /* altura real de tu <mat-toolbar> */
+}
 mat-grid-list {
   background-color: #e5dde6;
 }

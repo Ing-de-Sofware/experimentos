@@ -1,9 +1,11 @@
-/* ==== SECTION ==== */
+:host {
+  display: block;
+  margin-top: 64px; /* altura real de tu <mat-toolbar> */
+}/* ==== SECTION ==== */
 section {
   box-sizing: border-box;
   width: 100%;
-  height: auto;
-  padding: 10px;
+  height: 100%;
   border: 1px solid black;
   display: flex;
   justify-content: center;
@@ -11,14 +13,11 @@ section {
 .find-doctors-wrapper {
   display: flex;
   justify-content: center;
-  padding: 2rem 1rem;
+
   background-color: #f4eef6;
 }
 /* home-patient.component.css  o  :host */
-:host {
-  display: block;
-  margin-top: 64px; /* altura real de tu <mat-toolbar> */
-}
+
 
 
 /* ==== GRID ==== */
@@ -26,6 +25,7 @@ mat-grid-list {
   width: 100%;
   height: auto;
   box-sizing: border-box;
+  min-height: calc(100vh - 100px);
 }
 
 /* ==== TILE ==== */
