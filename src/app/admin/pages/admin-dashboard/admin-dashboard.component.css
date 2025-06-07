@@ -43,7 +43,7 @@ mat-card-content p {
 }
 .admin-layout {
   display: flex;
-  height: calc(91.7vh - 64px);
+  height: calc(91.9vh - 64px);
   font-family: 'Segoe UI', sans-serif;
   overflow: hidden;
 }
