@@ -1,3 +1,4 @@
+
 .dashboard-container {
   padding: 30px;
 }
@@ -42,8 +43,9 @@ mat-card-content p {
 }
 .admin-layout {
   display: flex;
-  height: 100vh;
+  height: calc(91.7vh - 64px);
   font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
 }
 
 .sidebar {
@@ -75,9 +77,11 @@ mat-card-content p {
 
 .dashboard-main {
   flex: 1;
-  background: #f3e5f5;
   padding: 2rem;
+  background: #f3e5f5;
   overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .dashboard-header {
@@ -127,6 +131,7 @@ mat-card-content p {
 
 .charts {
   width: 100%;
+  height: 100px;
   margin-top: 2rem;
 }
 
@@ -192,3 +197,12 @@ mat-card-content p {
   transition: 0.3s ease;
 }
 
+
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+}
