@@ -1,37 +1,115 @@
+<div class="admin-layout" [class.dark-mode]="isDarkMode">
 
-<div class="admin-layout">
+  <!-- Sidebar -->
   <aside class="sidebar">
     <img src="assets/images/logo.png" class="logo" />
     <nav>
-      <a routerLink="/adminDashboard" class="active">Dashboard</a>
-      <a routerLink="/announcementsAdmin">Comunicados</a>
-      <a routerLink="/logs">Logs</a>
-      <a routerLink="/reassign">Reasignar</a>
-      <a routerLink="/support">Soporte</a>
-      <a routerLink="/user-management">Usuarios</a>
+      <a routerLink="/adminDashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/announcementsAdmin" routerLinkActive="active">Comunicados</a>
+      <a routerLink="/logs" routerLinkActive="active">Logs</a>
+      <a routerLink="/reassign" routerLinkActive="active">Reasignar</a>
+      <a routerLink="/support" routerLinkActive="active">Soporte</a>
+      <a routerLink="/user-management" routerLinkActive="active">Usuarios</a>
     </nav>
   </aside>
 
+  <!-- Main Dashboard -->
   <main class="dashboard-main">
     <header class="dashboard-header">
       <h2>Panel de Control</h2>
-      <div class="user-box">
-        <span>Admin</span>
-        <img src="assets/images/admin.png" alt="admin" />
-      </div>
     </header>
 
-    <section class="cards">
-      <div class="card pink"> <h3>15,000</h3><p>Comunicados enviados</p></div>
-      <div class="card blue"> <h3>45,633</h3><p>Logs registrados</p></div>
-      <div class="card green"> <h3>3,012</h3><p>Pacientes reasignados</p></div>
+    <!-- Stats Cards -->
+    <section class="quick-actions">
+      <h3>Acciones rápidas</h3>
+      <div class="action-buttons">
+        <button mat-raised-button color="primary">📢 Crear Comunicado</button>
+        <button mat-raised-button color="accent">🧑‍⚕️ Registrar nuevo médico</button>
+        <button mat-raised-button color="warn">🕵️ Revisar logs</button>
+        <button mat-raised-button color="primary">❗ Reasignar paciente</button>
+        <button mat-raised-button color="accent">💬 Ver solicitudes de soporte</button>
+      </div>
     </section>
 
+    <section class="cards">
+      <div class="card pink"><h3>15,000</h3><p>Comunicados enviados</p></div>
+      <div class="card blue"><h3>45,633</h3><p>Logs registrados</p></div>
+      <div class="card green"><h3>3,012</h3><p>Pacientes reasignados</p></div>
+      <div class="card red"><h3>87</h3><p>Intentos de login fallidos</p></div>
+      <div class="card purple"><h3>124</h3><p>Nuevos usuarios registrados</p></div>
+      <div class="card yellow"><h3>2h 14m</h3><p>Tiempo promedio de respuesta</p></div>
+      <div class="card orange"><h3>16</h3><p>Solicitudes de soporte abiertas</p></div>
+    </section>
+
+    <section class="logs-row">
+      <div class="recent-activity">
+        <h3>Movimientos recientes</h3>
+        <ul class="activity-list">
+          <li>[06/06 14:20] Usuario <strong>ana99</strong> cambió su contraseña</li>
+          <li>[06/06 14:10] Comunicado enviado a todos los doctores</li>
+          <li>[06/06 13:58] Nuevo usuario <strong>juanita23</strong> registrado</li>
+          <li>[06/06 13:45] Doctor <strong>rmendoza</strong> se reasignó a paciente #303</li>
+          <li>[06/06 13:30] Solicitud de soporte marcada como resuelta</li>
+        </ul>
+      </div>
+
+      <div class="critical-logs">
+        <h3>Logs críticos y accesos sospechosos</h3>
+        <div class="log-block">
+          <h4>🔴 Últimos errores del sistema</h4>
+          <ul>
+            <li>[06/06 14:00] Error 500 en `/api/assign-doctor`</li>
+            <li>[06/06 13:40] Timeout en `/api/support`</li>
+          </ul>
+        </div>
+        <div class="log-block">
+          <h4>⚠️ IPs con múltiples accesos fallidos</h4>
+          <ul>
+            <li>192.168.1.44 — 5 intentos fallidos</li>
+            <li>190.12.55.88 — 3 intentos fallidos</li>
+          </ul>
+        </div>
+        <div class="log-block">
+          <h4>🕵️ Alertas de comportamiento sospechoso</h4>
+          <ul>
+            <li>Usuario `admin1` inició sesión desde ubicación inusual</li>
+            <li>Intento de acceso a `/admin/reassign` sin permisos</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Charts -->
     <section class="charts">
+      <div class="chart-card">
+        <h3>Consultas vs Seguimientos</h3>
+        <canvas baseChart
+                #lineChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [legend]="true"
+                [type]="'line'">
+        </canvas>
+      </div>
+
+      <div class="chart-card">
+        <h3>Logs por tipo (semana)</h3>
+        <canvas baseChart
+                #stackedChart
+                [datasets]="stackedBarData"
+                [labels]="stackedBarLabels"
+                [options]="stackedBarOptions"
+                [legend]="true"
+                [type]="'bar'">
+        </canvas>
+      </div>
+
       <div class="dashboard-charts">
         <div class="chart-card">
           <h3>Visit and Follow-up Statistics</h3>
           <canvas baseChart
+                  #barChart
                   [data]="barChartData"
                   [options]="barChartOptions"
                   [type]="'bar'">
@@ -41,14 +119,14 @@
         <div class="chart-card pie">
           <h3>Traffic Sources</h3>
           <canvas baseChart
+                  #pieChart
                   [data]="pieChartData"
+                  [options]="pieChartOptions"
                   [type]="pieChartType">
           </canvas>
         </div>
-
       </div>
-
     </section>
+
   </main>
 </div>
-

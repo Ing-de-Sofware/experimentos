@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -149,7 +150,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     UserListComponent,
     ChatComponent,
-    MedicationFormComponent,
+    MedicationFormComponent
 
   ],
   imports: [
@@ -234,7 +235,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AuthModule,
     CalendarModule,
     ProfilesModule,
-    SharedModule
+    SharedModule,
+    NgChartsModule
 
   ],
   providers: [
@@ -244,7 +246,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   exports: [
     PatientsReminderComponent,
-    PatientsPendingTaskComponent
+    PatientsPendingTaskComponent,
+
   ],
 
   bootstrap: [AppComponent]

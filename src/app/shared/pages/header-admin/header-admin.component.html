@@ -4,7 +4,14 @@
     <span class="brand-title">HormonalCare Admin</span>
   </div>
   <span class="spacer"></span>
-  <a mat-button routerLink="/adminDashboard/announcements" class="nav-button">Comunicados</a>
-  <a mat-button routerLink="/adminDashboard/users" class="nav-button">Usuarios</a>
-  <a mat-button routerLink="/logout" class="nav-button">Cerrar sesión</a>
+  <div class="admin-info">
+    <button mat-icon-button (click)="toggleDarkMode()" aria-label="Toggle dark mode">
+      <mat-icon>{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+
+
+    <span class="admin-name">Admin</span>
+    <img src="assets/images/admin.png" alt="admin" class="admin-avatar" />
+    <a mat-button routerLink="/logout" class="nav-button">Cerrar sesión</a>
+  </div>
 </mat-toolbar>
