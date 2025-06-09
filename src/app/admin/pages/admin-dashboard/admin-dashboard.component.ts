@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 import {DarkModeService} from "../../../shared/services/dark-mode.service";
-import {Router, RouterLink} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {MatIcon} from "@angular/material/icon";
 
 @Component({
@@ -10,11 +10,17 @@ import {MatIcon} from "@angular/material/icon";
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css'],
   standalone: true,
-  imports: [NgChartsModule, MatIcon, RouterLink]
+  imports: [NgChartsModule, RouterLink, MatIcon, RouterLinkActive]
 })
 export class AdminDashboardComponent implements OnInit {
-
+  isSidebarClosed = false;
   isDarkMode = false;
+  sidebarVisible = true;
+  toggleSidebar() {
+    this.isSidebarClosed = !this.isSidebarClosed;
+  }
+
+
 
   @ViewChild('lineChart') lineChart!: BaseChartDirective;
   @ViewChild('stackedChart') stackedChart!: BaseChartDirective;
@@ -28,66 +34,11 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.darkModeService.darkMode$.subscribe(mode => {
       this.isDarkMode = mode;
-      this.applyChartTheme();
     });
   }
 
 
-  private refreshCharts(): void {
-    setTimeout(() => {
-      this.lineChart?.update();
-      this.stackedChart?.update();
-      this.pieChart?.update();
-      this.barChart?.update();
-    }, 100);
-  }
 
-  private applyChartTheme(): void {
-    const legendColor = this.isDarkMode ? '#ffffff' : '#333333';
-    const ticksColor = this.isDarkMode ? '#ffffff' : '#555555';
-
-    this.lineChartOptions = {
-      responsive: true,
-      plugins: {
-        legend: { position: 'top', labels: { color: legendColor } }
-      },
-      scales: {
-        x: { ticks: { color: ticksColor } },
-        y: { beginAtZero: true, ticks: { color: ticksColor } }
-      }
-    };
-
-    this.stackedBarOptions = {
-      responsive: true,
-      plugins: {
-        legend: { position: 'top', labels: { color: legendColor } }
-      },
-      scales: {
-        x: { stacked: true, ticks: { color: ticksColor } },
-        y: { stacked: true, beginAtZero: true, ticks: { color: ticksColor } }
-      }
-    };
-
-    this.pieChartOptions = {
-      responsive: true,
-      plugins: {
-        legend: { position: 'top', labels: { color: legendColor } }
-      }
-    };
-
-    this.barChartOptions = {
-      responsive: true,
-      plugins: {
-        legend: { labels: { color: legendColor } }
-      },
-      scales: {
-        x: { ticks: { color: ticksColor } },
-        y: { beginAtZero: true, ticks: { color: ticksColor } }
-      }
-    };
-
-    this.refreshCharts();
-  }
 
 
   cards = [
@@ -98,52 +49,5 @@ export class AdminDashboardComponent implements OnInit {
     { title: 'Gestión de Usuarios', description: 'Visualiza y administra usuarios registrados', icon: 'group', route: 'user-management' }
   ];
 
-  // === Charts ===
 
-  public lineChartLabels: string[] = ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'];
-  public lineChartData = [
-    {
-      data: [50, 65, 70, 80],
-      label: 'Consultas',
-      fill: true,
-      tension: 0.4,
-      borderColor: '#42A5F5',
-      backgroundColor: 'rgba(66,165,245,0.2)',
-      pointBackgroundColor: '#42A5F5'
-    },
-    {
-      data: [40, 45, 60, 72],
-      label: 'Seguimientos',
-      fill: true,
-      tension: 0.4,
-      borderColor: '#66BB6A',
-      backgroundColor: 'rgba(102,187,106,0.2)',
-      pointBackgroundColor: '#66BB6A'
-    }
-  ];
-  public lineChartOptions: any;
-
-  public stackedBarLabels: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-  public stackedBarData = [
-    { label: 'INFO', data: [30, 25, 35, 40, 32], backgroundColor: '#64b5f6' },
-    { label: 'WARN', data: [12, 14, 9, 10, 8], backgroundColor: '#ffb74d' },
-    { label: 'ERROR', data: [4, 2, 6, 3, 1], backgroundColor: '#e57373' }
-  ];
-  public stackedBarOptions: any;
-
-  public barChartData: ChartData<'bar'> = {
-    labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'],
-    datasets: [
-      { data: [35, 49, 32, 50, 40], label: 'Pacientes' },
-      { data: [20, 34, 27, 44, 30], label: 'Seguimientos' }
-    ]
-  };
-  public barChartOptions: any;
-
-  public pieChartData: ChartData<'pie', number[], string> = {
-    labels: ['Search Engines', 'Direct Click', 'Referral'],
-    datasets: [{ data: [30, 30, 40] }]
-  };
-  public pieChartType: ChartType = 'pie';
-  public pieChartOptions: any;
 }

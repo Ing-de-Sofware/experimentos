@@ -7,7 +7,7 @@
   </section>
   <!-- Stats Cards -->
   <section class="quick-actions">
-    <h3>Quick Actions</h3>
+    <h2>Quick Actions</h2>
     <div class="action-buttons">
       <button mat-raised-button color="primary" (click)="goTo('/announcementsAdmin')">
         📢 Create Announcement
@@ -34,6 +34,12 @@
         <mat-icon>dashboard</mat-icon>
         <span>Dashboard</span>
       </button>
+
+      <button mat-raised-button color="warn" (click)="goTo('/stats')" matTooltip="Detailed analytics and performance metrics">
+        <mat-icon>bar_chart</mat-icon>
+        <span>Statistics</span>
+      </button>
+
 
       <button mat-raised-button color="accent" (click)="goTo('/announcementsAdmin')" matTooltip="Create and manage global announcements">
         <mat-icon>campaign</mat-icon>

@@ -1,0 +1,47 @@
+<div class="admin-layout" [class.dark-mode]="isDarkMode">
+
+  <!-- Toggle sidebar -->
+  <button class="sidebar-toggle" (click)="toggleSidebar()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.closed]="isSidebarClosed">
+    <img src="assets/images/logo.png" class="logo" />
+    <nav>
+      <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/admin/stats" routerLinkActive="active">Stats</a>
+      <a routerLink="/admin/announcementsAdmin" routerLinkActive="active">Announcements</a>
+      <a routerLink="/admin/logs" routerLinkActive="active">Logs</a>
+      <a routerLink="/admin/reassignPatient" routerLinkActive="active">Reassign</a>
+      <a routerLink="/admin/support" routerLinkActive="active">Support</a>
+      <a routerLink="/admin/user-management" routerLinkActive="active">Users</a>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <main class="dashboard-main">
+    <header class="dashboard-header">
+      <h2 i18n>HormonalCare Admin</h2>
+
+      <div class="user-box">
+        <!-- Language selector -->
+        <select (change)="switchLang($event.target.value)">
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+        </select>
+
+        <!-- Toggle dark mode -->
+        <button mat-icon-button (click)="toggleDarkMode()" [matTooltip]="isDarkMode ? 'Light Mode' : 'Dark Mode'">
+          <mat-icon>{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+
+        <!-- Avatar -->
+        <img src="assets/images/avatar.png" alt="Avatar" />
+      </div>
+    </header>
+
+    <!-- Children views -->
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -7,11 +7,13 @@ import { UserManagementComponent } from './pages/user-management/user-management
 import { AnnouncementsAdminComponent } from './pages/announcements-admin/announcements-admin.component';
 import {ReassignPatientComponent} from "./pages/reassign-patient/reassign-patient.component";
 import {HomeAdminComponent} from "../profiles/pages/home-admin/home-admin.component";
+import {AdminStatsComponent} from "./pages/admin-stats/admin-stats.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirige /admin a /admin/home
   { path: 'home', component: HomeAdminComponent },
   { path: 'dashboard', component: AdminDashboardComponent },
+  {path: 'stats', component: AdminStatsComponent },
   { path: 'reassignPatient', component: ReassignPatientComponent },
   { path: 'logs', component: LogsComponent },
   { path: 'support', component: SupportComponent },

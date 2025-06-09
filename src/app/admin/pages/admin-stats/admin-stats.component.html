@@ -1,1 +1,90 @@
-<p>admin-stats works!</p>
+<div class="admin-stats-container">
+  <header class="stats-header">
+    <h2>Detailed Statistics</h2>
+    <p>Analyze system performance and activity patterns across users and modules.</p>
+  </header>
+
+  <!-- Charts -->
+  <section class="stats-graphs">
+    <div class="chart-card">
+      <h3>Monthly Activity Comparison</h3>
+      <canvas baseChart
+              [data]="monthlyActivityData"
+              [options]="monthlyActivityOptions"
+              [type]="'bar'">
+      </canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3>User Role Distribution</h3>
+      <canvas baseChart
+              [data]="userRolesData"
+              [options]="userRolesOptions"
+              [type]="'pie'">
+      </canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3>Response Time Trends</h3>
+      <canvas baseChart
+              [data]="responseTimeData"
+              [options]="responseTimeOptions"
+              [type]="'line'">
+      </canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3>Support Tickets by Category</h3>
+      <canvas baseChart
+              [data]="ticketCategoryData"
+              [options]="ticketCategoryOptions"
+              [type]="'bar'">
+      </canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3>Consultations vs Follow-ups</h3>
+      <canvas baseChart
+              #lineChart
+              [datasets]="lineChartData"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [legend]="true"
+              [type]="'line'">
+      </canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3>Logs by Type (Weekly)</h3>
+      <canvas baseChart
+              #stackedChart
+              [datasets]="stackedBarData"
+              [labels]="stackedBarLabels"
+              [options]="stackedBarOptions"
+              [legend]="true"
+              [type]="'bar'">
+      </canvas>
+    </div>
+
+      <div class="chart-card">
+        <h3>Visit and Follow-up Statistics</h3>
+        <canvas baseChart
+                #barChart
+                [data]="barChartData"
+                [options]="barChartOptions"
+                [type]="'bar'">
+        </canvas>
+      </div>
+
+      <div class="chart-card">
+        <h3>Traffic Sources</h3>
+        <canvas baseChart
+                #pieChart
+                [data]="pieChartData"
+                [options]="pieChartOptions"
+                [type]="pieChartType">
+        </canvas>
+      </div>
+
+  </section>
+</div>

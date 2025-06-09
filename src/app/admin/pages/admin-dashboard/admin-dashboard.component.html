@@ -1,10 +1,13 @@
 <div class="admin-layout" [class.dark-mode]="isDarkMode">
 
+
+
   <!-- Sidebar -->
-  <aside class="sidebar">
+  <aside class="sidebar" [class.closed]="isSidebarClosed">
     <img src="assets/images/logo.png" class="logo" />
     <nav>
       <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/admin/stats" routerLinkActive="active">Stats</a>
       <a routerLink="/admin/announcementsAdmin" routerLinkActive="active">Announcements</a>
       <a routerLink="/admin/logs" routerLinkActive="active">Logs</a>
       <a routerLink="/admin/reassignPatient" routerLinkActive="active">Reassign</a>
@@ -15,10 +18,15 @@
 
   <!-- Main Dashboard -->
   <main class="dashboard-main">
-    <header class="dashboard-header">
-      <h2>Control Panel</h2>
-    </header>
 
+    <header class="dashboard-header">
+      <div class="header-left">
+        <button class="sidebar-toggle" (click)="toggleSidebar()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <h2>System Overview</h2>
+      </div>
+    </header>
 
 
     <section class="cards">
@@ -69,53 +77,6 @@
       </div>
     </section>
 
-    <!-- Charts -->
-    <section class="charts">
-      <div class="chart-card">
-        <h3>Consultations vs Follow-ups</h3>
-        <canvas baseChart
-                #lineChart
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [legend]="true"
-                [type]="'line'">
-        </canvas>
-      </div>
 
-      <div class="chart-card">
-        <h3>Logs by Type (Weekly)</h3>
-        <canvas baseChart
-                #stackedChart
-                [datasets]="stackedBarData"
-                [labels]="stackedBarLabels"
-                [options]="stackedBarOptions"
-                [legend]="true"
-                [type]="'bar'">
-        </canvas>
-      </div>
-
-      <div class="dashboard-charts">
-        <div class="chart-card">
-          <h3>Visit and Follow-up Statistics</h3>
-          <canvas baseChart
-                  #barChart
-                  [data]="barChartData"
-                  [options]="barChartOptions"
-                  [type]="'bar'">
-          </canvas>
-        </div>
-
-        <div class="chart-card pie">
-          <h3>Traffic Sources</h3>
-          <canvas baseChart
-                  #pieChart
-                  [data]="pieChartData"
-                  [options]="pieChartOptions"
-                  [type]="pieChartType">
-          </canvas>
-        </div>
-      </div>
-    </section>
   </main>
 </div>
