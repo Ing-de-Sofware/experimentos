@@ -1,44 +1,63 @@
 <div class="home-admin-container">
   <section class="welcome-section">
-    <h1>Bienvenido, {{ username }} 👋</h1>
-    <p class="session-info">ID de sesión: <strong>{{ userId }}</strong></p>
-    <p>Este es el panel principal de administración de <strong>HormonalCare</strong>.</p>
-    <p>Desde aquí podrás gestionar comunicados, usuarios, soporte, seguridad y más.</p>
-
-
+    <h1>Welcome, {{ username }} 👋</h1>
+    <p>Session ID: {{ userId }}</p>
+    <p>This is the main administration panel of <strong>HormonalCare</strong>.</p>
+    <p>From here you can manage announcements, users, support, security and more.</p>
+  </section>
+  <!-- Stats Cards -->
+  <section class="quick-actions">
+    <h3>Quick Actions</h3>
+    <div class="action-buttons">
+      <button mat-raised-button color="primary" (click)="goTo('/announcementsAdmin')">
+        📢 Create Announcement
+      </button>
+      <button mat-raised-button color="accent" (click)="goTo('/registerDoctor')">
+        🧑‍⚕️ Register New Doctor
+      </button>
+      <button mat-raised-button color="warn" (click)="goTo('/logs')">
+        🕵️ Review Logs
+      </button>
+      <button mat-raised-button color="primary" (click)="goTo('/reassignPatient')">
+        ❗ Reassign Patient
+      </button>
+      <button mat-raised-button color="accent" (click)="goTo('/support')">
+        💬 View Support Requests
+      </button>
+    </div>
   </section>
 
   <section class="quick-links">
-    <h2>Accesos rápidos</h2>
+    <h2>Quick Access</h2>
     <div class="button-grid">
-      <button mat-raised-button color="primary" (click)="goTo('/dashboard')">
+      <button mat-raised-button color="primary" (click)="goTo('/dashboard')" matTooltip="View overall statistics and system activity">
         <mat-icon>dashboard</mat-icon>
         <span>Dashboard</span>
       </button>
 
-      <button mat-raised-button color="accent" (click)="goTo('/announcementsAdmin')">
+      <button mat-raised-button color="accent" (click)="goTo('/announcementsAdmin')" matTooltip="Create and manage global announcements">
         <mat-icon>campaign</mat-icon>
-        <span>Comunicados</span>
+        <span>Announcements</span>
       </button>
 
-      <button mat-raised-button color="warn" (click)="goTo('/logs')">
+      <button mat-raised-button color="warn" (click)="goTo('/logs')" matTooltip="Review suspicious login attempts and access logs">
         <mat-icon>security</mat-icon>
-        <span>Logs de Acceso</span>
+        <span>Access Logs</span>
       </button>
 
-      <button mat-raised-button color="primary" (click)="goTo('/reassignPatient')">
+      <button mat-raised-button color="primary" (click)="goTo('/reassignPatient')"  matTooltip="Reassign patients to different doctors">
         <mat-icon>sync_alt</mat-icon>
-        <span>Reasignar Pacientes</span>
+        <span>Reassign Patients</span>
       </button>
 
-      <button mat-raised-button color="accent" (click)="goTo('/support')">
+      <button mat-raised-button color="accent" (click)="goTo('/support')" matTooltip="Manage technical support requests">
         <mat-icon>support_agent</mat-icon>
-        <span>Soporte Técnico</span>
+        <span>Support</span>
       </button>
 
-      <button mat-raised-button color="primary" (click)="goTo('/user-management')">
+      <button mat-raised-button color="primary" (click)="goTo('/user-management')" matTooltip="Manage registered users and their roles" >
         <mat-icon>group</mat-icon>
-        <span>Gestión de Usuarios</span>
+        <span>User Management</span>
       </button>
     </div>
   </section>

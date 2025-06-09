@@ -4,87 +4,66 @@
   <aside class="sidebar">
     <img src="assets/images/logo.png" class="logo" />
     <nav>
-      <a routerLink="/adminDashboard" routerLinkActive="active">Dashboard</a>
-      <a routerLink="/announcementsAdmin" routerLinkActive="active">Comunicados</a>
-      <a routerLink="/logs" routerLinkActive="active">Logs</a>
-      <a routerLink="/reassign" routerLinkActive="active">Reasignar</a>
-      <a routerLink="/support" routerLinkActive="active">Soporte</a>
-      <a routerLink="/user-management" routerLinkActive="active">Usuarios</a>
+      <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/admin/announcementsAdmin" routerLinkActive="active">Announcements</a>
+      <a routerLink="/admin/logs" routerLinkActive="active">Logs</a>
+      <a routerLink="/admin/reassignPatient" routerLinkActive="active">Reassign</a>
+      <a routerLink="/admin/support" routerLinkActive="active">Support</a>
+      <a routerLink="/admin/user-management" routerLinkActive="active">Users</a>
     </nav>
   </aside>
 
   <!-- Main Dashboard -->
   <main class="dashboard-main">
     <header class="dashboard-header">
-      <h2>Panel de Control</h2>
+      <h2>Control Panel</h2>
     </header>
 
-    <!-- Stats Cards -->
-    <section class="quick-actions">
-      <h3>Acciones rápidas</h3>
-      <div class="action-buttons">
-        <button mat-raised-button color="primary" (click)="goTo('/announcementsAdmin')">
-          📢 Crear Comunicado
-        </button>
-        <button mat-raised-button color="accent" (click)="goTo('/registerDoctor')">
-          🧑‍⚕️ Registrar nuevo médico
-        </button>
-        <button mat-raised-button color="warn" (click)="goTo('/logs')">
-          🕵️ Revisar logs
-        </button>
-        <button mat-raised-button color="primary" (click)="goTo('/reassign')">
-          ❗ Reasignar paciente
-        </button>
-        <button mat-raised-button color="accent" (click)="goTo('/support')">
-          💬 Ver solicitudes de soporte
-        </button>
 
-      </div>
-    </section>
 
     <section class="cards">
-      <div class="card pink"><h3>15,000</h3><p>Comunicados enviados</p></div>
-      <div class="card blue"><h3>45,633</h3><p>Logs registrados</p></div>
-      <div class="card green"><h3>3,012</h3><p>Pacientes reasignados</p></div>
-      <div class="card red"><h3>87</h3><p>Intentos de login fallidos</p></div>
-      <div class="card purple"><h3>124</h3><p>Nuevos usuarios registrados</p></div>
-      <div class="card yellow"><h3>2h 14m</h3><p>Tiempo promedio de respuesta</p></div>
-      <div class="card orange"><h3>16</h3><p>Solicitudes de soporte abiertas</p></div>
+      <div class="card pink"><h3>15,000</h3><p>Announcements Sent</p></div>
+      <div class="card blue"><h3>45,633</h3><p>Logs Recorded</p></div>
+      <div class="card green"><h3>3,012</h3><p>Patients Reassigned</p></div>
+      <div class="card red"><h3>87</h3><p>Failed Login Attempts</p></div>
+      <div class="card purple"><h3>124</h3><p>New Registered Users</p></div>
+      <div class="card yellow"><h3>2h 14m</h3><p>Average Response Time</p></div>
+      <div class="card orange"><h3>16</h3><p>Open Support Tickets</p></div>
     </section>
 
     <section class="logs-row">
       <div class="recent-activity">
-        <h3>Movimientos recientes</h3>
+        <h3>Recent Activity</h3>
         <ul class="activity-list">
-          <li>[06/06 14:20] Usuario <strong>ana99</strong> cambió su contraseña</li>
-          <li>[06/06 14:10] Comunicado enviado a todos los doctores</li>
-          <li>[06/06 13:58] Nuevo usuario <strong>juanita23</strong> registrado</li>
-          <li>[06/06 13:45] Doctor <strong>rmendoza</strong> se reasignó a paciente #303</li>
-          <li>[06/06 13:30] Solicitud de soporte marcada como resuelta</li>
+          <li>[06/06 14:20] User <strong>ana99</strong> changed password</li>
+          <li>[06/06 14:10] Announcement sent to all doctors</li>
+          <li>[06/06 13:58] New user <strong>juanita23</strong> registered</li>
+          <li>[06/06 13:45] Doctor <strong>rmendoza</strong> reassigned to patient #303</li>
+          <li>[06/06 13:30] Support request marked as resolved</li>
         </ul>
       </div>
 
       <div class="critical-logs">
-        <h3>Logs críticos y accesos sospechosos</h3>
+        <h3>Critical Logs & Suspicious Access</h3>
         <div class="log-block">
-          <h4>🔴 Últimos errores del sistema</h4>
+          <h4>🔴 Latest System Errors</h4>
           <ul>
-            <li>[06/06 14:00] Error 500 en `/api/assign-doctor`</li>
-            <li>[06/06 13:40] Timeout en `/api/support`</li>
+            <li>[06/06 14:00] 500 Error on `/api/assign-doctor`</li>
+            <li>[06/06 13:40] Timeout on `/api/support`</li>
           </ul>
         </div>
         <div class="log-block">
-          <h4>⚠️ IPs con múltiples accesos fallidos</h4>
+          <h4>⚠️ IPs with Multiple Failed Accesses</h4>
           <ul>
-            <li>192.168.1.44 — 5 intentos fallidos</li>
-            <li>190.12.55.88 — 3 intentos fallidos</li>
+            <li>192.168.1.44 — 5 failed attempts</li>
+            <li>190.12.55.88 — 3 failed attempts</li>
           </ul>
         </div>
         <div class="log-block">
-          <h4>🕵️ Alertas de comportamiento sospechoso</h4>
+          <h4>🕵️ Suspicious Behavior Alerts</h4>
           <ul>
-            <li>Usuario `admin1` inició sesión desde ubicación inusual</li>
-            <li>Intento de acceso a `/admin/reassign` sin permisos</li>
+            <li>User `admin1` logged in from unusual location</li>
+            <li>Unauthorized access attempt to `/admin/reassign`</li>
           </ul>
         </div>
       </div>
@@ -93,7 +72,7 @@
     <!-- Charts -->
     <section class="charts">
       <div class="chart-card">
-        <h3>Consultas vs Seguimientos</h3>
+        <h3>Consultations vs Follow-ups</h3>
         <canvas baseChart
                 #lineChart
                 [datasets]="lineChartData"
@@ -105,7 +84,7 @@
       </div>
 
       <div class="chart-card">
-        <h3>Logs por tipo (semana)</h3>
+        <h3>Logs by Type (Weekly)</h3>
         <canvas baseChart
                 #stackedChart
                 [datasets]="stackedBarData"

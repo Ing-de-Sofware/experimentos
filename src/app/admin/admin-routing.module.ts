@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirige /admin a /admin/home
   { path: 'home', component: HomeAdminComponent },
   { path: 'dashboard', component: AdminDashboardComponent },
-  { path: 'reassign', component: ReassignPatientComponent },
+  { path: 'reassignPatient', component: ReassignPatientComponent },
   { path: 'logs', component: LogsComponent },
   { path: 'support', component: SupportComponent },
   { path: 'user-management', component: UserManagementComponent },

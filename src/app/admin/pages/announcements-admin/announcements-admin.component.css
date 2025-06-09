@@ -1,6 +1,6 @@
 /* === CONTENEDOR GENERAL === */
 .announcement-wrapper {
-  min-height: calc(100vh - 160px);
+  min-height: calc(100vh - 256px);
   display: flex;
   align-items: center;
   justify-content: center;

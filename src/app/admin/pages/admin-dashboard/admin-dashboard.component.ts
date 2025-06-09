@@ -2,14 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 import {DarkModeService} from "../../../shared/services/dark-mode.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css'],
   standalone: true,
-  imports: [NgChartsModule]
+  imports: [NgChartsModule, MatIcon, RouterLink]
 })
 export class AdminDashboardComponent implements OnInit {
 

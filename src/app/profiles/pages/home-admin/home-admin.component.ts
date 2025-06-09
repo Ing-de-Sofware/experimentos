@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {AuthenticationService} from "../../../iam/services/authentication.service";
 import {MatIcon} from "@angular/material/icon";
 import {CommonModule} from "@angular/common";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-home-admin',
@@ -11,6 +12,7 @@ import {CommonModule} from "@angular/common";
   imports: [
     MatIcon,
     CommonModule,
+    MatTooltip,
 
   ],
   standalone: true
