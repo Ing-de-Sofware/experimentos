@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AnnouncementEntity } from '../../model/announcement.entity';
-import { AnnouncementService } from '../../services/announcement.service';
+import { AnnouncementEntity } from '../../../notifications/model/announcement.entity';
+import { AnnouncementService } from '../../../notifications/services/announcement.service';
 
 @Component({
   selector: 'app-announcements-admin',

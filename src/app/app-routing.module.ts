@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {CalendarViewComponent} from './calendar/pages/calendar-view/calendar-view.component';
 import {DoctorChatComponent} from './communications/pages/doctor-chat/doctor-chat.component';
 import {NotificationsViewComponent} from './notifications/pages/notifications-view/notifications-view.component';
 import {PageNotFoundComponent} from './public/pages/page-not-found/page-not-found.component';
@@ -16,21 +15,11 @@ import {PatientProfileComponent} from './profiles/pages/patient-profile/patient-
 import {SelectUserRoleComponent} from './identity-and-access/pages/select-user-role/select-user-role.component';
 import {HeaderDoctorComponent} from './shared/pages/header-doctor/header-doctor.component';
 import {HeaderPatientComponent} from './shared/pages/header-patient/header-patient.component';
-import {
-  ReasonconsultationComponent
-} from './medical-history/components/reasonconsultation/reasonconsultation.component';
-import {BackgroundComponent} from './medical-history/components/background/background.component';
-import {MedicalexamsComponent} from './medical-history/components/medicalexams/medicalexams.component';
-import {ExternalreportsComponent} from './medical-history/components/externalreports/externalreports.component';
-import {
-  DignosesandtreatmentComponent
-} from './medical-history/components/dignosesandtreatment/dignosesandtreatment.component';
-import {TreatmentPatientComponent} from './medical-history/pages/treatment-patient/treatment-patient.component';
+
 import {LoginComponent} from './identity-and-access/auth/components/login/login.component';
 import {RegisterComponent} from './identity-and-access/auth/components/register/register.component';
 import {ForgotPasswordComponent} from './identity-and-access/auth/components/forgot-password/forgot-password.component';
-import {AdminDashboardComponent} from "./admin/pages/admin-dashboard/admin-dashboard.component";
-import {AnnouncementsAdminComponent} from "./notifications/pages/announcements-admin/announcements-admin.component";
+
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -41,7 +30,6 @@ const routes: Routes = [
   {path: 'headerPatient', component: HeaderPatientComponent},
   {path: 'homeDoctor', component: HomeDoctorComponent},
   {path: 'homePatient', component: HomePatientComponent},
-  {path: 'adminDashboard', component: AdminDashboardComponent},
   {
     path: 'available-doctors',
     loadComponent: () =>
@@ -56,6 +44,7 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
   },
 
+
   {
 
     path: 'appointments/:id',
@@ -68,7 +57,7 @@ const routes: Routes = [
       import('./calendar/calendar.module').then(m => m.CalendarModule)
   },
   {
-    path: 'notificaciones',
+    path: 'notification',
     loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsModule)
   },
 

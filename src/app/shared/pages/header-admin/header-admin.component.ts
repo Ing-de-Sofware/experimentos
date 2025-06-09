@@ -4,6 +4,9 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIcon } from "@angular/material/icon";
+import {DarkModeService} from "../../services/dark-mode.service";
+import { Router } from "@angular/router";
+import { AuthenticationService} from "../../../iam/services/authentication.service";
 
 @Component({
   selector: 'app-header-admin',
@@ -21,24 +24,23 @@ import { MatIcon } from "@angular/material/icon";
 export class HeaderAdminComponent implements OnInit {
   isDarkMode = false;
 
-  ngOnInit(): void {
-    const stored = localStorage.getItem('dark-mode');
-    this.isDarkMode = stored === 'true';
+  constructor(
+    private darkModeService: DarkModeService,
+    private router: Router,
+    private authService: AuthenticationService
+  ) { }
 
-    // Aplica la clase dark-mode si está activada
-    const layout = document.querySelector('.admin-layout');
-    if (this.isDarkMode && layout) {
-      layout.classList.add('dark-mode');
-    }
+  ngOnInit(): void {
+    this.darkModeService.darkMode$.subscribe(mode => {
+      this.isDarkMode = mode;
+    });
   }
 
   toggleDarkMode(): void {
-    this.isDarkMode = !this.isDarkMode;
-    localStorage.setItem('dark-mode', String(this.isDarkMode));
-
-    const layout = document.querySelector('.admin-layout');
-    if (layout) {
-      layout.classList.toggle('dark-mode', this.isDarkMode);
-    }
+    this.darkModeService.toggle();
+  }
+  logout(): void {
+    this.authService.signOut();
+    this.router.navigate(['/login']);
   }
 }

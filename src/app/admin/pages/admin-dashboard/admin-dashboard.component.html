@@ -23,11 +23,22 @@
     <section class="quick-actions">
       <h3>Acciones rápidas</h3>
       <div class="action-buttons">
-        <button mat-raised-button color="primary">📢 Crear Comunicado</button>
-        <button mat-raised-button color="accent">🧑‍⚕️ Registrar nuevo médico</button>
-        <button mat-raised-button color="warn">🕵️ Revisar logs</button>
-        <button mat-raised-button color="primary">❗ Reasignar paciente</button>
-        <button mat-raised-button color="accent">💬 Ver solicitudes de soporte</button>
+        <button mat-raised-button color="primary" (click)="goTo('/announcementsAdmin')">
+          📢 Crear Comunicado
+        </button>
+        <button mat-raised-button color="accent" (click)="goTo('/registerDoctor')">
+          🧑‍⚕️ Registrar nuevo médico
+        </button>
+        <button mat-raised-button color="warn" (click)="goTo('/logs')">
+          🕵️ Revisar logs
+        </button>
+        <button mat-raised-button color="primary" (click)="goTo('/reassign')">
+          ❗ Reasignar paciente
+        </button>
+        <button mat-raised-button color="accent" (click)="goTo('/support')">
+          💬 Ver solicitudes de soporte
+        </button>
+
       </div>
     </section>
 
@@ -127,6 +138,5 @@
         </div>
       </div>
     </section>
-
   </main>
 </div>

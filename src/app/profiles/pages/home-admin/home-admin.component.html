@@ -1,0 +1,45 @@
+<div class="home-admin-container">
+  <section class="welcome-section">
+    <h1>Bienvenido, {{ username }} 👋</h1>
+    <p class="session-info">ID de sesión: <strong>{{ userId }}</strong></p>
+    <p>Este es el panel principal de administración de <strong>HormonalCare</strong>.</p>
+    <p>Desde aquí podrás gestionar comunicados, usuarios, soporte, seguridad y más.</p>
+
+
+  </section>
+
+  <section class="quick-links">
+    <h2>Accesos rápidos</h2>
+    <div class="button-grid">
+      <button mat-raised-button color="primary" (click)="goTo('/dashboard')">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </button>
+
+      <button mat-raised-button color="accent" (click)="goTo('/announcementsAdmin')">
+        <mat-icon>campaign</mat-icon>
+        <span>Comunicados</span>
+      </button>
+
+      <button mat-raised-button color="warn" (click)="goTo('/logs')">
+        <mat-icon>security</mat-icon>
+        <span>Logs de Acceso</span>
+      </button>
+
+      <button mat-raised-button color="primary" (click)="goTo('/reassignPatient')">
+        <mat-icon>sync_alt</mat-icon>
+        <span>Reasignar Pacientes</span>
+      </button>
+
+      <button mat-raised-button color="accent" (click)="goTo('/support')">
+        <mat-icon>support_agent</mat-icon>
+        <span>Soporte Técnico</span>
+      </button>
+
+      <button mat-raised-button color="primary" (click)="goTo('/user-management')">
+        <mat-icon>group</mat-icon>
+        <span>Gestión de Usuarios</span>
+      </button>
+    </div>
+  </section>
+</div>

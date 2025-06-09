@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NotificationsPatientsComponent } from './pages/notifications-patients/notifications-patients.component';
 import { NotificationsViewComponent } from './pages/notifications-view/notifications-view.component';
-import { AnnouncementsAdminComponent } from './pages/announcements-admin/announcements-admin.component';
+import { AnnouncementsAdminComponent } from '../admin/pages/announcements-admin/announcements-admin.component';
 import { RouterModule } from '@angular/router';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

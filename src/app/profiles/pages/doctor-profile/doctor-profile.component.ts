@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {AuthenticationService} from "../../../iam/services/authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-doctor-profile',
@@ -6,6 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./doctor-profile.component.css']
 })
 export class DoctorProfileComponent {
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) {}
   doctor = {
     photoUrl: '',
     name: 'Emilio Mauricio',
@@ -53,5 +59,9 @@ export class DoctorProfileComponent {
 
   setUpNotification() {
     alert('Set up notification clicked');
+  }
+  logout(): void {
+    this.authService.signOut();
+    this.router.navigate(['/login']);
   }
 }

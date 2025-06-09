@@ -7,6 +7,7 @@ import {MatButton, MatButtonModule} from "@angular/material/button";
 import {MatToolbar, MatToolbarModule} from "@angular/material/toolbar";
 import {CommonModule} from "@angular/common";
 import {ColleagueSearchComponent} from "../../../communications/pages/colleague-search/colleague-search.component";
+import {AuthenticationService} from "../../../iam/services/authentication.service";
 
 @Component({
   selector: 'app-header-patient',
@@ -26,8 +27,10 @@ import {ColleagueSearchComponent} from "../../../communications/pages/colleague-
 
 })
 export class HeaderPatientComponent {
-  constructor(private router: Router) {
-  }
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) {}
   optionsPatients = [
     { path: '/homePatient', title: 'Home', icon: 'assets/images/home-icon.png'},
     { path: '/calendarPatientView', title: 'Calendar', icon: 'assets/images/calendar.png'},
@@ -37,5 +40,9 @@ export class HeaderPatientComponent {
   ]
   navigateToDoctors() {
     this.router.navigate(['/available-doctors']);
+  }
+  logout(): void {
+    this.authService.signOut();
+    this.router.navigate(['/login']);
   }
 }

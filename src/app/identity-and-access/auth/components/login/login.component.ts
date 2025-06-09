@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {UserTypeService} from "../../../../shared/services/user-type.service";
+import {AuthenticationService} from "../../../../iam/services/authentication.service";
 
 
 @Component({
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private userTypeService: UserTypeService,
+    private authenticationService: AuthenticationService,
   ) {}
 
   ngOnInit(): void {
@@ -58,25 +60,29 @@ export class LoginComponent implements OnInit {
     }
 
     console.log('Redirigiendo al dashboard del rol:', foundUser.role);
-
-
     this.userTypeService.setUserType(foundUser.role as 'patient' | 'endocrinologist' | 'admin');
 
-    switch (foundUser.role) {
-      case 'patient':
-        this.router.navigate(['/homePatient']);
-        break;
-      case 'endocrinologist':
-        this.router.navigate(['/homeDoctor']);
-        break;
-      case 'admin':
-        this.router.navigate(['/adminDashboard']);
-        break;
-      default:
-        this.loginError = true;
-    }
+    if (foundUser.role === 'admin') {
+      // ✅ Simular login en AuthenticationService
+      localStorage.setItem('token', 'fake-token');
+      localStorage.setItem('username', 'Admin User');
+      localStorage.setItem('userId', '1');
 
+      // ✅ Activar estado manualmente
+      this.authenticationService['signedIn'].next(true);
+      this.authenticationService['signedInUserId'].next(1);
+      this.authenticationService['signedInUsername'].next('Admin User');
+
+      this.router.navigate(['/admin']).then();
+    } else if (foundUser.role === 'endocrinologist') {
+      this.router.navigate(['/homeDoctor']).then();
+    } else if (foundUser.role === 'patient') {
+      this.router.navigate(['/homePatient']).then();
+    } else {
+      this.loginError = true;
+    }
   }
+
 
   goToRegister(): void {
     this.router.navigateByUrl('/selectRole');

@@ -20,8 +20,9 @@ import { UserManagementComponent } from './pages/user-management/user-management
 import { AdminStatsComponent } from './pages/admin-stats/admin-stats.component';
 
 import { SharedModule } from '../shared/shared.module';
-import {ADMIN_ROUTES} from "./admin-routing.module";
 import {NgChartsModule} from "ng2-charts";
+import {AdminRoutingModule} from "./admin-routing.module";
+import {HomeAdminComponent} from "../profiles/pages/home-admin/home-admin.component";
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {NgChartsModule} from "ng2-charts";
     SharedModule,
     NgChartsModule,
     AdminDashboardComponent,
-    RouterModule.forChild(ADMIN_ROUTES),
+    AdminRoutingModule,
+    HomeAdminComponent
   ],
   exports: [
   ]

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
+import {DarkModeService} from "../../../shared/services/dark-mode.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -10,6 +12,7 @@ import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
   imports: [NgChartsModule]
 })
 export class AdminDashboardComponent implements OnInit {
+
   isDarkMode = false;
 
   @ViewChild('lineChart') lineChart!: BaseChartDirective;
@@ -17,16 +20,25 @@ export class AdminDashboardComponent implements OnInit {
   @ViewChild('pieChart') pieChart!: BaseChartDirective;
   @ViewChild('barChart') barChart!: BaseChartDirective;
 
+  constructor(private darkModeService: DarkModeService, private router: Router) {}
+  goTo(route: string): void {
+    this.router.navigate([`/admin/${route}`]);
+  }
   ngOnInit(): void {
-    const stored = localStorage.getItem('dark-mode');
-    this.isDarkMode = stored === 'true';
-    this.applyChartTheme();
+    this.darkModeService.darkMode$.subscribe(mode => {
+      this.isDarkMode = mode;
+      this.applyChartTheme();
+    });
   }
 
-  toggleDarkMode(): void {
-    this.isDarkMode = !this.isDarkMode;
-    localStorage.setItem('dark-mode', String(this.isDarkMode));
-    this.applyChartTheme();
+
+  private refreshCharts(): void {
+    setTimeout(() => {
+      this.lineChart?.update();
+      this.stackedChart?.update();
+      this.pieChart?.update();
+      this.barChart?.update();
+    }, 100);
   }
 
   private applyChartTheme(): void {
@@ -73,36 +85,16 @@ export class AdminDashboardComponent implements OnInit {
       }
     };
 
-    // Forzar reemplazo completo de opciones en los gráficos
-    setTimeout(() => {
-      if (this.lineChart) {
-        this.lineChart.options = this.lineChartOptions;
-        this.lineChart.update();
-      }
-      if (this.stackedChart) {
-        this.stackedChart.options = this.stackedBarOptions;
-        this.stackedChart.update();
-      }
-      if (this.pieChart) {
-        this.pieChart.options = this.pieChartOptions;
-        this.pieChart.update();
-      }
-      if (this.barChart) {
-        this.barChart.options = this.barChartOptions;
-        this.barChart.update();
-      }
-    }, 0);
+    this.refreshCharts();
   }
 
 
-  goTo(route: string) {}
-
   cards = [
-    { title: 'Enviar Comunicados', description: 'Envía comunicados a médicos y pacientes', icon: 'campaign', route: '/announcementsAdmin' },
-    { title: 'Reasignar Pacientes', description: 'Reasigna pacientes a otros médicos', icon: 'sync_alt', route: '/reassign' },
-    { title: 'Revisar Logs de Acceso', description: 'Visualiza accesos sospechosos', icon: 'security', route: '/logs' },
-    { title: 'Soporte Técnico', description: 'Gestiona mensajes de soporte', icon: 'support_agent', route: '/support' },
-    { title: 'Gestión de Usuarios', description: 'Visualiza y administra usuarios registrados', icon: 'group', route: '/user-management' }
+    { title: 'Enviar Comunicados', description: 'Envía comunicados a médicos y pacientes', icon: 'campaign', route: 'announcements' },
+    { title: 'Reasignar Pacientes', description: 'Reasigna pacientes a otros médicos', icon: 'sync_alt', route: 'reassign' },
+    { title: 'Revisar Logs de Acceso', description: 'Visualiza accesos sospechosos', icon: 'security', route: 'logs' },
+    { title: 'Soporte Técnico', description: 'Gestiona mensajes de soporte', icon: 'support_agent', route: 'support' },
+    { title: 'Gestión de Usuarios', description: 'Visualiza y administra usuarios registrados', icon: 'group', route: 'user-management' }
   ];
 
   // === Charts ===
