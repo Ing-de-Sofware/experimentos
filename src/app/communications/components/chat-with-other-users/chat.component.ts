@@ -2,10 +2,18 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
 import { ChatService } from '../../services/chat.service';
 import { Message } from '../../model/message';
 import { DoctorProfile } from '../../model/doctor-profile';
+import {FormsModule} from "@angular/forms";
+import {DatePipe, NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
+  standalone: true,
+  imports: [
+    FormsModule,
+    DatePipe,
+    NgClass
+  ],
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit, OnChanges {

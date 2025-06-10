@@ -1,0 +1,87 @@
+<div class="tp-wrapper">
+  <h2 class="tp-title">Mis Tratamientos</h2>
+
+  <!-- Botón para registrar control diario -->
+  <div class="tp-register-control">
+    <button class="tp-btn-register" (click)="abrirRegistro()">Registrar control diario</button>
+  </div>
+
+  <!-- Racha de cumplimiento semanal -->
+  <div class="tp-streak-wrapper">
+    <h3>Racha de cumplimiento</h3>
+    <div class="tp-streak-days">
+      <div *ngFor="let day of semana" [ngClass]="{'cumplido': day.cumplido}" (click)="marcarCumplimiento(day)">
+        {{ day.dia }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Cards de tratamientos -->
+  <div class="tp-cards">
+    <div class="tp-card" *ngFor="let t of treatments">
+      <div class="tp-card-header">
+        <div class="tp-treatment-header">
+          <span class="tp-treatment-name">{{ t.name }}</span>
+          <span class="tp-status" [ngClass]="{
+            'status-curso': t.status === 'En curso',
+            'status-finalizado': t.status === 'Finalizado',
+            'status-pendiente': t.status === 'Pendiente'
+          }">
+            {{ t.status }}
+          </span>
+        </div>
+        <div class="tp-dates">
+          <div><strong>Inicio:</strong> {{ t.startDate | date:'dd/MM/yyyy' }}</div>
+          <div><strong>Fin:</strong> {{ t.endDate | date:'dd/MM/yyyy' }}</div>
+        </div>
+      </div>
+
+      <div class="tp-card-body">
+        <div><strong>Médico:</strong> {{ t.doctorName }}</div>
+        <div><strong>Frecuencia:</strong> {{ t.frequency }}</div>
+        <div><strong>Sesiones:</strong> {{ t.currentSession }}/{{ t.totalSessions }}</div>
+        <div><strong>Progreso:</strong> {{ t.progress }}%</div>
+        <div *ngIf="t.registroDiario">
+          <strong>Registro Diario:</strong>
+          <div>Síntomas: {{ t.registroDiario.sintomas }}</div>
+          <div>Estado: {{ t.registroDiario.estado }}</div>
+          <div>Notas: {{ t.registroDiario.notas }}</div>
+        </div>
+      </div>
+
+      <div class="tp-card-actions">
+        <button class="tp-btn-details" (click)="verDetalles(t)">Ver detalles</button>
+        <button class="tp-btn-download" (click)="descargarResumen(t)">Descargar resumen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Registro Diario -->
+  <div *ngIf="modalRegistroAbierto" class="tp-modal-overlay">
+    <div class="tp-modal">
+      <h3>Registrar Control Diario</h3>
+      <form (submit)="guardarRegistro()">
+        <label>
+          Síntomas:
+          <textarea [(ngModel)]="registroDiario.sintomas" name="sintomas" required></textarea>
+        </label>
+        <label>
+          Estado general:
+          <select [(ngModel)]="registroDiario.estado" name="estado" required>
+            <option value="Bueno">Bueno</option>
+            <option value="Regular">Regular</option>
+            <option value="Malo">Malo</option>
+          </select>
+        </label>
+        <label>
+          Observaciones:
+          <textarea [(ngModel)]="registroDiario.notas" name="notas"></textarea>
+        </label>
+        <div class="tp-modal-actions">
+          <button type="submit" class="tp-btn-save">Guardar</button>
+          <button type="button" class="tp-btn-cancel" (click)="cerrarRegistro()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

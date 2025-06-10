@@ -5,6 +5,7 @@ import { FindDoctorsPatientComponent} from "../../components/find-doctors-patien
 import {CommonModule} from "@angular/common";
 
 import { MatGridListModule} from "@angular/material/grid-list";
+import { MatIconModule } from '@angular/material/icon';
 import {PatientsReminderComponent} from "../../components/patients-reminder/patients-reminder.component";
 import {AppModule} from "../../../app.module";
 import {PatientsPendingTaskComponent} from "../../components/patients-pending-task/patients-pending-task.component";
@@ -15,7 +16,7 @@ import {MatButton} from "@angular/material/button";
   standalone:true,
   templateUrl: './home-patient.component.html',
   styleUrls: ['./home-patient.component.css'],
-  imports: [CommonModule, PatientsReminderComponent, PatientsPendingTaskComponent, MatGridListModule, FindDoctorsPatientComponent, MatButton, RouterLink]
+  imports: [CommonModule, PatientsReminderComponent, PatientsPendingTaskComponent, MatGridListModule, FindDoctorsPatientComponent, MatButton, RouterLink, MatIconModule]
 })
 export class HomePatientComponent implements OnInit {
 

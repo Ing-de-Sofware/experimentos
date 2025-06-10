@@ -73,6 +73,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./medical-history/medical-history.module').then(m => m.MedicalHistoryModule)
   },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profiles/profiles.module').then(m => m.ProfilesModule)
+  },
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent}
 ];

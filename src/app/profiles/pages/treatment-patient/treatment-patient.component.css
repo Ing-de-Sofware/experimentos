@@ -1,0 +1,187 @@
+/* Estilos generales */
+.tp-wrapper {
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+.tp-title {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+/* Botón de control diario */
+.tp-register-control {
+  margin-bottom: 20px;
+}
+
+.tp-btn-register {
+  padding: 10px 20px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tp-btn-register:hover {
+  background-color: #2563eb;
+}
+
+/* Racha semanal */
+.tp-streak-wrapper {
+  margin-bottom: 20px;
+  background: #e0f2fe;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.tp-streak-days {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.tp-streak-days div {
+  background-color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  color: #1e293b;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tp-streak-days div.cumplido {
+  background-color: #10b981;
+  color: white;
+}
+
+/* Cards */
+.tp-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.tp-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  min-height: 260px;
+}
+
+.tp-card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.tp-treatment-name {
+  font-weight: bold;
+  color: #111827;
+}
+
+.tp-status {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.status-curso {
+  color: #2563eb;
+}
+.status-finalizado {
+  color: #10b981;
+}
+.status-pendiente {
+  color: #f59e0b;
+}
+
+.tp-card-body div {
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.tp-divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 10px 0;
+}
+
+.tp-card-actions button {
+  margin-right: 10px;
+  background-color: #64748b;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.tp-card-actions button:hover {
+  background-color: #475569;
+}
+
+/* Modal */
+.tp-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.tp-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+}
+
+.tp-modal h3 {
+  margin-top: 0;
+  color: #1e293b;
+}
+
+.tp-modal textarea,
+.tp-modal select {
+  width: 100%;
+  margin: 8px 0 16px 0;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}
+
+.tp-modal-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tp-btn-save {
+  background-color: #10b981;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tp-btn-cancel {
+  background-color: #ef4444;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

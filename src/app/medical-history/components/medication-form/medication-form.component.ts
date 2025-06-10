@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { MedicationService } from '../../services/medication.service';
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-medication-form',
   templateUrl: './medication-form.component.html',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    MatIcon
+  ],
   styleUrls: ['./medication-form.component.css']
 })
 export class MedicationFormComponent implements OnInit {

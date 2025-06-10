@@ -6,8 +6,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavContainer } from '@angular/material/sidenav';
-import { MatNavList } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 import {
   MatDialogModule,
   MatDialogActions,
@@ -39,8 +39,8 @@ import { PrivacyPolicyPersonalDataProcessingComponent } from './components/priva
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatSidenavContainer,
-    MatNavList,
+    MatSidenavModule,
+    MatListModule,
     MatDialogModule,
     FooterContentComponent,
     HeaderForUserTypeServiceComponent,
@@ -62,7 +62,14 @@ import { PrivacyPolicyPersonalDataProcessingComponent } from './components/priva
     HeaderForUserTypeServiceComponent,
     PrivacyDialogComponent,
     TermsDialogComponent,
-    PrivacyPolicyPersonalDataProcessingComponent
+    PrivacyPolicyPersonalDataProcessingComponent,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonToggleModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatListModule,
+    MatDialogModule
   ]
 })
 export class SharedModule {}

@@ -126,7 +126,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     DoctorRegistrationComponent,
     PatientsUploadExamComponent,
 
-
     BackgroundComponent,
     ClinicalhistoryComponent,
     ExternalreportsComponent,
@@ -137,21 +136,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
     MedicalexamsComponent,
 
-    TreatmentPatientComponent,
-    MedicationFormComponent,
-
-
-    InfoProfileMedicalsComponent,
-    SelectPaymentMethodComponent,
-    CardModalComponent,
-
-    Role1Component,
-    Role2Component,
-
-    UserListComponent,
-    ChatComponent,
-    MedicationFormComponent
-
+    InfoProfileMedicalsComponent
   ],
   imports: [
     BrowserModule,
@@ -236,7 +221,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CalendarModule,
     ProfilesModule,
     SharedModule,
-    NgChartsModule
+    NgChartsModule,
+    ChatComponent
 
   ],
   providers: [
