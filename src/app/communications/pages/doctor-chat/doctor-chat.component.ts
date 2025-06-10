@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { DoctorService } from '../../services/doctor.service';
+
+interface ChatMessage {
+  text?: string;
+  sender: 'patient' | 'doctor';
+  timestamp: Date;
+  file?: {
+    name: string;
+    url: string;
+  };
+}
 
 @Component({
   selector: 'app-doctor-chat',
@@ -8,28 +16,66 @@ import { DoctorService } from '../../services/doctor.service';
   styleUrls: ['./doctor-chat.component.css']
 })
 export class DoctorChatComponent implements OnInit {
-  currentUserEmail: string = 'mariagonzalez@example.com';
-  selectedUserEmail: string = '';
-  doctors: any[] = [];
-
-  constructor(private doctorService: DoctorService, private route: ActivatedRoute) { }
+  messages: ChatMessage[] = [];
+  newMessage: string = '';
+  selectedUserName: string = 'Joseph López';
+  localStorageKey: string = 'chat_messages';
+  uploadedFiles: { name: string; url: string }[] = [];
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.selectedUserEmail = params['doctorEmail'] || '';
-      this.loadDoctors();
+    const saved = localStorage.getItem(this.localStorageKey);
+    if (saved) {
+      this.messages = JSON.parse(saved);
+    }
+  }
+
+  sendMessage(): void {
+    const trimmed = this.newMessage.trim();
+    if (trimmed.length > 0) {
+      const msg: ChatMessage = {
+        text: trimmed,
+        sender: 'doctor',
+        timestamp: new Date()
+      };
+      this.messages.push(msg);
+      this.newMessage = '';
+    }
+
+    this.uploadedFiles.forEach(file => {
+      const fileMessage: ChatMessage = {
+        sender: 'doctor',
+        timestamp: new Date(),
+        file: {
+          name: file.name,
+          url: file.url
+        }
+      };
+      this.messages.push(fileMessage);
     });
+
+    this.uploadedFiles = [];
+    this.saveMessages();
   }
 
-  loadDoctors(): void {
-      this.doctors = this.doctorService.getDoctors();
+  handleFileUpload(event: any): void {
+    const files: FileList = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      const file = files.item(i);
+      if (file) {
+        const url = URL.createObjectURL(file);
+        this.uploadedFiles.push({ name: file.name, url });
+      }
+    }
   }
 
-  switchUser(user: string) {
-    this.currentUserEmail = user;
+  saveMessages(): void {
+    localStorage.setItem(this.localStorageKey, JSON.stringify(this.messages));
   }
 
-  selectChatUser(user: string) {
-    this.selectedUserEmail = user;
+  clearChat(): void {
+    this.messages = [];
+    localStorage.removeItem(this.localStorageKey);
   }
+
+  protected readonly localStorage = localStorage;
 }

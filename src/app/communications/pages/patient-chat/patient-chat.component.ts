@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserTypeService } from '../../../shared/services/user-type.service';
-import { Location } from '@angular/common';
 
 interface ChatMessage {
-  text: string;
+  text?: string;
   sender: 'patient' | 'doctor';
+  timestamp: Date;
+  file?: {
+    name: string;
+    url: string;
+  };
 }
 
 @Component({
@@ -14,28 +18,14 @@ interface ChatMessage {
   styleUrls: ['./patient-chat.component.css']
 })
 export class PatientChatComponent implements OnInit {
-
-  messages: ChatMessage[] = [
-    {
-      text: 'Hello Joseph! I inform you that tomorrow you must upload your hormonal test for our appointment on Saturday.',
-      sender: 'doctor'
-    },
-    {
-      text: 'Hello Dr. Emilio, understood. I’ll go tonight and upload it tomorrow.',
-      sender: 'patient'
-    },
-    {
-      text: 'OK thank you so much! See you this Sunday',
-      sender: 'doctor'
-    }
-  ];
-
+  messages: ChatMessage[] = [];
   newMessage: string = '';
+  localStorageKey: string = 'chat_messages'; // clave compartida con el médico
+  uploadedFiles: { name: string; url: string }[] = [];
 
   constructor(
     private userTypeService: UserTypeService,
-    private router: Router,
-    private location: Location
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -44,25 +34,63 @@ export class PatientChatComponent implements OnInit {
       this.router.navigate(['/login'], { replaceUrl: true });
     }
 
-    history.pushState(null, '', location.href);
-    window.onpopstate = () => {
-      history.pushState(null, '', location.href);
-    };
+    const saved = localStorage.getItem(this.localStorageKey);
+    if (saved) {
+      this.messages = JSON.parse(saved);
+    } else {
+      this.messages = [];
+    }
   }
 
   sendMessage(): void {
     const trimmed = this.newMessage.trim();
     if (trimmed.length > 0) {
-      this.messages.push({ text: trimmed, sender: 'patient' });
+      const msg: ChatMessage = {
+        text: trimmed,
+        sender: 'patient',
+        timestamp: new Date()
+      };
+      this.messages.push(msg);
       this.newMessage = '';
-
-      // Simulación: respuesta automática del doctor después de 1s
-      setTimeout(() => {
-        this.messages.push({
-          text: 'Thanks for your message, I will review it soon!',
-          sender: 'doctor'
-        });
-      }, 1000);
     }
+
+    this.uploadedFiles.forEach(file => {
+      const fileMessage: ChatMessage = {
+        sender: 'patient',
+        timestamp: new Date(),
+        file: {
+          name: file.name,
+          url: file.url
+        }
+      };
+      this.messages.push(fileMessage);
+    });
+
+    this.uploadedFiles = [];
+    this.saveMessages();
+  }
+
+  saveMessages(): void {
+    localStorage.setItem(this.localStorageKey, JSON.stringify(this.messages));
+  }
+
+  onFileSelected(event: any): void {
+    const files: FileList = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      const file = files.item(i);
+      if (file) {
+        const url = URL.createObjectURL(file);
+        this.uploadedFiles.push({ name: file.name, url });
+      }
+    }
+  }
+
+  handleFileUpload(event: any): void {
+    this.onFileSelected(event);
+  }
+
+  clearChat(): void {
+    this.messages = [];
+    localStorage.removeItem(this.localStorageKey);
   }
 }

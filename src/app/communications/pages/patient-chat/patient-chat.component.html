@@ -1,34 +1,40 @@
 <div class="chat-container">
+  <!-- Chat principal -->
+  <div class="chat-panel chat-panel-expanded">
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h3>Messages</h3>
-    <div class="chat-preview">
-      <img src="https://i.pravatar.cc/40?img=1" class="avatar" />
-      <div class="chat-info">
-        <div class="name">Emilio Morales</div>
-        <div class="message-preview">OK thank you so much!...</div>
-      </div>
-    </div>
-    <button class="see-more-btn">See more chats...</button>
-  </div>
-
-  <!-- Chat Panel -->
-  <div class="chat-panel">
-
-    <div class="chat-header">Chat with Dr. Emilio Morales</div>
+    <div class="chat-header">Chat con Médico</div>
 
     <div class="chat-messages">
       <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender === 'patient' ? 'right' : 'left'">
         <img *ngIf="msg.sender === 'doctor'" src="https://i.pravatar.cc/40?img=2" class="avatar" />
-        <div class="bubble">{{ msg.text }}</div>
+
+        <div class="bubble">
+          {{ msg.text }}
+          <div *ngIf="msg.file">
+            <br />
+            <a [href]="msg.file.url" target="_blank">📎 {{ msg.file.name }}</a>
+          </div>
+        </div>
+
         <img *ngIf="msg.sender === 'patient'" src="https://i.pravatar.cc/40?img=3" class="avatar" />
       </div>
     </div>
 
+    <!-- Botón para borrar el chat -->
+    <div class="chat-actions">
+      <button class="clear-chat-btn" (click)="clearChat()">🗑 Borrar chat</button>
+    </div>
+
+    <!-- Entrada de texto y subida de archivos -->
     <div class="chat-input">
-      <input [(ngModel)]="newMessage" type="text" placeholder="Write your message..." (keydown.enter)="sendMessage()" />
-      <button (click)="sendMessage()"><mat-icon>send</mat-icon></button>
+      <input [(ngModel)]="newMessage" type="text" placeholder="Escribe tu mensaje..." (keydown.enter)="sendMessage()" />
+      <label class="file-upload-icon">
+        📎
+        <input type="file" (change)="handleFileUpload($event)" hidden />
+      </label>
+      <button (click)="sendMessage()">
+        <mat-icon>send</mat-icon>
+      </button>
     </div>
 
   </div>

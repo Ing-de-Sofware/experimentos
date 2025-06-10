@@ -1,14 +1,44 @@
-<div class="container">
-  <div class="buttons-column">
-    <div>
-      <div class="tittle-messages">Messages</div>
-      <div *ngFor="let doctor of doctors">
-        <button (click)="selectChatUser(doctor.email)">Chat with Dr. {{ doctor.name }}</button>
+<div class="chat-container">
+  <!-- Chat Único con el Médico -->
+  <div class="chat-panel">
+    <div class="chat-header">Chat con Paciente</div>
+
+    <!-- Lista de mensajes -->
+    <div class="chat-messages">
+      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender === 'patient' ? 'right' : 'left'">
+        <img *ngIf="msg.sender === 'doctor'" src="https://i.pravatar.cc/40?img=2" class="avatar" />
+
+        <div class="bubble">
+          {{ msg.text }}
+          <div *ngIf="msg.file">
+            <br />
+            <a [href]="msg.file.url" target="_blank">📎 {{ msg.file.name }}</a>
+          </div>
+        </div>
+
+        <img *ngIf="msg.sender === 'patient'" src="https://i.pravatar.cc/40?img=3" class="avatar" />
       </div>
     </div>
-  </div>
 
-  <div class="chat-column">
-    <app-chat [currentUserEmail]="currentUserEmail" [selectedUserEmail]="selectedUserEmail"></app-chat>
+    <!-- Botón para borrar el chat -->
+    <div class="chat-actions">
+      <button class="clear-chat-btn" (click)="clearChat()">🗑 Borrar chat</button>
+    </div>
+
+    <!-- Entrada de texto y subida de archivos -->
+    <div class="chat-input">
+      <input [(ngModel)]="newMessage" type="text" placeholder="Escribe un mensaje..." (keydown.enter)="sendMessage()" />
+
+      <!-- Subida de archivos -->
+      <label class="file-upload-icon">
+        <input type="file" (change)="handleFileUpload($event)" />
+        <mat-icon>attach_file</mat-icon>
+      </label>
+
+      <!-- Botón de enviar -->
+      <button (click)="sendMessage()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
   </div>
 </div>
