@@ -35,6 +35,11 @@
         <mat-icon>attach_file</mat-icon>
       </label>
 
+      <div *ngFor="let file of uploadedFiles" class="file-preview">
+        <img *ngIf="file.url.endsWith('.jpg') || file.url.endsWith('.jpeg') || file.url.endsWith('.png')" [src]="file.url" class="preview-image" />
+        <span>{{ file.name }}</span>
+      </div>
+
       <!-- Botón de enviar -->
       <button (click)="sendMessage()">
         <mat-icon>send</mat-icon>

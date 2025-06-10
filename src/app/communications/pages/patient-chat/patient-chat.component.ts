@@ -9,6 +9,7 @@ interface ChatMessage {
   file?: {
     name: string;
     url: string;
+    type?: string;
   };
 }
 
@@ -20,8 +21,8 @@ interface ChatMessage {
 export class PatientChatComponent implements OnInit {
   messages: ChatMessage[] = [];
   newMessage: string = '';
-  localStorageKey: string = 'chat_messages'; // clave compartida con el médico
-  uploadedFiles: { name: string; url: string }[] = [];
+  localStorageKey: string = 'chat_messages';
+  uploadedFiles: { name: string; url: string; type?: string }[] = [];
 
   constructor(
     private userTypeService: UserTypeService,
@@ -60,7 +61,8 @@ export class PatientChatComponent implements OnInit {
         timestamp: new Date(),
         file: {
           name: file.name,
-          url: file.url
+          url: file.url,
+          type: file.type
         }
       };
       this.messages.push(fileMessage);
@@ -79,8 +81,15 @@ export class PatientChatComponent implements OnInit {
     for (let i = 0; i < files.length; i++) {
       const file = files.item(i);
       if (file) {
-        const url = URL.createObjectURL(file);
-        this.uploadedFiles.push({ name: file.name, url });
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.uploadedFiles.push({
+            name: file.name,
+            url: e.target.result,
+            type: file.type
+          });
+        };
+        reader.readAsDataURL(file); // permite cargar cualquier archivo
       }
     }
   }

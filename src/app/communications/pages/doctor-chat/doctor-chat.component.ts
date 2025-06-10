@@ -7,6 +7,7 @@ interface ChatMessage {
   file?: {
     name: string;
     url: string;
+    type?: string;
   };
 }
 
@@ -20,7 +21,7 @@ export class DoctorChatComponent implements OnInit {
   newMessage: string = '';
   selectedUserName: string = 'Joseph López';
   localStorageKey: string = 'chat_messages';
-  uploadedFiles: { name: string; url: string }[] = [];
+  uploadedFiles: { name: string; url: string; type?: string }[] = [];
 
   ngOnInit(): void {
     const saved = localStorage.getItem(this.localStorageKey);
@@ -47,7 +48,8 @@ export class DoctorChatComponent implements OnInit {
         timestamp: new Date(),
         file: {
           name: file.name,
-          url: file.url
+          url: file.url,
+          type: file.type
         }
       };
       this.messages.push(fileMessage);
@@ -62,8 +64,15 @@ export class DoctorChatComponent implements OnInit {
     for (let i = 0; i < files.length; i++) {
       const file = files.item(i);
       if (file) {
-        const url = URL.createObjectURL(file);
-        this.uploadedFiles.push({ name: file.name, url });
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.uploadedFiles.push({
+            name: file.name,
+            url: e.target.result,
+            type: file.type
+          });
+        };
+        reader.readAsDataURL(file);
       }
     }
   }

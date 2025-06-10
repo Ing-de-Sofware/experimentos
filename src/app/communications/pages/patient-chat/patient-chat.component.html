@@ -9,11 +9,14 @@
         <img *ngIf="msg.sender === 'doctor'" src="https://i.pravatar.cc/40?img=2" class="avatar" />
 
         <div class="bubble">
-          {{ msg.text }}
-          <div *ngIf="msg.file">
-            <br />
-            <a [href]="msg.file.url" target="_blank">📎 {{ msg.file.name }}</a>
-          </div>
+          <ng-container *ngIf="msg.text">
+            <p class="text-message">{{ msg.text }}</p>
+          </ng-container>
+          <ng-container *ngIf="msg.file">
+            <p class="file-attachment">
+              📎 <a [href]="msg.file.url" target="_blank">{{ msg.file.name }}</a>
+            </p>
+          </ng-container>
         </div>
 
         <img *ngIf="msg.sender === 'patient'" src="https://i.pravatar.cc/40?img=3" class="avatar" />
@@ -28,10 +31,19 @@
     <!-- Entrada de texto y subida de archivos -->
     <div class="chat-input">
       <input [(ngModel)]="newMessage" type="text" placeholder="Escribe tu mensaje..." (keydown.enter)="sendMessage()" />
-      <label class="file-upload-icon">
+
+      <!-- Vista previa del archivo -->
+      <div *ngIf="uploadedFiles.length > 0" class="file-preview-list">
+        <div *ngFor="let file of uploadedFiles" class="file-preview">
+          📎 {{ file.name }}
+        </div>
+      </div>
+
+      <label class="file-upload-icon" for="fileUpload">
         📎
-        <input type="file" (change)="handleFileUpload($event)" hidden />
       </label>
+      <input id="fileUpload" type="file" (change)="handleFileUpload($event)" hidden />
+
       <button (click)="sendMessage()">
         <mat-icon>send</mat-icon>
       </button>
