@@ -101,3 +101,15 @@
     transform: translateY(0);
   }
 }
+
+.success-message {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #d1fae5;
+  border: 1px solid #10b981;
+  border-radius: 8px;
+  color: #065f46;
+  font-size: 1rem;
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}

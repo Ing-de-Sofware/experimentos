@@ -1,29 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-notifications-patients',
   templateUrl: './notifications-patients.component.html',
   styleUrls: ['./notifications-patients.component.css']
 })
-export class NotificationsPatientsComponent {
-  notifications = [
-    {
-      id: 1,
-      title: 'Appointment Reminder',
-      message: 'You have an appointment tomorrow at 10:00 AM.',
-      icon: 'event',
-      date: new Date()
-    },
-    {
-      id: 2,
-      title: 'Pill Reminder',
-      message: 'Don’t forget to take your diabetes pills at 6:15 p.m. today.',
-      icon: 'medication',
-      date: new Date()
-    }
-  ];
+export class NotificationsPatientsComponent implements OnInit {
+  notifications: any[] = [];
+
+  ngOnInit(): void {
+    const saved = localStorage.getItem('notifications');
+    this.notifications = saved ? JSON.parse(saved) : [];
+  }
 
   acknowledge(id: number): void {
     this.notifications = this.notifications.filter(n => n.id !== id);
+    localStorage.setItem('notifications', JSON.stringify(this.notifications));
   }
 }

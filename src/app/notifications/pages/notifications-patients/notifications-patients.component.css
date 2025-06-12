@@ -52,3 +52,23 @@ mat-sidenav-content {
   margin-top: 50px;
   font-size: 16px;
 }
+
+.highlighted-notification {
+  border-left: 5px solid #5b3573;
+  background-color: #f9f5ff;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(91, 53, 115, 0.1);
+}
+
+.appointment-details {
+  font-size: 14px;
+  margin-top: 8px;
+  color: #444;
+}
+
+.appointment-details span {
+  display: block;
+  margin-bottom: 4px;
+}

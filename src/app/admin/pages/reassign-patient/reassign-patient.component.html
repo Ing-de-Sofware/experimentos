@@ -1,5 +1,8 @@
 <div class="reassign-container">
   <h2 class="title">Reassign Patient</h2>
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
 
   <div class="patient-info-card">
     <p><strong>👤 Full Name:</strong> {{ selectedPatient?.fullName }}</p>

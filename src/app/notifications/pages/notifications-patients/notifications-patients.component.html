@@ -12,7 +12,12 @@
             <mat-card-subtitle>{{ notif.date | date:'short' }}</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
-            <p>{{ notif.message }}</p>
+            <div *ngIf="notif.title === 'Nueva Cita Médica'; else normalMessage" class="highlighted-notification">
+              <strong>{{ notif.message }}</strong>
+            </div>
+            <ng-template #normalMessage>
+              <p>{{ notif.message }}</p>
+            </ng-template>
           </mat-card-content>
           <mat-card-actions align="end">
             <button mat-stroked-button color="primary" (click)="acknowledge(notif.id)">Got it</button>

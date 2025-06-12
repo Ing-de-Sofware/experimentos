@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reassign-patient',
@@ -21,7 +22,8 @@ export class ReassignPatientComponent {
   constructor(
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<ReassignPatientComponent>
+    private dialogRef: MatDialogRef<ReassignPatientComponent>,
+    private router: Router
   ) {
     this.reassignForm = this.fb.group({
       currentDoctor: ['', Validators.required],
@@ -42,6 +44,7 @@ export class ReassignPatientComponent {
       const data = this.reassignForm.value;
       console.log('Reassigning patient:', data);
       this.successMessage = `Paciente ${data.patientName} ha sido transferido exitosamente.`;
+      setTimeout(() => this.successMessage = null, 3000);
       this.reassignForm.reset();
     }
   }
@@ -49,6 +52,23 @@ export class ReassignPatientComponent {
   confirmReassignment() {
     console.log('Reassigned to doctor:', this.selectedDoctorId);
     this.successMessage = `Paciente ${this.selectedPatient?.fullName || 'N/A'} ha sido transferido exitosamente.`;
+
+    setTimeout(() => {
+      this.dialogRef.close();
+      if (this.selectedPatient?.id) {
+        const selectedDoctor = this.doctors.find(doc => doc.id === this.selectedDoctorId);
+        this.router.navigate(
+          ['/calendar/schedule-follow-up', this.selectedPatient.id],
+          {
+            state: {
+              patientName: this.selectedPatient.fullName,
+              patientAge: this.selectedPatient.age,
+              doctorName: selectedDoctor?.name || 'N/A' // ✅ doctor enviado correctamente
+            }
+          }
+        );
+      }
+    }, 2000);
   }
 
   cancel() {
