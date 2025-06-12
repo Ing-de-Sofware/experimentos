@@ -1,1 +1,22 @@
-<p>reassign-patient works!</p>
+<div class="reassign-container">
+  <h2 class="title">Reassign Patient</h2>
+
+  <div class="patient-info-card">
+    <p><strong>👤 Full Name:</strong> {{ selectedPatient?.fullName }}</p>
+    <p><strong>🎂 Age:</strong> {{ selectedPatient?.age }} years</p>
+  </div>
+
+  <div class="form-group">
+    <label for="doctorSelect"><strong>Select a Doctor:</strong></label>
+    <select id="doctorSelect" [(ngModel)]="selectedDoctorId">
+      <option *ngFor="let doctor of doctors" [value]="doctor.id">
+        {{ doctor.name }}
+      </option>
+    </select>
+  </div>
+
+  <div class="actions">
+    <button class="confirm-btn" (click)="confirmReassignment()">Confirm Transfer</button>
+    <button class="cancel-btn" (click)="cancel()">Cancel</button>
+  </div>
+</div>

@@ -1,3 +1,5 @@
+import { MatDialog } from '@angular/material/dialog';
+import { ReassignPatientComponent } from '../../../admin/pages/reassign-patient/reassign-patient.component';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserTypeService } from '../../../shared/services/user-type.service';
@@ -19,7 +21,8 @@ export class HomeDoctorComponent implements OnInit {
     private userTypeService: UserTypeService,
     private router: Router,
     private location: Location,
-    private patientsDataService: PatientsDataService
+    private patientsDataService: PatientsDataService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -57,5 +60,22 @@ export class HomeDoctorComponent implements OnInit {
     return this.patients.filter(p =>
       `${p.firstName} ${p.lastName}`.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+  }
+
+  transferPatient(patient: PatientEntity): void {
+    this.router.navigate(['/doctor/transfer'], { state: { patient } });
+  }
+  openTransferDialog(patient: PatientEntity): void {
+    const dialogRef = this.dialog.open(ReassignPatientComponent, {
+      width: '400px',
+      data: { patient, patientFullName: `${patient.firstName} ${patient.lastName}` }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Transfer completed:', result);
+        // optionally reload or show notification
+      }
+    });
   }
 }
