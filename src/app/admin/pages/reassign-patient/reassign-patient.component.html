@@ -1,25 +1,30 @@
 <div class="reassign-container">
-  <h2 class="title">Reassign Patient</h2>
-  <div *ngIf="successMessage" class="success-message">
-    {{ successMessage }}
-  </div>
+  <h2 class="reassign-title">🔄 Reassign Patient</h2>
 
-  <div class="patient-info-card">
-    <p><strong>👤 Full Name:</strong> {{ selectedPatient?.fullName }}</p>
-    <p><strong>🎂 Age:</strong> {{ selectedPatient?.age }} years</p>
-  </div>
+  <ng-container *ngIf="successMessage; else formSection">
+    <div class="success-message">
+      {{ successMessage }}
+    </div>
+  </ng-container>
 
-  <div class="form-group">
-    <label for="doctorSelect"><strong>Select a Doctor:</strong></label>
-    <select id="doctorSelect" [(ngModel)]="selectedDoctorId">
-      <option *ngFor="let doctor of doctors" [value]="doctor.id">
-        {{ doctor.name }}
-      </option>
-    </select>
-  </div>
+  <ng-template #formSection>
+    <div class="patient-info-card">
+      <p><strong>👤 Full Name:</strong> {{ selectedPatient?.fullName }}</p>
+      <p><strong>🎂 Age:</strong> {{ selectedPatient?.age }} years</p>
+    </div>
 
-  <div class="actions">
-    <button class="confirm-btn" (click)="confirmReassignment()">Confirm Transfer</button>
-    <button class="cancel-btn" (click)="cancel()">Cancel</button>
-  </div>
+    <div class="reassign-form">
+      <label for="doctorSelect" class="reassign-label">🩺 <strong>Select a Doctor:</strong></label>
+      <select id="doctorSelect" [(ngModel)]="selectedDoctorId" class="reassign-select">
+        <option *ngFor="let doctor of doctors" [value]="doctor.id">
+          {{ doctor.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="reassign-buttons">
+      <button class="btn-confirm" (click)="confirmReassignment()">✅ Confirm Transfer</button>
+      <button class="btn-cancel" (click)="cancel()">❌ Cancel</button>
+    </div>
+  </ng-template>
 </div>

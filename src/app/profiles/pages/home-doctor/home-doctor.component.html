@@ -16,6 +16,7 @@
                 <th>Hour</th>
                 <th>Diagnosis</th>
                 <th>Alert</th>
+                <th>Transfer</th>
                 <th>Video conference</th>
               </tr>
               </thead>
@@ -35,11 +36,13 @@
                 <td>—</td>
                 <td>—</td>
                 <td>
-                  <button class="video-btn">
-                    <mat-icon>videocam</mat-icon>
-                  </button>
                   <button class="transfer-btn" (click)="openTransferDialog(patient)">
                     <mat-icon>sync_alt</mat-icon>
+                  </button>
+                </td>
+                <td>
+                  <button class="video-btn">
+                    <mat-icon>videocam</mat-icon>
                   </button>
                 </td>
               </tr>
