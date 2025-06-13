@@ -1,59 +1,68 @@
 /* Estilos generales */
 .tp-wrapper {
-  padding: 20px;
+  padding: 24px;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f5f7fa;
+  background-color: #f8fafc;
   min-height: 100vh;
 }
 
 .tp-title {
-  font-size: 26px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  color: #1e293b;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #0f172a;
 }
 
 /* Botón de control diario */
 .tp-register-control {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .tp-btn-register {
-  padding: 10px 20px;
-  background-color: #3b82f6;
+  padding: 12px 24px;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
 }
 
 .tp-btn-register:hover {
-  background-color: #2563eb;
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 /* Racha semanal */
 .tp-streak-wrapper {
-  margin-bottom: 20px;
+  margin-bottom: 28px;
   background: #e0f2fe;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 14px;
+  border-radius: 10px;
 }
 
 .tp-streak-days {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
 }
 
 .tp-streak-days div {
-  background-color: #fff;
-  padding: 8px 12px;
-  border-radius: 6px;
+  background-color: #f1f5f9;
+  padding: 10px 14px;
+  border-radius: 8px;
   font-weight: 500;
-  color: #1e293b;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  color: #0f172a;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.2s ease-in-out;
+}
+
+.tp-streak-days div:hover {
+  background-color: #cbd5e1;
 }
 
 .tp-streak-days div.cumplido {
@@ -64,27 +73,56 @@
 /* Cards */
 .tp-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  padding-bottom: 24px;
 }
 
 .tp-card {
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 16px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  min-height: 260px;
+  background: linear-gradient(145deg, #ffffff, #f1f5f9);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+}
+
+.tp-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .tp-card-header {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tp-treatment-header {
+  display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  width: 100%;
+  margin-bottom: 4px;
+}
+
+.tp-dates {
+  display: flex;
+  flex-direction: column;
+  font-size: 13.5px;
+  color: #475569;
+  margin-top: 4px;
+}
+
+.tp-dates div {
+  margin-bottom: 2px;
 }
 
 .tp-treatment-name {
-  font-weight: bold;
-  color: #111827;
+  font-weight: 700;
+  font-size: 16px;
+  color: #1e293b;
 }
 
 .tp-status {
@@ -103,28 +141,39 @@
 }
 
 .tp-card-body div {
-  margin-bottom: 4px;
-  font-size: 14px;
+  margin-bottom: 8px;
+  font-size: 14.5px;
+  color: #334155;
+  line-height: 1.4;
 }
 
 .tp-divider {
   height: 1px;
-  background-color: #e5e7eb;
-  margin: 10px 0;
+  background-color: #e2e8f0;
+  margin: 12px 0;
+}
+
+.tp-card-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
 }
 
 .tp-card-actions button {
-  margin-right: 10px;
-  background-color: #64748b;
+  flex: 1;
+  margin: 0 6px;
+  background-color: #475569;
   border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: 10px 16px;
+  border-radius: 8px;
   color: white;
   cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
 }
 
 .tp-card-actions button:hover {
-  background-color: #475569;
+  background-color: #334155;
 }
 
 /* Modal */
@@ -134,7 +183,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,46 +191,76 @@
 }
 
 .tp-modal {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 400px;
-  max-width: 90%;
+  background: linear-gradient(135deg, #fdfdfd, #f1f5f9);
+  padding: 28px;
+  border-radius: 14px;
+  width: 440px;
+  max-width: 95%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e2e8f0;
 }
 
 .tp-modal h3 {
   margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 700;
   color: #1e293b;
+  border-bottom: 1px solid #cbd5e1;
+  padding-bottom: 10px;
 }
 
 .tp-modal textarea,
 .tp-modal select {
   width: 100%;
-  margin: 8px 0 16px 0;
-  padding: 10px;
-  border-radius: 6px;
+  margin: 10px 0 18px 0;
+  padding: 12px;
+  border-radius: 10px;
   border: 1px solid #cbd5e1;
+  font-size: 15px;
+  background-color: #f8fafc;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.tp-modal textarea:focus,
+.tp-modal select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 
 .tp-modal-actions {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .tp-btn-save {
   background-color: #10b981;
   color: white;
-  padding: 10px 16px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .tp-btn-cancel {
   background-color: #ef4444;
   color: white;
-  padding: 10px 16px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
+}
+
+/* Mejora visual: padding superior para el cuerpo de la card */
+.tp-card-body {
+  padding-top: 4px;
+}
+
+/* Mejora visual: icono para el nombre del tratamiento */
+.tp-treatment-name::before {
+  content: '📌 ';
 }
