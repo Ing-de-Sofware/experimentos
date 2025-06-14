@@ -99,3 +99,13 @@ button[mat-icon-button] {
 button[mat-icon-button]:hover {
   transform: scale(1.2);
 }
+
+.message-left .bubble {
+  background-color: #e0e7ff; /* lavanda claro */
+  color: #1f2937; /* texto gris oscuro */
+  border-radius: 16px;
+  padding: 12px 16px;
+  max-width: 60%;
+  margin-bottom: 8px;
+  align-self: flex-start;
+}

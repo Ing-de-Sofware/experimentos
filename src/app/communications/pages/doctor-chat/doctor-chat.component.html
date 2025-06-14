@@ -5,18 +5,28 @@
 
     <!-- Lista de mensajes -->
     <div class="chat-messages">
-      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender === 'patient' ? 'right' : 'left'">
-        <img *ngIf="msg.sender === 'doctor'" src="https://i.pravatar.cc/40?img=2" class="avatar" />
-
-        <div class="bubble">
-          {{ msg.text }}
-          <div *ngIf="msg.file">
-            <br />
-            <a [href]="msg.file.url" target="_blank">📎 {{ msg.file.name }}</a>
+      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender === 'doctor' ? 'message right' : 'message left'">
+        <ng-container *ngIf="msg.sender === 'doctor'">
+          <img src="https://i.pravatar.cc/40?img=2" class="avatar" />
+          <div class="bubble">
+            {{ msg.text }}
+            <div *ngIf="msg.file">
+              <br />
+              <a [href]="msg.file.url" [attr.download]="msg.file.name">📎 {{ msg.file.name }}</a>
+            </div>
           </div>
-        </div>
+        </ng-container>
 
-        <img *ngIf="msg.sender === 'patient'" src="https://i.pravatar.cc/40?img=3" class="avatar" />
+        <ng-container *ngIf="msg.sender === 'patient'">
+          <img src="https://i.pravatar.cc/40?img=3" class="avatar" />
+          <div class="bubble">
+            {{ msg.text }}
+            <div *ngIf="msg.file">
+              <br />
+              <a [href]="msg.file.url" [attr.download]="msg.file.name">📎 {{ msg.file.name }}</a>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
 

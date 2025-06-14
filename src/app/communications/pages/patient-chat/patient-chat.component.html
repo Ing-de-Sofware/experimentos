@@ -5,21 +5,34 @@
     <div class="chat-header">Chat con Médico</div>
 
     <div class="chat-messages">
-      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender === 'patient' ? 'right' : 'left'">
-        <img *ngIf="msg.sender === 'doctor'" src="https://i.pravatar.cc/40?img=2" class="avatar" />
+      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender === 'patient' ? 'message right' : 'message left'">
+        <ng-container *ngIf="msg.sender === 'doctor'">
+          <img src="https://i.pravatar.cc/40?img=2" class="avatar" />
+          <div class="bubble">
+            <ng-container *ngIf="msg.text">
+              <p class="text-message">{{ msg.text }}</p>
+            </ng-container>
+            <ng-container *ngIf="msg.file">
+              <p class="file-attachment">
+                📎 <a [href]="msg.file.url" [attr.download]="msg.file.name">{{ msg.file.name }}</a>
+              </p>
+            </ng-container>
+          </div>
+        </ng-container>
 
-        <div class="bubble">
-          <ng-container *ngIf="msg.text">
-            <p class="text-message">{{ msg.text }}</p>
-          </ng-container>
-          <ng-container *ngIf="msg.file">
-            <p class="file-attachment">
-              📎 <a [href]="msg.file.url" target="_blank">{{ msg.file.name }}</a>
-            </p>
-          </ng-container>
-        </div>
-
-        <img *ngIf="msg.sender === 'patient'" src="https://i.pravatar.cc/40?img=3" class="avatar" />
+        <ng-container *ngIf="msg.sender === 'patient'">
+          <img src="https://i.pravatar.cc/40?img=3" class="avatar" />
+          <div class="bubble">
+            <ng-container *ngIf="msg.text">
+              <p class="text-message">{{ msg.text }}</p>
+            </ng-container>
+            <ng-container *ngIf="msg.file">
+              <p class="file-attachment">
+                📎 <a [href]="msg.file.url" [attr.download]="msg.file.name">{{ msg.file.name }}</a>
+              </p>
+            </ng-container>
+          </div>
+        </ng-container>
       </div>
     </div>
 
