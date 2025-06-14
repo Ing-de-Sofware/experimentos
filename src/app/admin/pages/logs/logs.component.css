@@ -1,0 +1,111 @@
+.logs-container {
+  padding: 32px;
+}
+
+.logs-container h2 {
+  color: #4d2559;
+  margin-bottom: 20px;
+}
+
+.logs-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.logs-actions input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  min-width: 220px;
+}
+
+table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.risk-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  color: white;
+}
+
+.low {
+  background-color: #4caf50;
+}
+
+.medium {
+  background-color: #ff9800;
+}
+
+.high {
+  background-color: #f44336;
+}
+/* Fila de detalles */
+.detail-row {
+  height: 0;
+}
+
+.log-details {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background: #fafafa;
+  font-size: 14px;
+  border-top: 1px solid #e0e0e0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Para distinguir fila expandida */
+.log-row.expanded {
+  background-color: #f1ecf8;
+}
+
+.high-risk-row {
+  border-left: 4px solid #f44336;
+  background-color: #fff4f4;
+}
+.dark-mode .high-risk-row {
+  background-color: #2a1b1b;
+  border-left: 4px solid #ff6d6d;
+}
+.icon-cell {
+  width: 40px;
+  text-align: center;
+}
+
+.warning-icon {
+  color: #f44336;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+mat-icon[color="warn"] {
+  vertical-align: middle;
+}
+.rotated {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
