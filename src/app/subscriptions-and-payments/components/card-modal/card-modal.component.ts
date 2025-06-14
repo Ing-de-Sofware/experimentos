@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {MatCard, MatCardActions} from "@angular/material/card";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-card-modal',
@@ -10,7 +11,8 @@ import {MatFormField, MatLabel} from "@angular/material/form-field";
     MatCardActions,
     MatLabel,
     MatFormField,
-    MatCard
+    MatCard,
+    CommonModule
   ],
   styleUrls: ['./card-modal.component.css'] // Aquí está la corrección
 })

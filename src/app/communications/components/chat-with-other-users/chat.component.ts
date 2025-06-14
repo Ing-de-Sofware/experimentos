@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ChatService } from '../../services/chat.service';
 import { Message } from '../../model/message';
 import { DoctorProfile } from '../../model/doctor-profile';
@@ -12,7 +13,8 @@ import {DatePipe, NgClass} from "@angular/common";
   imports: [
     FormsModule,
     DatePipe,
-    NgClass
+    NgClass,
+    CommonModule
   ],
   styleUrls: ['./chat.component.css']
 })
