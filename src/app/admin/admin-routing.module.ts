@@ -1,26 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
-import { LogsComponent } from './pages/logs/logs.component';
-import { SupportComponent } from './pages/support/support.component';
-import { UserManagementComponent } from './pages/user-management/user-management.component';
-import { AnnouncementsAdminComponent } from './pages/announcements-admin/announcements-admin.component';
-import {ReassignPatientComponent} from "./pages/reassign-patient/reassign-patient.component";
-import {HomeAdminComponent} from "../profiles/pages/home-admin/home-admin.component";
-import {AdminStatsComponent} from "./pages/admin-stats/admin-stats.component";
+import { AdminLayoutComponent } from './components/admin-layout/admin-layout.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' }, // Redirige /admin a /admin/home
-  { path: 'home', component: HomeAdminComponent },
-  { path: 'dashboard', component: AdminDashboardComponent },
-  {path: 'stats', component: AdminStatsComponent },
-  { path: 'reassignPatient', component: ReassignPatientComponent },
-  { path: 'logs', component: LogsComponent },
-  { path: 'support', component: SupportComponent },
-  { path: 'user-management', component: UserManagementComponent },
-  { path: 'announcementsAdmin', component: AnnouncementsAdminComponent },
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [
+      { path: 'home', loadComponent: () => import('../profiles/pages/home-admin/home-admin.component').then(m => m.HomeAdminComponent) },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'dashboard', loadComponent: () => import('./pages/admin-dashboard/admin-dashboard.component').then(m => m.AdminDashboardComponent) },
+      { path: 'stats', loadComponent: () => import('./pages/admin-stats/admin-stats.component').then(m => m.AdminStatsComponent) },
+      { path: 'announcementsAdmin', loadComponent: () => import('./pages/announcements-admin/announcements-admin.component').then(m => m.AnnouncementsAdminComponent) },
+      { path: 'logs', loadComponent: () => import('./pages/logs/logs.component').then(m => m.LogsComponent) },
+      { path: 'reassignPatient', loadComponent: () => import('../admin/pages/reassign-patient/reassign-patient.component').then(m => m.ReassignPatientComponent) },
+      { path: 'support', loadComponent: () => import('./pages/support/support.component').then(m => m.SupportComponent) },
+      { path: 'user-management', loadComponent: () => import('./pages/user-management/user-management.component').then(m => m.UserManagementComponent) },
+      { path: '**', redirectTo: 'home' }
+    ]
+  }
 ];
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

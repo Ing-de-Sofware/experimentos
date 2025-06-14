@@ -1,58 +1,86 @@
-import { Component, OnInit } from '@angular/core';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
-import {MatTooltip} from "@angular/material/tooltip";
+// src/app/admin/components/admin-layout/admin-layout.component.ts
+import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import {Router, RouterModule, RouterOutlet} from "@angular/router";
 import {MatIcon} from "@angular/material/icon";
-import {RouterOutlet} from "@angular/router";
-import {
-  HeaderForUserTypeServiceComponent
-} from "../../../shared/components/header-for-user-type-service/header-for-user-type-service.component";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {TranslateModule} from "@ngx-translate/core";
+import {DarkModeService} from "../../../shared/services/dark-mode.service";
 
 @Component({
   selector: 'app-admin-layout',
   templateUrl: './admin-layout.component.html',
   styleUrls: ['./admin-layout.component.css'],
+  standalone: true,
   imports: [
-    TranslateModule,
-    MatTooltip,
-    MatIcon,
     RouterOutlet,
-    HeaderForUserTypeServiceComponent
-  ],
-  standalone: true
+    RouterModule,
+    MatIcon,
+    MatTooltipModule,
+    TranslateModule
+  ]
 })
-export class AdminLayoutComponent implements OnInit {
-
-  isSidebarClosed = false;
+export class AdminLayoutComponent {
   isDarkMode = false;
+  isSidebarClosed = false;
 
-  constructor(private translate: TranslateService) {
-    // Configuración de idiomas disponibles (opcional, personalízalo)
-    this.translate.addLangs(['en', 'es']);
-    this.translate.setDefaultLang('en');
-  }
+  constructor(
+    public translate: TranslateService,
+    private darkModeService: DarkModeService,
+    private router: Router) {
 
-  ngOnInit(): void {
-    const savedDarkMode = localStorage.getItem('darkMode');
-    this.isDarkMode = savedDarkMode === 'true';
+    const lang = localStorage.getItem('lang') || 'en';
+    translate.use(lang);
+
+
+    const stored = localStorage.getItem('dark-mode') === 'true';
+    this.isDarkMode = stored;
+    this.darkModeService.setDarkMode(stored);
+
+
     if (this.isDarkMode) {
       document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
     }
   }
+  ngOnInit(): void {
+    this.darkModeService.darkMode$.subscribe(mode => {
+      this.isDarkMode = mode;
+    });
+    const savedMode = localStorage.getItem('dark-mode');
+    this.isDarkMode = savedMode === 'true';
 
-  toggleSidebar(): void {
-    this.isSidebarClosed = !this.isSidebarClosed;
-  }
-
-  toggleDarkMode(): void {
-    this.isDarkMode = !this.isDarkMode;
-    localStorage.setItem('darkMode', String(this.isDarkMode));
+    // Aplica clase al body SOLO si estás en Admin
     document.body.classList.toggle('dark-mode', this.isDarkMode);
   }
-
-  switchLang(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    const lang = target.value;
-    this.translate.use(lang);
+  ngOnDestroy(): void {
+    document.body.classList.remove('dark-mode');
   }
-  changeLanguage():void{}
+
+  toggleDarkMode() {
+    this.isDarkMode = !this.isDarkMode;
+    localStorage.setItem('darkMode', this.isDarkMode.toString());
+  }
+
+
+
+  toggleSidebar() {
+    this.isSidebarClosed = !this.isSidebarClosed;
+    const layout = document.querySelector('.admin-layout');
+    layout?.classList.toggle('sidebar-collapsed', this.isSidebarClosed);
+  }
+
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
+    localStorage.setItem('lang', lang);
+  }
+
+  protected readonly HTMLSelectElement = HTMLSelectElement;
+  goTo(route: string): void {
+    const cleanRoute = route.startsWith('/') ? route.slice(1) : route;
+    this.router.navigate([`/admin/${cleanRoute}`]);
+  }
+
 }

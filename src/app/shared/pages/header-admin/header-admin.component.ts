@@ -34,12 +34,22 @@ export class HeaderAdminComponent implements OnInit {
     this.darkModeService.darkMode$.subscribe(mode => {
       this.isDarkMode = mode;
     });
+
+    const savedMode = localStorage.getItem('darkMode');
+    if (savedMode === 'true') {
+      this.darkModeService.setDarkMode(true);
+    }
   }
 
+
   toggleDarkMode(): void {
-    this.darkModeService.toggle();
+    const newMode = !this.isDarkMode;
+    this.darkModeService.setDarkMode(newMode);
+    localStorage.setItem('darkMode', String(newMode));
   }
+
   logout(): void {
+    localStorage.removeItem('dark-mode');
     this.authService.signOut();
     this.router.navigate(['/login']);
   }

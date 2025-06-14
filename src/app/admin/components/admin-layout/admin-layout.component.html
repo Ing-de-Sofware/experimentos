@@ -1,47 +1,42 @@
+<!-- src/app/admin/components/admin-layout/admin-layout.component.html -->
+
 <div class="admin-layout" [class.dark-mode]="isDarkMode">
-
-  <!-- Toggle sidebar -->
-  <button class="sidebar-toggle" (click)="toggleSidebar()">
-    <mat-icon>menu</mat-icon>
-  </button>
-
   <!-- Sidebar -->
   <aside class="sidebar" [class.closed]="isSidebarClosed">
-    <img src="assets/images/logo.png" class="logo" />
+    <img src="assets/images/logo.png" class="logo" alt="HormonalCare Logo" />
     <nav>
-      <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
-      <a routerLink="/admin/stats" routerLinkActive="active">Stats</a>
-      <a routerLink="/admin/announcementsAdmin" routerLinkActive="active">Announcements</a>
-      <a routerLink="/admin/logs" routerLinkActive="active">Logs</a>
-      <a routerLink="/admin/reassignPatient" routerLinkActive="active">Reassign</a>
-      <a routerLink="/admin/support" routerLinkActive="active">Support</a>
-      <a routerLink="/admin/user-management" routerLinkActive="active">Users</a>
+      <a routerLink="dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="stats" routerLinkActive="active">Stats</a>
+      <a routerLink="announcementsAdmin" routerLinkActive="active">Announcements</a>
+      <a routerLink="logs" routerLinkActive="active">Logs</a>
+      <a routerLink="reassignPatient" routerLinkActive="active">Reassign</a>
+      <a routerLink="support" routerLinkActive="active">Support</a>
+      <a routerLink="user-management" routerLinkActive="active">Users</a>
     </nav>
   </aside>
 
-  <!-- Main content -->
+  <!-- Contenido principal -->
   <main class="dashboard-main">
     <header class="dashboard-header">
-      <h2 i18n>HormonalCare Admin</h2>
-
-      <div class="user-box">
-        <!-- Language selector -->
-        <select (change)="switchLang($event.target.value)">
-          <option value="en">EN</option>
-          <option value="es">ES</option>
-        </select>
-
-        <!-- Toggle dark mode -->
-        <button mat-icon-button (click)="toggleDarkMode()" [matTooltip]="isDarkMode ? 'Light Mode' : 'Dark Mode'">
-          <mat-icon>{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      <!-- Botón de toggle del sidebar -->
+      <div class="header-left-group">
+        <button class="sidebar-toggle" (click)="toggleSidebar()">
+          <mat-icon>menu</mat-icon>
         </button>
+        <h2>HormonalCare Admin</h2>
+      </div>
 
-        <!-- Avatar -->
-        <img src="assets/images/avatar.png" alt="Avatar" />
+      <!-- Controles superiores: modo oscuro + i18n -->
+      <div class="user-box">
+
+        <select (change)="switchLang($any($event.target).value)">
+        <option value="en" [selected]="translate.currentLang === 'en'">EN</option>
+          <option value="es" [selected]="translate.currentLang === 'es'">ES</option>
+        </select>
       </div>
     </header>
 
-    <!-- Children views -->
+    <!-- Aquí se inyecta la ruta hija -->
     <router-outlet></router-outlet>
   </main>
 </div>

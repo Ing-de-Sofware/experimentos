@@ -13,12 +13,8 @@ import {MatIcon} from "@angular/material/icon";
   imports: [NgChartsModule, RouterLink, MatIcon, RouterLinkActive]
 })
 export class AdminDashboardComponent implements OnInit {
-  isSidebarClosed = false;
+
   isDarkMode = false;
-  sidebarVisible = true;
-  toggleSidebar() {
-    this.isSidebarClosed = !this.isSidebarClosed;
-  }
 
 
 
@@ -42,8 +38,8 @@ export class AdminDashboardComponent implements OnInit {
 
 
   cards = [
-    { title: 'Enviar Comunicados', description: 'Envía comunicados a médicos y pacientes', icon: 'campaign', route: 'announcements' },
-    { title: 'Reasignar Pacientes', description: 'Reasigna pacientes a otros médicos', icon: 'sync_alt', route: 'reassign' },
+    { title: 'Enviar Comunicados', description: 'Envía comunicados a médicos y pacientes', icon: 'campaign', route: 'announcementsAdmin' },
+    { title: 'Reasignar Pacientes', description: 'Reasigna pacientes a otros médicos', icon: 'sync_alt', route: 'reassignPatient' },
     { title: 'Revisar Logs de Acceso', description: 'Visualiza accesos sospechosos', icon: 'security', route: 'logs' },
     { title: 'Soporte Técnico', description: 'Gestiona mensajes de soporte', icon: 'support_agent', route: 'support' },
     { title: 'Gestión de Usuarios', description: 'Visualiza y administra usuarios registrados', icon: 'group', route: 'user-management' }

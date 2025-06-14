@@ -26,11 +26,7 @@ import {HomeAdminComponent} from "../profiles/pages/home-admin/home-admin.compon
 
 @NgModule({
   declarations: [
-    ReassignPatientComponent,
-    LogsComponent,
-    SupportComponent,
-    UserManagementComponent,
-    AdminStatsComponent
+
   ],
   imports: [
     CommonModule,
@@ -49,7 +45,12 @@ import {HomeAdminComponent} from "../profiles/pages/home-admin/home-admin.compon
     NgChartsModule,
     AdminDashboardComponent,
     AdminRoutingModule,
-    HomeAdminComponent
+    HomeAdminComponent,
+    ReassignPatientComponent,
+    LogsComponent,
+    SupportComponent,
+    UserManagementComponent,
+    AdminStatsComponent
   ],
   exports: [
   ]

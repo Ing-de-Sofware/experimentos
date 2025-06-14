@@ -1,12 +1,25 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, Optional } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { CommonModule, NgForOf, NgIf } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-reassign-patient',
   templateUrl: './reassign-patient.component.html',
-  styleUrls: ['./reassign-patient.component.css']
+  styleUrls: ['./reassign-patient.component.css'],
+  imports: [
+    NgIf,
+    FormsModule,
+    NgForOf,
+    CommonModule,
+    MatCardModule,
+    MatIconModule,
+    FormsModule,
+  ],
+  standalone: true
 })
 export class ReassignPatientComponent {
   reassignForm: FormGroup;
@@ -21,9 +34,9 @@ export class ReassignPatientComponent {
 
   constructor(
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<ReassignPatientComponent>,
-    private router: Router
+    private router: Router,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+    @Optional() private dialogRef?: MatDialogRef<ReassignPatientComponent>
   ) {
     this.reassignForm = this.fb.group({
       currentDoctor: ['', Validators.required],
@@ -32,11 +45,21 @@ export class ReassignPatientComponent {
       reason: ['', Validators.required]
     });
 
-    this.selectedPatient = {
-      id: data.patient.id,
-      fullName: `${data.patient.firstName} ${data.patient.lastName}`,
-      age: data.patient.age
-    };
+    // Soporte para acceso como ruta directa o modal
+    if (data?.patient) {
+      this.selectedPatient = {
+        id: data.patient.id,
+        fullName: `${data.patient.firstName} ${data.patient.lastName}`,
+        age: data.patient.age
+      };
+    } else {
+      // Fallback si se accede directamente vía ruta
+      this.selectedPatient = {
+        id: 'demo-patient',
+        fullName: 'Test Patient',
+        age: 30
+      };
+    }
   }
 
   onSubmit(): void {
@@ -54,7 +77,9 @@ export class ReassignPatientComponent {
     this.successMessage = `Paciente ${this.selectedPatient?.fullName || 'N/A'} ha sido transferido exitosamente.`;
 
     setTimeout(() => {
-      this.dialogRef.close();
+      if (this.dialogRef) {
+        this.dialogRef.close();
+      }
       if (this.selectedPatient?.id) {
         const selectedDoctor = this.doctors.find(doc => doc.id === this.selectedDoctorId);
         this.router.navigate(
@@ -63,7 +88,7 @@ export class ReassignPatientComponent {
             state: {
               patientName: this.selectedPatient.fullName,
               patientAge: this.selectedPatient.age,
-              doctorName: selectedDoctor?.name || 'N/A' // ✅ doctor enviado correctamente
+              doctorName: selectedDoctor?.name || 'N/A'
             }
           }
         );
@@ -72,6 +97,8 @@ export class ReassignPatientComponent {
   }
 
   cancel() {
-    this.dialogRef.close();
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
   }
 }

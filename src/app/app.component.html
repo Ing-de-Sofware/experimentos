@@ -1,3 +1,4 @@
+<div [class.dark-mode]="isDarkMode">
 <ng-container *ngIf="!isAuthRoute">
   <app-header-for-user-type-service></app-header-for-user-type-service>
 </ng-container>
@@ -8,3 +9,4 @@
 <ng-container *ngIf="!isAuthRoute">
   <app-footer-content></app-footer-content>
 </ng-container>
+</div>

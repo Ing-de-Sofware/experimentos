@@ -7,6 +7,7 @@ import {
   HeaderForUserTypeServiceComponent
 } from "./shared/components/header-for-user-type-service/header-for-user-type-service.component";
 import {FooterContentComponent} from "./public/components/footer-content/footer-content.component";
+import {DarkModeService} from "./shared/services/dark-mode.service";
 
 @Component({
   selector: 'app-root',
@@ -14,13 +15,18 @@ import {FooterContentComponent} from "./public/components/footer-content/footer-
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+
   title = 'frontend_version0_0';
-  isAuthRoute: boolean = false;
+  isAuthRoute  = false;
   userType: UserType | null = null;
+  isDarkMode = false;
+
+
 
   constructor(
     private userTypeService: UserTypeService,
-    private router: Router
+    private router: Router,
+    private darkModeService: DarkModeService,
   ) {
     this.userTypeService.userType$.subscribe(type => this.userType = type);
 
@@ -32,6 +38,10 @@ export class AppComponent {
         this.isAuthRoute = ['/login', '/register', '/forgot-password', '/selectRole'].some(route => path.startsWith(route));
 
       });
+  }
+  ngOnInit() {
+    const dark = localStorage.getItem('theme') === 'dark';
+    document.body.classList.toggle('dark-mode', dark);
   }
 
   showMedicalHistoryPage: boolean = false;

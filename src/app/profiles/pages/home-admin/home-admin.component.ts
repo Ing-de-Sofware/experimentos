@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import {AuthenticationService} from "../../../iam/services/authentication.service";
-import {MatIcon} from "@angular/material/icon";
+import {MatIcon, MatIconModule} from "@angular/material/icon";
 import {CommonModule} from "@angular/common";
-import {MatTooltip} from "@angular/material/tooltip";
+import {MatTooltip, MatTooltipModule} from "@angular/material/tooltip";
+import {MatButton, MatButtonModule} from "@angular/material/button";
 
 @Component({
   selector: 'app-home-admin',
@@ -13,7 +14,11 @@ import {MatTooltip} from "@angular/material/tooltip";
     MatIcon,
     CommonModule,
     MatTooltip,
-
+    MatButton,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+    RouterModule
   ],
   standalone: true
 })
@@ -45,6 +50,8 @@ export class HomeAdminComponent implements OnInit {
 
 
   goTo(route: string): void {
-    this.router.navigate([`/admin/${route}`]);
+    console.log('Clicked route:', route); // <- PRUEBA
+    const cleanRoute = route.startsWith('/') ? route.slice(1) : route;
+    this.router.navigate([`/admin/${cleanRoute}`]);
   }
 }

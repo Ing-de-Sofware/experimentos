@@ -1,4 +1,4 @@
-<footer class="main-footer">
+<footer class="main-footer" [class.dark-mode]="isDarkMode">
   <div class="footer-left">
     <img src="assets/images/logo.png" alt="Logo" class="footer-logo" />
     <p>&copy; 2025 HormonalCare. All rights reserved.</p>
@@ -7,7 +7,6 @@
     <a (click)="openPrivacyDialog()">Privacy Policy</a> |
     <a (click)="openTermsDialog()">Terms of Service</a> |
     <a (click)="openPrivacyPolicyPersonalDataProcessing()">Personal Data</a> |
-
     <a (click)="openHelp()">Help</a>
   </div>
 </footer>

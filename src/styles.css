@@ -4,8 +4,20 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body {
-  overflow: auto
-
-
-;
+  overflow: auto;
 }
+body.dark-mode {
+  background-color: #1e1e2f;
+  color: #f0f0f0;
+}
+
+body.dark-mode a {
+  color: #b3c0ff;
+}
+
+body.dark-mode .mat-mdc-button {
+  color: #f0f0f0;
+}
+
+
+

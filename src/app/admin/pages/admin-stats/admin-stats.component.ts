@@ -4,14 +4,24 @@ import {
   ChartData,
   ChartOptions, ChartType
 } from 'chart.js';
-import {BaseChartDirective} from "ng2-charts";
+import {BaseChartDirective, NgChartsModule} from "ng2-charts";
 import {DarkModeService} from "../../../shared/services/dark-mode.service";
 import {Router} from "@angular/router";
+import {MatCardModule} from "@angular/material/card";
+import {CommonModule} from "@angular/common";
+import {MatIconModule} from "@angular/material/icon";
 
 @Component({
   selector: 'app-admin-stats',
   templateUrl: './admin-stats.component.html',
-  styleUrls: ['./admin-stats.component.css']
+  styleUrls: ['./admin-stats.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    NgChartsModule,
+    MatIconModule,
+  ]
 })
 export class AdminStatsComponent {
   isDarkMode = false;

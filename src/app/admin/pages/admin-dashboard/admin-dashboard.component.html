@@ -1,29 +1,9 @@
 <div class="admin-layout" [class.dark-mode]="isDarkMode">
-
-
-
-  <!-- Sidebar -->
-  <aside class="sidebar" [class.closed]="isSidebarClosed">
-    <img src="assets/images/logo.png" class="logo" />
-    <nav>
-      <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
-      <a routerLink="/admin/stats" routerLinkActive="active">Stats</a>
-      <a routerLink="/admin/announcementsAdmin" routerLinkActive="active">Announcements</a>
-      <a routerLink="/admin/logs" routerLinkActive="active">Logs</a>
-      <a routerLink="/admin/reassignPatient" routerLinkActive="active">Reassign</a>
-      <a routerLink="/admin/support" routerLinkActive="active">Support</a>
-      <a routerLink="/admin/user-management" routerLinkActive="active">Users</a>
-    </nav>
-  </aside>
-
-  <!-- Main Dashboard -->
+    <!-- Main Dashboard -->
   <main class="dashboard-main">
 
     <header class="dashboard-header">
       <div class="header-left">
-        <button class="sidebar-toggle" (click)="toggleSidebar()">
-          <mat-icon>menu</mat-icon>
-        </button>
         <h2>System Overview</h2>
       </div>
     </header>

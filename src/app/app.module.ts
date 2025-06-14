@@ -107,6 +107,7 @@ import { ProfilesModule } from './profiles/profiles.module';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 import {SharedModule} from "./shared/shared.module";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -158,7 +159,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatInputModule,
     PatientsPendingTaskComponent,
     PatientsReminderComponent,
-    /*
+
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -166,7 +167,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    */
+
     MatButtonToggleGroup,
     MatButtonToggle,
     MatAnchor,
