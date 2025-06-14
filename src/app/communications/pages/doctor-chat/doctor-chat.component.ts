@@ -11,34 +11,73 @@ interface ChatMessage {
   };
 }
 
+interface ChatThread {
+  userId: string;
+  userName: string;
+  messages: ChatMessage[];
+}
+
 @Component({
   selector: 'app-doctor-chat',
   templateUrl: './doctor-chat.component.html',
   styleUrls: ['./doctor-chat.component.css']
 })
 export class DoctorChatComponent implements OnInit {
-  messages: ChatMessage[] = [];
+  users = [
+    { userId: 'joseph', name: 'Joseph López' },
+    { userId: 'camila', name: 'Camila Torres' },
+    { userId: 'maria', name: 'María Pérez' }
+  ];
+
+  chatThreads: ChatThread[] = [];
+  selectedUserId: string = '';
+  selectedUserName: string = '';
   newMessage: string = '';
-  selectedUserName: string = 'Joseph López';
-  localStorageKey: string = 'chat_messages';
   uploadedFiles: { name: string; url: string; type?: string }[] = [];
 
   ngOnInit(): void {
-    const saved = localStorage.getItem(this.localStorageKey);
+    const saved = localStorage.getItem('chat_threads');
     if (saved) {
-      this.messages = JSON.parse(saved);
+      this.chatThreads = JSON.parse(saved);
     }
+    if (!saved || this.chatThreads.length === 0) {
+      this.chatThreads = this.users.map(user => ({
+        userId: user.userId,
+        userName: user.name,
+        messages: []
+      }));
+      this.selectChat(this.chatThreads[0].userId);
+    } else if (this.chatThreads.length > 0) {
+      this.selectChat(this.chatThreads[0].userId);
+    }
+  }
+
+  selectChat(userId: string): void {
+    const thread = this.chatThreads.find(t => t.userId === userId);
+    if (thread) {
+      this.selectedUserId = userId;
+      this.selectedUserName = thread.userName;
+    }
+  }
+
+  get selectedMessages(): ChatMessage[] {
+    return (
+      this.chatThreads.find(t => t.userId === this.selectedUserId)?.messages || []
+    );
   }
 
   sendMessage(): void {
     const trimmed = this.newMessage.trim();
+    const thread = this.chatThreads.find(t => t.userId === this.selectedUserId);
+    if (!thread) return;
+
     if (trimmed.length > 0) {
       const msg: ChatMessage = {
         text: trimmed,
         sender: 'doctor',
         timestamp: new Date()
       };
-      this.messages.push(msg);
+      thread.messages.push(msg);
       this.newMessage = '';
     }
 
@@ -52,7 +91,7 @@ export class DoctorChatComponent implements OnInit {
           type: file.type
         }
       };
-      this.messages.push(fileMessage);
+      thread.messages.push(fileMessage);
     });
 
     this.uploadedFiles = [];
@@ -78,12 +117,15 @@ export class DoctorChatComponent implements OnInit {
   }
 
   saveMessages(): void {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.messages));
+    localStorage.setItem('chat_threads', JSON.stringify(this.chatThreads));
   }
 
   clearChat(): void {
-    this.messages = [];
-    localStorage.removeItem(this.localStorageKey);
+    const thread = this.chatThreads.find(t => t.userId === this.selectedUserId);
+    if (thread) {
+      thread.messages = [];
+      this.saveMessages();
+    }
   }
 
   protected readonly localStorage = localStorage;

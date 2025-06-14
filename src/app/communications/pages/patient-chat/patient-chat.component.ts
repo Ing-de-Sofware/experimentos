@@ -13,15 +13,27 @@ interface ChatMessage {
   };
 }
 
+interface ChatUser {
+  userId: string;
+  name: string;
+}
+
 @Component({
   selector: 'app-patient-chat',
   templateUrl: './patient-chat.component.html',
   styleUrls: ['./patient-chat.component.css']
 })
 export class PatientChatComponent implements OnInit {
-  messages: ChatMessage[] = [];
+  users: ChatUser[] = [
+    { userId: 'medico1', name: 'Dr. Gonzales' },
+    { userId: 'medico2', name: 'Dr. Martínez' },
+    { userId: 'medico3', name: 'Dr. Pérez' }
+  ];
+
+  selectedUserId: string = this.users[0].userId;
+  selectedUser: ChatUser = this.users[0];
+  selectedMessages: ChatMessage[] = [];
   newMessage: string = '';
-  localStorageKey: string = 'chat_messages';
   uploadedFiles: { name: string; url: string; type?: string }[] = [];
 
   constructor(
@@ -35,12 +47,26 @@ export class PatientChatComponent implements OnInit {
       this.router.navigate(['/login'], { replaceUrl: true });
     }
 
-    const saved = localStorage.getItem(this.localStorageKey);
-    if (saved) {
-      this.messages = JSON.parse(saved);
-    } else {
-      this.messages = [];
-    }
+    this.loadMessages(this.selectedUserId);
+  }
+
+  getLocalStorageKey(userId: string): string {
+    return `chat_messages_patient_${userId}`;
+  }
+
+  loadMessages(userId: string): void {
+    const saved = localStorage.getItem(this.getLocalStorageKey(userId));
+    this.selectedMessages = saved ? JSON.parse(saved) : [];
+  }
+
+  saveMessages(): void {
+    localStorage.setItem(this.getLocalStorageKey(this.selectedUserId), JSON.stringify(this.selectedMessages));
+  }
+
+  selectChat(userId: string): void {
+    this.selectedUserId = userId;
+    this.selectedUser = this.users.find(u => u.userId === userId) || this.selectedUser;
+    this.loadMessages(userId);
   }
 
   sendMessage(): void {
@@ -51,7 +77,7 @@ export class PatientChatComponent implements OnInit {
         sender: 'patient',
         timestamp: new Date()
       };
-      this.messages.push(msg);
+      this.selectedMessages.push(msg);
       this.newMessage = '';
     }
 
@@ -65,18 +91,14 @@ export class PatientChatComponent implements OnInit {
           type: file.type
         }
       };
-      this.messages.push(fileMessage);
+      this.selectedMessages.push(fileMessage);
     });
 
     this.uploadedFiles = [];
     this.saveMessages();
   }
 
-  saveMessages(): void {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.messages));
-  }
-
-  onFileSelected(event: any): void {
+  handleFileUpload(event: any): void {
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
       const file = files.item(i);
@@ -89,17 +111,13 @@ export class PatientChatComponent implements OnInit {
             type: file.type
           });
         };
-        reader.readAsDataURL(file); // permite cargar cualquier archivo
+        reader.readAsDataURL(file);
       }
     }
   }
 
-  handleFileUpload(event: any): void {
-    this.onFileSelected(event);
-  }
-
   clearChat(): void {
-    this.messages = [];
-    localStorage.removeItem(this.localStorageKey);
+    this.selectedMessages = [];
+    localStorage.removeItem(this.getLocalStorageKey(this.selectedUserId));
   }
 }

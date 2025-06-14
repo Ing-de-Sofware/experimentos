@@ -1,59 +1,72 @@
 <div class="chat-container">
-  <!-- Chat Único con el Médico -->
-  <div class="chat-panel">
-    <div class="chat-header">Chat con Paciente</div>
-
-    <!-- Lista de mensajes -->
-    <div class="chat-messages">
-      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender === 'doctor' ? 'message right' : 'message left'">
-        <ng-container *ngIf="msg.sender === 'doctor'">
-          <img src="https://i.pravatar.cc/40?img=2" class="avatar" />
-          <div class="bubble">
-            {{ msg.text }}
-            <div *ngIf="msg.file">
-              <br />
-              <a [href]="msg.file.url" [attr.download]="msg.file.name">📎 {{ msg.file.name }}</a>
-            </div>
-          </div>
-        </ng-container>
-
-        <ng-container *ngIf="msg.sender === 'patient'">
-          <img src="https://i.pravatar.cc/40?img=3" class="avatar" />
-          <div class="bubble">
-            {{ msg.text }}
-            <div *ngIf="msg.file">
-              <br />
-              <a [href]="msg.file.url" [attr.download]="msg.file.name">📎 {{ msg.file.name }}</a>
-            </div>
-          </div>
-        </ng-container>
+  <div class="chat-layout">
+    <!-- Sidebar with user list -->
+    <div class="chat-sidebar">
+      <div class="user-list">
+        <div
+          *ngFor="let user of users"
+          (click)="selectChat(user.userId)"
+          [ngClass]="{ 'user-item': true, 'active': user.userId === selectedUserId }"
+        >
+          <img src="https://i.pravatar.cc/40?u={{ user.name }}" class="avatar" />
+          <span>{{ user.name }}</span>
+        </div>
       </div>
     </div>
 
-    <!-- Botón para borrar el chat -->
-    <div class="chat-actions">
-      <button class="clear-chat-btn" (click)="clearChat()">🗑 Borrar chat</button>
-    </div>
+    <!-- Main chat content -->
+    <div class="chat-content">
+      <div class="chat-header">Chat con Paciente</div>
 
-    <!-- Entrada de texto y subida de archivos -->
-    <div class="chat-input">
-      <input [(ngModel)]="newMessage" type="text" placeholder="Escribe un mensaje..." (keydown.enter)="sendMessage()" />
+      <div class="chat-messages">
+        <div *ngFor="let msg of selectedMessages" class="message" [ngClass]="msg.sender === 'doctor' ? 'right' : 'left'">
+          <ng-container *ngIf="msg.sender === 'doctor'">
+            <img src="https://i.pravatar.cc/40?img=2" class="avatar" />
+            <div class="bubble">
+              {{ msg.text }}
+              <div *ngIf="msg.file">
+                <br />
+                <a [href]="msg.file.url" [attr.download]="msg.file.name">📎 {{ msg.file.name }}</a>
+              </div>
+            </div>
+          </ng-container>
 
-      <!-- Subida de archivos -->
-      <label class="file-upload-icon">
-        <input type="file" (change)="handleFileUpload($event)" />
-        <mat-icon>attach_file</mat-icon>
-      </label>
-
-      <div *ngFor="let file of uploadedFiles" class="file-preview">
-        <img *ngIf="file.url.endsWith('.jpg') || file.url.endsWith('.jpeg') || file.url.endsWith('.png')" [src]="file.url" class="preview-image" />
-        <span>{{ file.name }}</span>
+          <ng-container *ngIf="msg.sender === 'patient'">
+            <img src="https://i.pravatar.cc/40?img=3" class="avatar" />
+            <div class="bubble">
+              {{ msg.text }}
+              <div *ngIf="msg.file">
+                <br />
+                <a [href]="msg.file.url" [attr.download]="msg.file.name">📎 {{ msg.file.name }}</a>
+              </div>
+            </div>
+          </ng-container>
+        </div>
       </div>
 
-      <!-- Botón de enviar -->
-      <button (click)="sendMessage()">
-        <mat-icon>send</mat-icon>
-      </button>
+      <!-- Chat actions -->
+      <div class="chat-actions">
+        <button class="clear-chat-btn" (click)="clearChat()">🗑 Borrar chat</button>
+      </div>
+
+      <!-- Message input and file upload -->
+      <div class="chat-input">
+        <input [(ngModel)]="newMessage" type="text" placeholder="Escribe un mensaje..." (keydown.enter)="sendMessage()" />
+
+        <label class="file-upload-icon">
+          <input type="file" (change)="handleFileUpload($event)" />
+          <mat-icon>attach_file</mat-icon>
+        </label>
+
+        <div *ngFor="let file of uploadedFiles" class="file-preview">
+          <img *ngIf="file.url.endsWith('.jpg') || file.url.endsWith('.jpeg') || file.url.endsWith('.png')" [src]="file.url" class="preview-image" />
+          <span>{{ file.name }}</span>
+        </div>
+
+        <button (click)="sendMessage()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>
