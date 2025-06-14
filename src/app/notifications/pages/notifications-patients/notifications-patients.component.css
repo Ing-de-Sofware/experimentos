@@ -72,3 +72,30 @@ mat-sidenav-content {
   display: block;
   margin-bottom: 4px;
 }
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-card-header {
+  display: flex;
+  align-items: center;
+}
+
+mat-card {
+  box-shadow: 0 6px 16px rgba(123, 66, 246, 0.1);
+  transition: transform 0.2s ease;
+}
+
+mat-card:hover {
+  transform: translateY(-2px);
+}
+
+button[mat-icon-button] {
+  color: #b91c1c;
+  transition: transform 0.2s ease;
+}
+
+button[mat-icon-button]:hover {
+  transform: scale(1.2);
+}

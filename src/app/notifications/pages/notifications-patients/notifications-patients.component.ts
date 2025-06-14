@@ -13,8 +13,8 @@ export class NotificationsPatientsComponent implements OnInit {
     this.notifications = saved ? JSON.parse(saved) : [];
   }
 
-  acknowledge(id: number): void {
-    this.notifications = this.notifications.filter(n => n.id !== id);
+  deleteNotification(index: number): void {
+    this.notifications.splice(index, 1);
     localStorage.setItem('notifications', JSON.stringify(this.notifications));
   }
 }

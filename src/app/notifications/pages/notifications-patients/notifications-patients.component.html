@@ -10,6 +10,10 @@
             </div>
             <mat-card-title>{{ notif.title }}</mat-card-title>
             <mat-card-subtitle>{{ notif.date | date:'short' }}</mat-card-subtitle>
+            <span class="spacer"></span>
+            <button mat-icon-button color="warn" (click)="deleteNotification(notif.id)" aria-label="Delete notification">
+              <mat-icon>delete</mat-icon>
+            </button>
           </mat-card-header>
           <mat-card-content>
             <div *ngIf="notif.title === 'Nueva Cita Médica'; else normalMessage" class="highlighted-notification">
@@ -20,7 +24,7 @@
             </ng-template>
           </mat-card-content>
           <mat-card-actions align="end">
-            <button mat-stroked-button color="primary" (click)="acknowledge(notif.id)">Got it</button>
+            <button mat-stroked-button color="primary" (click)="deleteNotification(notif.id)">Got it</button>
           </mat-card-actions>
         </mat-card>
       </div>
@@ -30,3 +34,8 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+<style>
+  .spacer {
+    flex: 1 1 auto;
+  }
+</style>
