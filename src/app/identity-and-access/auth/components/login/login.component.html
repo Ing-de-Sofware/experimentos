@@ -45,6 +45,13 @@
           <a class="forgot" href="javascript:void(0)" (click)="goToForgotPassword()">Forgot password?</a>
         </div>
 
+        <div class="captcha-container" style="margin: 1rem 0;">
+          <re-captcha
+            formControlName="recaptcha"
+            siteKey="6LfrST4rAAAAAKRARrNeV6_YkmdErPZdX2USacMR"
+            (resolved)="onCaptchaResolved($event)">
+          </re-captcha>
+        </div>
         <button mat-raised-button color="primary" class="login-btn" type="submit">Enter</button>
         <mat-error *ngIf="loginError" class="login-error">
           Invalid email or password.

@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   hidePassword = true;
   loginError = false;
+  recaptchaToken: string | null = null;
 
   // ✅ Usuarios simulados localmente
   MOCK_USERS = [
@@ -33,7 +34,8 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      remember: [false]
+      remember: [false],
+      recaptcha: ['', Validators.required] // ✅ Add this line
     });
   }
 
@@ -41,10 +43,17 @@ export class LoginComponent implements OnInit {
     this.hidePassword = !this.hidePassword;
   }
 
+  onCaptchaResolved(token: string): void {
+    this.recaptchaToken = token;
+    this.loginForm.get('recaptcha')?.setValue(token);
+    console.log('reCAPTCHA token:', token);
+  }
+
   onSubmit(): void {
     this.loginError = false;
 
     if (this.loginForm.invalid) return;
+    if (!this.recaptchaToken) return;
 
     const { email, password } = this.loginForm.value;
 
