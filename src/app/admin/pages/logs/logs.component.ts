@@ -18,8 +18,8 @@ import {
   transition,
   animate
 } from '@angular/animations';
-import {MatIcon, MatIconModule} from "@angular/material/icon";
-import {MatTooltipModule} from "@angular/material/tooltip";
+import { MatIcon, MatIconModule } from "@angular/material/icon";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 interface ExtendedLogEntry {
   timestamp: string;
@@ -65,10 +65,12 @@ export class LogsComponent implements AfterViewInit {
   displayedColumns: string[] = ['expand','timestamp', 'user', 'eventType', 'ipAddress', 'riskLevel'];
   dataSource = new MatTableDataSource<ExtendedLogEntry>([]);
   selectedRiskLevel: 'All' | 'Low' | 'Medium' | 'High' = 'All';
+  groupBy: 'none' | 'user' | 'eventType' = 'none';
   searchText: string = '';
   allLogs: ExtendedLogEntry[] = [];
   expandedElement: ExtendedLogEntry | null = null;
-
+  isGroupRow = (index: number, row: ExtendedLogEntry) => row.actionId?.startsWith('group-');
+  isDataRow = (index: number, row: ExtendedLogEntry) => !row.actionId?.startsWith('group-');
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -82,6 +84,19 @@ export class LogsComponent implements AfterViewInit {
     ]
   };
   pieChartType: ChartType = 'pie';
+
+  barChartData: ChartData<'bar'> = {
+    labels: [],
+    datasets: [
+      {
+        label: 'Events',
+        data: [],
+        backgroundColor: '#673ab7'
+      }
+    ]
+  };
+
+  barChartType: ChartType = 'bar';
 
   constructor(private snackBar: MatSnackBar) {
     this.loadMockLogs();
@@ -125,7 +140,6 @@ export class LogsComponent implements AfterViewInit {
         actionId: 'evt-0003'
       }
     ];
-
     this.applyCombinedFilter();
   }
 
@@ -144,30 +158,64 @@ export class LogsComponent implements AfterViewInit {
       return matchesText && matchesRisk;
     });
 
-    this.dataSource.data = filtered;
-    this.updatePieChartData(filtered);
+    if (this.groupBy !== 'none') {
+      const grouped = new Map<string, ExtendedLogEntry[]>();
+      for (const log of filtered) {
+        const key = log[this.groupBy];
+        if (!grouped.has(key)) grouped.set(key, []);
+        grouped.get(key)!.push(log);
+      }
+
+      const groupedData: ExtendedLogEntry[] = [];
+      for (const [key, group] of grouped) {
+        groupedData.push({
+          timestamp: '',
+          user: '',
+          eventType: '',
+          ipAddress: '',
+          riskLevel: 'Low',
+          location: '',
+          device: '',
+          actionId: `group-${key}`
+        });
+        groupedData.push(...group);
+      }
+
+      this.dataSource.data = groupedData;
+      console.log("Grouped data:", groupedData);
+    } else {
+      this.dataSource.data = filtered;
+    }
+
+    this.updatePieChartData(filtered); // 👈 Esto es clave para mantener todo sincronizado
   }
 
   updatePieChartData(filteredLogs: ExtendedLogEntry[]) {
-    const counts = { Low: 0, Medium: 0, High: 0 };
+    const riskCounts = { Low: 0, Medium: 0, High: 0 };
+    const eventCounts: Record<string, number> = {};
 
     for (const log of filteredLogs) {
-      if (log.riskLevel in counts) {
-        counts[log.riskLevel]++;
-      }
+      if (log.riskLevel in riskCounts) riskCounts[log.riskLevel]++;
+      eventCounts[log.eventType] = (eventCounts[log.eventType] || 0) + 1;
     }
 
     this.pieChartData = {
       labels: ['Low', 'Medium', 'High'],
-      datasets: [
-        {
-          data: [counts.Low, counts.Medium, counts.High],
-          backgroundColor: ['#4caf50', '#ff9800', '#f44336']
-        }
-      ]
+      datasets: [{
+        data: [riskCounts.Low, riskCounts.Medium, riskCounts.High],
+        backgroundColor: ['#4caf50', '#ff9800', '#f44336']
+      }]
+    };
+
+    this.barChartData = {
+      labels: Object.keys(eventCounts),
+      datasets: [{
+        label: 'Events',
+        data: Object.values(eventCounts),
+        backgroundColor: '#673ab7'
+      }]
     };
   }
-
 
   refreshLogs() {
     this.loadMockLogs();
@@ -181,6 +229,7 @@ export class LogsComponent implements AfterViewInit {
     this.expandedElement =
       this.expandedElement?.actionId === log.actionId ? null : log;
   }
+
   exportLogs() {
     const logs = this.dataSource.data;
     if (!logs.length) {
@@ -190,17 +239,19 @@ export class LogsComponent implements AfterViewInit {
 
     const headers = ['Timestamp', 'User', 'Event Type', 'IP Address', 'Risk Level', 'Location', 'Device', 'Action ID'];
     const csvRows = [
-      headers.join(','), // encabezado
-      ...logs.map(log => [
-        log.timestamp,
-        `"${log.user}"`,
-        `"${log.eventType}"`,
-        log.ipAddress,
-        log.riskLevel,
-        `"${log.location || ''}"`,
-        `"${log.device || ''}"`,
-        log.actionId || ''
-      ].map(field => field?.toString().replace(/"/g, '""')).join(','))
+      headers.join(','),
+      ...logs
+        .filter(log => !log.actionId?.startsWith('group-')) // omitimos los headers de agrupación
+        .map(log => [
+          log.timestamp,
+          `"${log.user}"`,
+          `"${log.eventType}"`,
+          log.ipAddress,
+          log.riskLevel,
+          `"${log.location || ''}"`,
+          `"${log.device || ''}"`,
+          log.actionId || ''
+        ].map(field => field.toString().replace(/"/g, '""')).join(','))
     ];
 
     const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
@@ -215,5 +266,4 @@ export class LogsComponent implements AfterViewInit {
 
     this.snackBar.open('Logs exported as CSV!', 'Close', { duration: 3000, verticalPosition: 'top' });
   }
-
 }

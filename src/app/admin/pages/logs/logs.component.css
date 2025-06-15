@@ -48,6 +48,7 @@ table {
 .high {
   background-color: #f44336;
 }
+
 /* Fila de detalles */
 .detail-row {
   height: 0;
@@ -63,18 +64,6 @@ table {
   border-top: 1px solid #e0e0e0;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Para distinguir fila expandida */
 .log-row.expanded {
   background-color: #f1ecf8;
 }
@@ -87,25 +76,51 @@ table {
   background-color: #2a1b1b;
   border-left: 4px solid #ff6d6d;
 }
-.icon-cell {
-  width: 40px;
-  text-align: center;
-}
 
-.warning-icon {
-  color: #f44336;
-  animation: pulse 1.2s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.8; }
-}
-mat-icon[color="warn"] {
-  vertical-align: middle;
-}
 .rotated {
   transform: rotate(180deg);
   transition: transform 0.3s ease;
+}
+
+.charts-row {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  margin: 16px auto 32px;
+  flex-wrap: wrap;
+}
+
+.chart-box {
+  max-width: 600px;
+  flex: 1 1 300px;
+}
+.chart-box-one {
+  max-width: 300px;
+  flex: 1 1 300px;
+}
+
+.no-results {
+  text-align: center;
+  color: #777;
+  margin-top: 24px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.group-header {
+  background-color: #f3f3f3;
+  font-weight: bold;
+  color: #444;
+}
+
+.group-title {
+  padding: 12px;
+  font-size: 15px;
+}
+
+mat-icon[color="warn"] {
+  vertical-align: middle;
 }

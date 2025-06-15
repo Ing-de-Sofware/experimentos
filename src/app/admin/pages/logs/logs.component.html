@@ -1,19 +1,33 @@
 <div class="logs-container">
   <h2>Access & Activity Logs</h2>
 
-  <!-- Pie Chart -->
-  <div style="max-width: 400px; margin: 16px auto;">
-    <canvas baseChart [data]="pieChartData" [type]="pieChartType"></canvas>
+  <!-- Charts Side by Side -->
+  <div class="charts-row">
+    <div class="chart-box-one">
+      <canvas baseChart [data]="pieChartData" [type]="pieChartType"></canvas>
+    </div>
+    <div class="chart-box">
+      <canvas baseChart
+              [type]="barChartType"
+              [data]="barChartData"
+              [options]="{
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: {
+                  x: { title: { display: true, text: 'Event Type' } },
+                  y: { title: { display: true, text: 'Count' }, beginAtZero: true }
+                }
+              }">
+      </canvas>
+    </div>
   </div>
 
   <!-- Filtros -->
   <div class="logs-actions">
-    <input
-      [(ngModel)]="searchText"
-      (keyup)="applyCombinedFilter()"
-      placeholder="Search user or IP..."
-      class="log-search-input"
-    />
+    <input [(ngModel)]="searchText"
+           (keyup)="applyCombinedFilter()"
+           placeholder="Search user or IP..."
+           class="log-search-input" />
 
     <mat-form-field appearance="outline" style="min-width: 200px; margin-left: 12px;">
       <mat-label>Risk Level</mat-label>
@@ -22,6 +36,15 @@
         <mat-option value="Low">Low</mat-option>
         <mat-option value="Medium">Medium</mat-option>
         <mat-option value="High">High</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="min-width: 200px; margin-left: 12px;">
+      <mat-label>Group by</mat-label>
+      <mat-select [(value)]="groupBy" (selectionChange)="applyCombinedFilter()">
+        <mat-option value="none">None</mat-option>
+        <mat-option value="user">User</mat-option>
+        <mat-option value="eventType">Event Type</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -36,15 +59,17 @@
     <ng-container matColumnDef="expand">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
-        <button mat-icon-button disableRipple (click)="toggleRow(row); $event.stopPropagation()">
-          <mat-icon [ngClass]="{ 'rotated': expandedElement?.actionId === row.actionId }">expand_more</mat-icon>
-        </button>
-        <mat-icon
-          *ngIf="row.riskLevel === 'High'"
-          color="warn"
-          matTooltip="High Risk"
-          style="vertical-align: middle; margin-left: 4px;"
-        >warning</mat-icon>
+        <ng-container *ngIf="!row.actionId?.startsWith('group-')">
+          <button mat-icon-button disableRipple (click)="toggleRow(row); $event.stopPropagation()">
+            <mat-icon [ngClass]="{ 'rotated': expandedElement?.actionId === row.actionId }">expand_more</mat-icon>
+          </button>
+          <mat-icon *ngIf="row.riskLevel === 'High'"
+                    color="warn"
+                    matTooltip="High Risk"
+                    style="vertical-align: middle; margin-left: 4px;">
+            warning
+          </mat-icon>
+        </ng-container>
       </td>
     </ng-container>
 
@@ -73,17 +98,17 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Risk</th>
       <td mat-cell *matCellDef="let log">
         <span [ngClass]="log.riskLevel.toLowerCase()" class="risk-badge">
-          <mat-icon
-            *ngIf="log.riskLevel === 'High'"
-            color="warn"
-            style="vertical-align: middle; margin-right: 4px;"
-          >warning</mat-icon>
+          <mat-icon *ngIf="log.riskLevel === 'High'"
+                    color="warn"
+                    style="vertical-align: middle; margin-right: 4px;">
+            warning
+          </mat-icon>
           {{ log.riskLevel }}
         </span>
       </td>
     </ng-container>
 
-    <!-- Columna detalle -->
+    <!-- Columna de detalle expandido -->
     <ng-container matColumnDef="expandedDetail">
       <td mat-cell *matCellDef="let log" colspan="6">
         <div class="log-details" *ngIf="expandedElement?.actionId === log.actionId">
@@ -94,18 +119,25 @@
       </td>
     </ng-container>
 
-    <!-- Fila principal -->
+    <!-- Encabezado -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr
-      mat-row
-      *matRowDef="let row; columns: displayedColumns"
-      class="log-row"
-      [ngClass]="{
-        'expanded': expandedElement?.actionId === row.actionId,
-        'high-risk-row': row.riskLevel === 'High'
-      }"
-      [ngStyle]="{ cursor: 'pointer' }"
-      (click)="toggleRow(row)">
+
+    <!-- Fila de datos -->
+    <tr mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        [ngClass]="{
+          'expanded': expandedElement?.actionId === row.actionId,
+          'high-risk-row': row.riskLevel === 'High',
+          'group-header': row.actionId?.startsWith('group-')
+        }"
+        [ngStyle]="{ cursor: row.actionId?.startsWith('group-') ? 'default' : 'pointer' }"
+        (click)="!row.actionId?.startsWith('group-') && toggleRow(row)">
+      <td *ngIf="row.actionId?.startsWith('group-')" colspan="7">
+        <strong>
+          {{ groupBy === 'user' ? 'User: ' + (row.actionId?.replace('group-', '') || '') :
+          groupBy === 'eventType' ? 'Event: ' + (row.actionId?.replace('group-', '') || '') : '' }}
+        </strong>
+      </td>
     </tr>
 
     <!-- Fila expandida -->
@@ -114,8 +146,13 @@
         class="detail-row"
         [@detailExpand]="expandedElement?.actionId === row.actionId ? 'expanded' : 'collapsed'">
     </tr>
-
   </table>
+
+  <!-- Sin resultados -->
+  <div *ngIf="dataSource.data.length === 0" class="no-results">
+    <mat-icon color="warn">info</mat-icon>
+    No logs found matching the criteria.
+  </div>
 
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
