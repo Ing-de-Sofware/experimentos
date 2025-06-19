@@ -1,0 +1,65 @@
+.full-width {
+  width: 100%;
+}
+
+mat-dialog-content {
+  padding-top: 12px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+textarea:focus {
+  outline: none;
+  border-color: #8e44ad;
+  box-shadow: 0 0 0 2px rgba(142, 68, 173, 0.2);
+}
+mat-dialog-title {
+  color: #4d2559;
+  font-weight: bold;
+}
+
+button[mat-button] {
+  color: #4d2559;
+}
+
+button[mat-flat-button] {
+  background-color: #4d2559;
+  color: white;
+}
+
+button[mat-flat-button]:disabled {
+  background-color: #bfa5c9;
+}
+.snackbar-success {
+  background-color: #4caf50;
+  color: white;
+  font-weight: 500;
+}
+mat-dialog-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+button[mat-raised-button] {
+  background-color: #8e44ad;
+  color: white;
+  font-weight: 500;
+}
+
+button[mat-raised-button]:hover {
+  background-color: #732d91;
+}

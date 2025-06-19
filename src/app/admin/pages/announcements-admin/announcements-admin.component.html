@@ -1,5 +1,3 @@
-
-
 <div class="announcement-wrapper">
   <div class="announcement-card-container">
     <h2>📢 Enviar Comunicado</h2>
@@ -13,8 +11,8 @@
       <mat-form-field appearance="fill">
         <mat-label>Audiencia</mat-label>
         <mat-select formControlName="audience">
-          <mat-option value="medico">Médicos</mat-option>
-          <mat-option value="paciente">Pacientes</mat-option>
+          <mat-option value="doctors">Médicos</mat-option>
+          <mat-option value="patients">Pacientes</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -27,7 +25,10 @@
       <h3>📄 Comunicados Enviados</h3>
       <mat-card *ngFor="let ann of announcements">
         <mat-card-title>{{ ann.message }}</mat-card-title>
-        <mat-card-subtitle>Para: {{ ann.audience }} — {{ ann.createdAt | date:'short' }}</mat-card-subtitle>
+        <mat-card-subtitle>
+          Para: {{ ann.audience === 'doctors' ? 'Médicos' : 'Pacientes' }} —
+          {{ ann.createdAt | date:'short' }}
+        </mat-card-subtitle>
       </mat-card>
     </div>
   </div>

@@ -1,6 +1,7 @@
 export interface AnnouncementEntity {
-  id: number;
+  id: string;
   message: string;
-  audience: 'medico' | 'paciente';
+  audience: 'patients' | 'doctors';
   createdAt: string;
+  isRead?:boolean;
 }

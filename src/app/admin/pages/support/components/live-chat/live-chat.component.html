@@ -1,0 +1,41 @@
+<div class="live-chat-container">
+  <ul class="user-list">
+    <li *ngFor="let user of users"
+        (click)="selectUser(user)"
+        [class.active]="selectedUser?.email === user.email">
+      <mat-icon>person</mat-icon>
+      {{ user.name }} {{ user.lastname }}
+      <span class="badge" *ngIf="newMessageCounts[user.email]">
+        {{ newMessageCounts[user.email] }}
+      </span>
+    </li>
+  </ul>
+
+  <section class="chat-window" *ngIf="selectedUser">
+    <h4>Chat with {{ selectedUser.name }} {{ selectedUser.lastname }}</h4>
+
+    <div class="messages chat-messages">
+      <div *ngFor="let msg of messages" [class.admin]="msg.sender === 'admin'" class="message">
+        <img [src]="msg.sender === 'admin' ? 'assets/admin-avatar.png' : 'assets/user-avatar.png'" class="avatar" alt="avatar">
+        <div class="bubble">
+          <strong>{{ msg.sender === 'admin' ? 'Admin' : selectedUser.name }}:</strong>
+          <p>{{ msg.content }}</p>
+          <small>{{ msg.timestamp | date: 'short' }}</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <input
+        type="text"
+        [(ngModel)]="newMessage"
+        [placeholder]="'Message to ' + selectedUser.name"
+        (keydown.enter)="sendMessage()"
+        autofocus
+      >
+      <button mat-icon-button (click)="sendMessage()" [disabled]="!newMessage.trim()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+  </section>
+</div>

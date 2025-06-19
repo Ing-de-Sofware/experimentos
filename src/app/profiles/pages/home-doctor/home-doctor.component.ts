@@ -6,6 +6,9 @@ import { UserTypeService } from '../../../shared/services/user-type.service';
 import { Location } from '@angular/common';
 import { PatientsDataService } from '../../../medical-history/services/patients-data.service';
 import { PatientEntity } from '../../../profiles/model/patient.entity';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AnnouncementService } from '../../../notifications/services/announcement.service';
+import { AnnouncementEntity } from '../../../notifications/model/announcement.entity';
 
 @Component({
   selector: 'app-home-doctor',
@@ -13,7 +16,7 @@ import { PatientEntity } from '../../../profiles/model/patient.entity';
   styleUrls: ['./home-doctor.component.css']
 })
 export class HomeDoctorComponent implements OnInit {
-  isLoading:boolean=true;
+  isLoading: boolean = true;
   searchTerm: string = '';
   patients: PatientEntity[] = [];
 
@@ -22,7 +25,9 @@ export class HomeDoctorComponent implements OnInit {
     private router: Router,
     private location: Location,
     private patientsDataService: PatientsDataService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private announcementService: AnnouncementService
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +35,7 @@ export class HomeDoctorComponent implements OnInit {
 
     if (userType !== 'endocrinologist') {
       this.router.navigate(['/login'], { replaceUrl: true });
+      return;
     }
 
     this.loadPatients();
@@ -38,6 +44,21 @@ export class HomeDoctorComponent implements OnInit {
     window.onpopstate = () => {
       history.pushState(null, '', location.href);
     };
+
+    // ✅ Mostrar comunicado si existe alguno sin leer para doctores
+    const unreadAnnouncements: AnnouncementEntity[] =
+      this.announcementService.getUnreadForAudience('doctors');
+
+    if (unreadAnnouncements.length > 0) {
+      const announcement = unreadAnnouncements[0];
+
+      this.snackBar.open(announcement.message, 'Cerrar', {
+        duration: 8000,
+        panelClass: ['announcement-snackbar']
+      });
+
+      this.announcementService.markAsRead(announcement.id);
+    }
   }
 
   loadPatients(): void {
@@ -55,7 +76,6 @@ export class HomeDoctorComponent implements OnInit {
     });
   }
 
-
   get filteredPatients() {
     return this.patients.filter(p =>
       `${p.firstName} ${p.lastName}`.toLowerCase().includes(this.searchTerm.toLowerCase())
@@ -65,16 +85,19 @@ export class HomeDoctorComponent implements OnInit {
   transferPatient(patient: PatientEntity): void {
     this.router.navigate(['/doctor/transfer'], { state: { patient } });
   }
+
   openTransferDialog(patient: PatientEntity): void {
     const dialogRef = this.dialog.open(ReassignPatientComponent, {
       width: '400px',
-      data: { patient, patientFullName: `${patient.firstName} ${patient.lastName}` }
+      data: {
+        patient,
+        patientFullName: `${patient.firstName} ${patient.lastName}`
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log('Transfer completed:', result);
-        // optionally reload or show notification
       }
     });
   }

@@ -36,7 +36,10 @@ import {SharedModule} from "../shared/shared.module";
     MatSelectModule,
     MatOptionModule,
     AnnouncementsAdminComponent,
-    SharedModule
+    SharedModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
   ]
 })
 export class NotificationsModule {}

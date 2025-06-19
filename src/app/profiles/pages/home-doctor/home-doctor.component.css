@@ -180,3 +180,8 @@ mat-sidenav-container {
   color: #7c3aed;
   margin-right: 8px;
 }
+::ng-deep .announcement-snackbar {
+  background-color: #7e57c2;
+  color: #fff;
+  font-weight: bold;
+}

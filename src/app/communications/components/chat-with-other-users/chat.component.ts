@@ -67,7 +67,9 @@ export class ChatComponent implements OnInit, OnChanges {
   sendMessage() {
     if (this.newMessage.trim() !== '' && this.currentUser && this.selectedUser) {
       const message: Message = {
-        id: 0, // El ID será generado automáticamente por json-server
+        id: 0,
+        sender: this.currentUserEmail === 'admin@hormonalcare.com' ? 'admin' : 'user',
+        receiverId: this.selectedUser.email,
         from: this.currentUser.email,
         to: this.selectedUser.email,
         content: this.newMessage,

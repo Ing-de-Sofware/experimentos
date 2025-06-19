@@ -1,49 +1,75 @@
 import { Component, OnInit } from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserTypeService } from '../../../shared/services/user-type.service';
-import { FindDoctorsPatientComponent} from "../../components/find-doctors-patient/find-doctors-patient.component";
-import {CommonModule} from "@angular/common";
-
-import { MatGridListModule} from "@angular/material/grid-list";
+import { FindDoctorsPatientComponent } from '../../components/find-doctors-patient/find-doctors-patient.component';
+import { CommonModule } from '@angular/common';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
-import {PatientsReminderComponent} from "../../components/patients-reminder/patients-reminder.component";
-import {AppModule} from "../../../app.module";
-import {PatientsPendingTaskComponent} from "../../components/patients-pending-task/patients-pending-task.component";
-import {MatButton} from "@angular/material/button";
+import { PatientsReminderComponent } from '../../components/patients-reminder/patients-reminder.component';
+import { PatientsPendingTaskComponent } from '../../components/patients-pending-task/patients-pending-task.component';
+import { MatButton } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AnnouncementService } from '../../../notifications/services/announcement.service';
+import { AnnouncementEntity } from '../../../notifications/model/announcement.entity';
 
 @Component({
   selector: 'app-home-patient',
-  standalone:true,
+  standalone: true,
   templateUrl: './home-patient.component.html',
   styleUrls: ['./home-patient.component.css'],
-  imports: [CommonModule, PatientsReminderComponent, PatientsPendingTaskComponent, MatGridListModule, FindDoctorsPatientComponent, MatButton, RouterLink, MatIconModule]
+  imports: [
+    CommonModule,
+    PatientsReminderComponent,
+    PatientsPendingTaskComponent,
+    MatGridListModule,
+    FindDoctorsPatientComponent,
+    MatButton,
+    RouterLink,
+    MatIconModule
+  ]
 })
 export class HomePatientComponent implements OnInit {
-
   selectedExam: File | null = null;
 
   constructor(
     private userTypeService: UserTypeService,
+    private snackBar: MatSnackBar,
+    private announcementService: AnnouncementService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     const userType = this.userTypeService.getUserType();
 
-    // ✅ Si no es paciente, redirige
+    // ✅ Redirige si no es paciente
     if (userType !== 'patient') {
       this.router.navigate(['/login'], { replaceUrl: true });
       return;
     }
 
-    // ✅ Bloquea el retroceso a login
+    // ✅ Evita volver a login con retroceso
     history.pushState(null, '', location.href);
     window.onpopstate = () => {
       history.pushState(null, '', location.href);
     };
+
+    // ✅ Mostrar comunicado si existe alguno sin leer
+    const unreadAnnouncements: AnnouncementEntity[] =
+      this.announcementService.getUnreadForAudience('patients');
+
+    if (unreadAnnouncements.length > 0) {
+      const announcement = unreadAnnouncements[0];
+
+      this.snackBar.open(announcement.message, 'Cerrar', {
+        duration: 8000,
+        panelClass: ['announcement-snackbar']
+      });
+
+      // ✅ Marcar como leído en localStorage
+      this.announcementService.markAsRead(announcement.id);
+    }
   }
 
-  // ✅ Manejador para input file
   onExamSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {

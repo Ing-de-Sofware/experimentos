@@ -15,6 +15,7 @@ export class DoctorProfile {
   subscription_id: number;
   email: string;
   password: string;
+  role?: string;
 
   constructor(){
     this.id = 0;
@@ -33,5 +34,6 @@ export class DoctorProfile {
     this.subscription_id = 0;
     this.email = "";
     this.password = "";
+    this.role = undefined;
   }
 }

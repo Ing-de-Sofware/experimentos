@@ -1,1 +1,23 @@
-<p>support works!</p>
+<h2 class="support-title">Support Center</h2>
+
+<mat-tab-group [(selectedIndex)]="selectedTabIndex">
+  <mat-tab label="All Tickets">
+    <app-ticket-list [tickets]="mockTickets"></app-ticket-list>
+  </mat-tab>
+
+  <mat-tab label="Live Chat">
+    <app-live-chat></app-live-chat>
+  </mat-tab>
+
+  <mat-tab label="Knowledge Base">
+    <p>Coming soon: FAQs and help articles</p>
+  </mat-tab>
+
+  <mat-tab label="Analytics">
+    <p>Coming soon: Support performance stats</p>
+  </mat-tab>
+
+  <mat-tab label="Settings">
+    <p>Coming soon: Support preferences</p>
+  </mat-tab>
+</mat-tab-group>
