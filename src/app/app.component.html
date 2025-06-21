@@ -1,12 +1,16 @@
 <div [class.dark-mode]="isDarkMode">
-<ng-container *ngIf="!isAuthRoute">
-  <app-header-for-user-type-service></app-header-for-user-type-service>
-</ng-container>
+  <ng-container *ngIf="!isAuthRoute">
+    <app-header-for-user-type-service></app-header-for-user-type-service>
+  </ng-container>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 
+  <ng-container *ngIf="!isAuthRoute">
+    <app-footer-content></app-footer-content>
+  </ng-container>
 
-<ng-container *ngIf="!isAuthRoute">
-  <app-footer-content></app-footer-content>
-</ng-container>
+  <!-- 🔴 Botón de prueba de error
+  <button (click)="throwTestError()" style="margin: 20px; padding: 10px;">
+    Lanzar Error de Prueba Sentry
+  </button>-->
 </div>

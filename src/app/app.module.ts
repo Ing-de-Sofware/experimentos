@@ -1,70 +1,60 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgChartsModule } from 'ng2-charts';
+import * as Sentry from "@sentry/angular";
+import { Router } from '@angular/router';
 
+import { NgChartsModule } from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {MatToolbar} from "@angular/material/toolbar";
-import {MatIcon} from "@angular/material/icon";
-import {MatCardModule} from "@angular/material/card";
-import {NgOptimizedImage} from "@angular/common";
-import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
-import {MatAnchor, MatButton, MatIconButton} from "@angular/material/button";
+
+// Material y otros módulos...
+import { MatToolbar } from "@angular/material/toolbar";
+import { MatIcon } from "@angular/material/icon";
+import { MatCardModule } from "@angular/material/card";
+import { NgOptimizedImage } from "@angular/common";
+import { MatSidenav, MatSidenavContainer, MatSidenavContent } from "@angular/material/sidenav";
+import { MatAnchor, MatButton, MatIconButton } from "@angular/material/button";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import {MatButtonToggle, MatButtonToggleGroup} from "@angular/material/button-toggle";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle";
 import { LayoutModule } from "@angular/cdk/layout";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
-import {MatCard, MatCardContent, MatCardHeader} from "@angular/material/card";
-import { MatGridListModule } from '@angular/material/grid-list';
-import {MatDividerModule} from '@angular/material/divider';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
-import {MatCheckbox} from "@angular/material/checkbox";
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatCard, MatCardContent, MatCardHeader } from "@angular/material/card";
+import {MatGridList, MatGridListModule, MatGridTile} from '@angular/material/grid-list';
+import { MatDividerModule } from '@angular/material/divider';
+import {
+  MatCell, MatCellDef,
+  MatColumnDef,
+  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef,
+  MatRow, MatRowDef,
+  MatTable,
+  MatTableModule
+} from '@angular/material/table';
+import {MatSort, MatSortModule} from '@angular/material/sort';
+import { MatCheckbox } from "@angular/material/checkbox";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AuthModule } from './identity-and-access/auth/auth.module';
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 
 import { PatientsTableComponent } from './profiles/components/patients-table/patients-table.component';
 import { SearchDoctorsComponent } from './shared/pages/search-doctors/search-doctors.component';
 import { SearchPatiensComponent } from './profiles/components/search-patiens/search-patiens.component';
-
-
 import { DoctorChatComponent } from './communications/pages/doctor-chat/doctor-chat.component';
 import { PatientChatComponent } from './communications/pages/patient-chat/patient-chat.component';
-import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
-
-import {
-  MatCell, MatCellDef,
-  MatColumnDef,
-  MatHeaderCell,
-  MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef,
-  MatRow, MatRowDef,
-  MatTable
-} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
 import { HomeDoctorComponent } from './profiles/pages/home-doctor/home-doctor.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {MatSort} from "@angular/material/sort";
-
-import {MatGridList, MatGridTile} from "@angular/material/grid-list";
-
 import { DoctorRegistrationComponent } from './identity-and-access/pages/doctor-registration/doctor-registration.component';
 import { PatientsReminderComponent } from './profiles/components/patients-reminder/patients-reminder.component';
 import { PatientsUploadExamComponent } from './profiles/components/patients-upload-exam/patients-upload-exam.component';
 import { PatientsPendingTaskComponent } from './profiles/components/patients-pending-task/patients-pending-task.component';
-
-
 import { BackgroundComponent } from './medical-history/components/background/background.component';
-
-
 import { HeaderComponent } from './medical-history/components/header/header.component';
 import { ClinicalhistoryComponent } from './medical-history/components/clinicalhistory/clinicalhistory.component';
 import { DignosesandtreatmentComponent } from './medical-history/components/dignosesandtreatment/dignosesandtreatment.component';
@@ -86,35 +76,32 @@ import { ButtonSaveScheduleComponent } from './communications/components/button-
 import { DoctorViewColleagueComponent } from './communications/components/doctor-view-colleague/doctor-view-colleague.component';
 import { InfoProfileMedicalsComponent } from './profiles/components/info-profile-medicals/info-profile-medicals.component';
 
-import {
-    SelectPaymentMethodComponent
-} from "./subscriptions-and-payments/pages/select-payment-method/select-payment-method.component";
+import { SelectPaymentMethodComponent } from "./subscriptions-and-payments/pages/select-payment-method/select-payment-method.component";
 import { CardModalComponent } from './subscriptions-and-payments/components/card-modal/card-modal.component';
 
 import { Role1Component } from './identity-and-access/components/role1/role1.component';
 import { Role2Component } from './identity-and-access/components/role2/role2.component';
 
-
 import { UserListComponent } from './communications/components/user-list/user-list.component';
 import { ChatComponent } from './communications/components/chat-with-other-users/chat.component';
 import { DoctorService } from './communications/services/doctor.service';
-import {RouterLink} from "@angular/router";
+import { RouterLink } from "@angular/router";
 
-
-import {MatNativeDateModule} from "@angular/material/core";
+import { MatNativeDateModule } from "@angular/material/core";
 import { CalendarModule } from './calendar/calendar.module';
 import { ProfilesModule } from './profiles/profiles.module';
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { SharedModule } from "./shared/shared.module";
+import { AnnouncementPopupComponent } from "./notifications/components/announcement-popup/announcement-popup.component";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatPaginator} from "@angular/material/paginator";
 
-import {SharedModule} from "./shared/shared.module";
-import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
-
-
+// 🌐 Traducciones
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-
+// ✅ Inicializa Sentry (ya se usó en main.ts, pero aquí se enlaza como ErrorHandler también)
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,7 +113,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeDoctorComponent,
     DoctorRegistrationComponent,
     PatientsUploadExamComponent,
-
     BackgroundComponent,
     ClinicalhistoryComponent,
     ExternalreportsComponent,
@@ -134,9 +120,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PatientdataComponent,
     DignosesandtreatmentComponent,
     ReasonconsultationComponent,
-
     MedicalexamsComponent,
-
     InfoProfileMedicalsComponent
   ],
   imports: [
@@ -144,10 +128,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     MatToolbar,
     MatIcon,
     NgOptimizedImage,
+    AnnouncementPopupComponent,
     MatSidenav,
     MatSidenavContainer,
     MatIconButton,
@@ -159,7 +143,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatInputModule,
     PatientsPendingTaskComponent,
     PatientsReminderComponent,
-
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -167,7 +150,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-
     MatButtonToggleGroup,
     MatButtonToggle,
     MatAnchor,
@@ -208,35 +190,39 @@ export function HttpLoaderFactory(http: HttpClient) {
     DatepickerProfileColleagueComponent,
     HourpickerProfileColleagueComponent,
     SpaceAssignPatientComponent,
-
     ButtonSendMessageComponent,
     ButtonSaveScheduleComponent,
     DoctorViewColleagueComponent,
     RouterLink,
-
     MatNativeDateModule,
     MatDatepickerModule,
     MatCalendar,
-
     AuthModule,
     CalendarModule,
     ProfilesModule,
     SharedModule,
     NgChartsModule,
     ChatComponent
-
   ],
   providers: [
-    provideAnimationsAsync(),
-    DoctorService
-
+    DoctorService,
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler({
+        showDialog: false,
+      }),
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => () => {},
+      deps: [Router],
+      multi: true,
+    }
   ],
   exports: [
     PatientsReminderComponent,
-    PatientsPendingTaskComponent,
-
+    PatientsPendingTaskComponent
   ],
-
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

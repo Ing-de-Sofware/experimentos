@@ -48,8 +48,10 @@ export class AnnouncementsAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.announcementForm = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
       message: ['', Validators.required],
-      audience: ['doctors', Validators.required] // default correcto
+      audience: ['doctors', Validators.required]
     });
 
     this.loadAnnouncements();
@@ -62,13 +64,15 @@ export class AnnouncementsAdminComponent implements OnInit {
   submit(): void {
     if (this.announcementForm.valid) {
       const newAnnouncement: AnnouncementEntity = {
-        id: crypto.randomUUID(), // más robusto que Date.now()
+        id: crypto.randomUUID(),
+        title: this.announcementForm.value.title,
+        description: this.announcementForm.value.description,
         message: this.announcementForm.value.message,
         audience: this.announcementForm.value.audience,
         createdAt: new Date().toISOString()
       };
 
-      this.announcementService.create(newAnnouncement); // sin .subscribe
+      this.announcementService.create(newAnnouncement);
       this.announcementForm.reset({ audience: 'doctors' });
       this.loadAnnouncements();
     }

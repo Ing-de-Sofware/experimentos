@@ -49,4 +49,9 @@ export class AppComponent {
   navigateToMedicalHistory() {
     this.showMedicalHistoryPage = true;
   }
+
+  public throwTestError(): void {
+    throw new Error("Sentry Test Error");
+  }
+
 }

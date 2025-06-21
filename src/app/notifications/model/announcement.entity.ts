@@ -4,4 +4,6 @@ export interface AnnouncementEntity {
   audience: 'patients' | 'doctors';
   createdAt: string;
   isRead?:boolean;
+  title: string;
+  description: string;
 }

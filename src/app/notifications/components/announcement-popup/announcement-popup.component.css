@@ -1,0 +1,8 @@
+h2 {
+  font-weight: bold;
+  color: #5e35b1;
+}
+mat-dialog-content {
+  font-size: 15px;
+  margin-top: 8px;
+}

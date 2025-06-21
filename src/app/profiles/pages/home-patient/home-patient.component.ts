@@ -8,9 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { PatientsReminderComponent } from '../../components/patients-reminder/patients-reminder.component';
 import { PatientsPendingTaskComponent } from '../../components/patients-pending-task/patients-pending-task.component';
 import { MatButton } from '@angular/material/button';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AnnouncementService } from '../../../notifications/services/announcement.service';
 import { AnnouncementEntity } from '../../../notifications/model/announcement.entity';
+import { AnnouncementPopupComponent } from '../../../notifications/components/announcement-popup/announcement-popup.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home-patient',
@@ -33,9 +34,9 @@ export class HomePatientComponent implements OnInit {
 
   constructor(
     private userTypeService: UserTypeService,
-    private snackBar: MatSnackBar,
     private announcementService: AnnouncementService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -47,27 +48,26 @@ export class HomePatientComponent implements OnInit {
       return;
     }
 
-    // ✅ Evita volver a login con retroceso
+    // ✅ Evita volver al login con retroceso
     history.pushState(null, '', location.href);
     window.onpopstate = () => {
       history.pushState(null, '', location.href);
     };
 
-    // ✅ Mostrar comunicado si existe alguno sin leer
-    const unreadAnnouncements: AnnouncementEntity[] =
-      this.announcementService.getUnreadForAudience('patients');
+    // ✅ Mostrar todos los comunicados no leídos para pacientes
+    const announcements = this.announcementService.getForAudience('patients');
 
-    if (unreadAnnouncements.length > 0) {
-      const announcement = unreadAnnouncements[0];
+    announcements.forEach(announcement => {
+      if (!announcement.isRead) {
+        this.dialog.open(AnnouncementPopupComponent, {
+          data: announcement,
+          disableClose: true,
+          width: '400px'
+        });
 
-      this.snackBar.open(announcement.message, 'Cerrar', {
-        duration: 8000,
-        panelClass: ['announcement-snackbar']
-      });
-
-      // ✅ Marcar como leído en localStorage
-      this.announcementService.markAsRead(announcement.id);
-    }
+        this.announcementService.markAsRead(announcement.id);
+      }
+    });
   }
 
   onExamSelected(event: Event): void {

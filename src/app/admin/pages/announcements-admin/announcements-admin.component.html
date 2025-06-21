@@ -4,8 +4,18 @@
 
     <form [formGroup]="announcementForm" (ngSubmit)="submit()">
       <mat-form-field appearance="fill">
-        <mat-label>Mensaje</mat-label>
-        <textarea matInput formControlName="message" rows="3"></textarea>
+        <mat-label>Título</mat-label>
+        <input matInput formControlName="title" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="description" rows="2"></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Mensaje emergente (opcional)</mat-label>
+        <textarea matInput formControlName="message" rows="2"></textarea>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -24,11 +34,14 @@
     <div class="sent-announcements">
       <h3>📄 Comunicados Enviados</h3>
       <mat-card *ngFor="let ann of announcements">
-        <mat-card-title>{{ ann.message }}</mat-card-title>
+        <mat-card-title>{{ ann.title }}</mat-card-title>
         <mat-card-subtitle>
           Para: {{ ann.audience === 'doctors' ? 'Médicos' : 'Pacientes' }} —
           {{ ann.createdAt | date:'short' }}
         </mat-card-subtitle>
+        <mat-card-content>
+          <p>{{ ann.description }}</p>
+        </mat-card-content>
       </mat-card>
     </div>
   </div>
