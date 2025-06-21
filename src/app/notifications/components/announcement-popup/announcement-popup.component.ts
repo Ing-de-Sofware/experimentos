@@ -1,40 +1,42 @@
 import { Component, Inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
-  MatDialogActions,
-  MatDialogContent,
   MatDialogRef,
-  MatDialogTitle
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions
 } from '@angular/material/dialog';
 import { AnnouncementEntity } from '../../model/announcement.entity';
-import {MatButton} from "@angular/material/button";
-import {NgIf} from "@angular/common";
+import { MatButton } from '@angular/material/button';
+import {CommonModule, NgIf} from '@angular/common';
+
 @Component({
   selector: 'app-announcement-popup',
   standalone: true,
+  templateUrl: './announcement-popup.component.html',
+  styleUrls: ['./announcement-popup.component.css'],
   imports: [
-    MatDialogContent,
     MatDialogTitle,
+    MatDialogContent,
     MatDialogActions,
     MatButton,
+    CommonModule,
     NgIf
-  ],
-  templateUrl: './announcement-popup.component.html',
-  styleUrls: ['./announcement-popup.component.css']
+  ]
 })
 export class AnnouncementPopupComponent {
   expanded = false;
 
   constructor(
-    public dialogRef: MatDialogRef<AnnouncementPopupComponent>,
+    private dialogRef: MatDialogRef<AnnouncementPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AnnouncementEntity
   ) {}
 
-  close(): void {
-    this.dialogRef.close();
-  }
-
   toggle(): void {
     this.expanded = !this.expanded;
+  }
+
+  close(): void {
+    this.dialogRef.close();
   }
 }

@@ -19,7 +19,7 @@ import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   declarations: [
-    NotificationsPatientsComponent,
+
     NotificationsViewComponent
   ],
   imports: [
@@ -40,6 +40,7 @@ import {SharedModule} from "../shared/shared.module";
     MatCardModule,
     MatIconModule,
     MatButtonModule,
+    NotificationsPatientsComponent,
   ]
 })
 export class NotificationsModule {}

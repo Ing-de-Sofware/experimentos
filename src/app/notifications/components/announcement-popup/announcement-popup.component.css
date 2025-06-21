@@ -6,3 +6,15 @@ mat-dialog-content {
   font-size: 15px;
   margin-top: 8px;
 }
+.announcement-description {
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: #444;
+}
+
+.announcement-date {
+  font-size: 13px;
+  color: #777;
+  font-style: italic;
+}
+
