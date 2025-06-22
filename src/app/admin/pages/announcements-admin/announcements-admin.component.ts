@@ -63,18 +63,45 @@ export class AnnouncementsAdminComponent implements OnInit {
 
   submit(): void {
     if (this.announcementForm.valid) {
-      const newAnnouncement: AnnouncementEntity = {
-        id: crypto.randomUUID(),
-        title: this.announcementForm.value.title,
-        description: this.announcementForm.value.description,
-        message: this.announcementForm.value.message,
-        audience: this.announcementForm.value.audience,
-        createdAt: new Date().toISOString()
-      };
+      const { title, description, message, audience } = this.announcementForm.value;
+      const createdAt = new Date().toISOString();
 
-      this.announcementService.create(newAnnouncement);
+      if (audience === 'all') {
+        // Comunicado para pacientes
+        this.announcementService.create({
+          id: crypto.randomUUID(),
+          title,
+          description,
+          message,
+          audience: 'patients',
+          createdAt
+        });
+
+        // Comunicado para médicos
+        this.announcementService.create({
+          id: crypto.randomUUID(),
+          title,
+          description,
+          message,
+          audience: 'doctors',
+          createdAt
+        });
+      } else {
+        const newAnnouncement: AnnouncementEntity = {
+          id: crypto.randomUUID(),
+          title,
+          description,
+          message,
+          audience,
+          createdAt
+        };
+
+        this.announcementService.create(newAnnouncement);
+      }
+
       this.announcementForm.reset({ audience: 'doctors' });
       this.loadAnnouncements();
     }
   }
+
 }
