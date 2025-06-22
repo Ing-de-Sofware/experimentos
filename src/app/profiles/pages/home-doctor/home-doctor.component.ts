@@ -60,7 +60,7 @@ export class HomeDoctorComponent implements OnInit {
           width: '400px'
         });
 
-        this.announcementService.markAsRead(announcement.id);
+        this.announcementService.markAsRead(announcement.id, 'doctors');
       });
     }
   }

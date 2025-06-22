@@ -65,7 +65,7 @@ export class HomePatientComponent implements OnInit {
           width: '400px'
         });
 
-        this.announcementService.markAsRead(announcement.id);
+        this.announcementService.markAsRead(announcement.id, 'patients');
       }
     });
   }

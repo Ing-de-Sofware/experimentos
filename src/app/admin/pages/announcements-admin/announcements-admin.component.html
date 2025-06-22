@@ -37,7 +37,14 @@
       <mat-card *ngFor="let ann of announcements">
         <mat-card-title>{{ ann.title }}</mat-card-title>
         <mat-card-subtitle>
-          Para: {{ ann.audience === 'doctors' ? 'Médicos' : 'Pacientes' }} —
+          Para: {{
+            ann.audience === 'doctors'
+              ? 'Médicos'
+              : ann.audience === 'patients'
+                ? 'Pacientes'
+                : 'Todos'
+          }}
+          —
           {{ ann.createdAt | date:'short' }}
         </mat-card-subtitle>
         <mat-card-content>
