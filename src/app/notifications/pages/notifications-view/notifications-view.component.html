@@ -1,21 +1,65 @@
-<div class="notifications-container">
-  <h2><mat-icon>notifications</mat-icon> Notificaciones de citas</h2>
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <div class="notifications-container">
+      <h1 class="title">🔔 Notificaciones de citas</h1>
 
-  <div *ngIf="notifications.length > 0; else emptyMessage">
-    <mat-card *ngFor="let notif of notifications" class="notification-card">
-      <mat-card-header>
-        <mat-icon mat-card-avatar color="primary">event</mat-icon>
-        <mat-card-title>{{ notif.title }}</mat-card-title>
-        <mat-card-subtitle>{{ notif.date }} – {{ notif.time }}</mat-card-subtitle>
-      </mat-card-header>
+      <!-- 🔹 Notificaciones comunes -->
+      <div *ngIf="notifications.length > 0; else noNotifications">
+        <mat-card *ngFor="let notif of notifications; let i = index" class="notification-card">
+          <mat-card-header>
+            <div mat-card-avatar class="icon-avatar">
+              <mat-icon>event</mat-icon>
+            </div>
+            <mat-card-title>{{ notif.title }}</mat-card-title>
+            <mat-card-subtitle>{{ notif.date }} – {{ notif.time }}</mat-card-subtitle>
+            <span class="spacer"></span>
+            <button mat-icon-button color="warn" (click)="remove(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-header>
+          <mat-card-content>
+            <p *ngIf="notif.expanded">{{ notif.description }}</p>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-stroked-button color="accent" (click)="toggle(i)">
+              {{ notif.expanded ? 'Ocultar' : 'Mostrar +' }}
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
 
-      <mat-card-content>
-        <p>{{ notif.description }}</p>
-      </mat-card-content>
-    </mat-card>
-  </div>
+      <!-- 🔸 Comunicados del administrador -->
+      <div *ngIf="announcements.length > 0">
+        <h2 class="subtitle">📣 Comunicados del administrador</h2>
+        <mat-card *ngFor="let a of announcements; let i = index" class="notification-card announcement">
+          <mat-card-header>
+            <div mat-card-avatar class="icon-avatar">
+              <mat-icon>campaign</mat-icon>
+            </div>
+            <mat-card-title>{{ a.title }}</mat-card-title>
+            <mat-card-subtitle>{{ a.createdAt | date:'short' }}</mat-card-subtitle>
+            <span class="spacer"></span>
+            <button mat-icon-button color="warn" (click)="deleteAnnouncement(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ a.message }}</p>
+            <p *ngIf="a.expanded" class="announcement-description"><em>{{ a.description }}</em></p>
+          </mat-card-content>
+          <mat-card-actions align="end">
+            <button mat-button color="primary" (click)="toggleDescription(a)">
+              {{ a.expanded ? 'Ocultar' : 'Mostrar +' }}
+            </button>
+            <button mat-stroked-button color="accent" (click)="deleteAnnouncement(i)">Got it</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
 
-  <ng-template #emptyMessage>
-    <p class="no-notifications">No hay notificaciones por ahora.</p>
-  </ng-template>
-</div>
+      <!-- 🟪 Sin notificaciones -->
+      <ng-template #noNotifications>
+        <p class="no-data">No hay notificaciones por ahora.</p>
+      </ng-template>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

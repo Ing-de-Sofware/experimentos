@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {AnnouncementService} from "../../services/announcement.service";
+import {AnnouncementEntity} from "../../model/announcement.entity";
+
 
 interface Notification {
+  id?: string;
   title: string;
   description: string;
   date: string;
   time: string;
-  expanded?: boolean; // para mostrar/ocultar contenido
+  expanded?: boolean;
 }
 
 @Component({
@@ -13,7 +17,7 @@ interface Notification {
   templateUrl: './notifications-view.component.html',
   styleUrls: ['./notifications-view.component.css']
 })
-export class NotificationsViewComponent {
+export class NotificationsViewComponent implements OnInit {
   notifications: Notification[] = [
     {
       title: 'Cita con Gabriel Ramírez',
@@ -31,11 +35,29 @@ export class NotificationsViewComponent {
     }
   ];
 
+  announcements: (AnnouncementEntity & { expanded: boolean })[] = [];
+
+  constructor(private announcementService: AnnouncementService) {}
+
+  ngOnInit(): void {
+    this.announcements = this.announcementService
+      .getForAudience('doctors')
+      .map(a => ({ ...a, expanded: false }));
+  }
+
   toggle(index: number): void {
     this.notifications[index].expanded = !this.notifications[index].expanded;
   }
 
   remove(index: number): void {
     this.notifications.splice(index, 1);
+  }
+
+  toggleDescription(a: any): void {
+    a.expanded = !a.expanded;
+  }
+
+  deleteAnnouncement(index: number): void {
+    this.announcements.splice(index, 1);
   }
 }

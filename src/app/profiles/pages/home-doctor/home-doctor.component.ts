@@ -1,14 +1,17 @@
-import { MatDialog } from '@angular/material/dialog';
-import { ReassignPatientComponent } from '../../../admin/pages/reassign-patient/reassign-patient.component';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserTypeService } from '../../../shared/services/user-type.service';
 import { Location } from '@angular/common';
-import { PatientsDataService } from '../../../medical-history/services/patients-data.service';
-import { PatientEntity } from '../../../profiles/model/patient.entity';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { UserTypeService } from '../../../shared/services/user-type.service';
+import { PatientsDataService } from '../../../medical-history/services/patients-data.service';
+import { ReassignPatientComponent } from '../../../admin/pages/reassign-patient/reassign-patient.component';
+
+import { PatientEntity } from '../../../profiles/model/patient.entity';
 import { AnnouncementService } from '../../../notifications/services/announcement.service';
 import { AnnouncementEntity } from '../../../notifications/model/announcement.entity';
+import { AnnouncementPopupComponent } from '../../../notifications/components/announcement-popup/announcement-popup.component';
 
 @Component({
   selector: 'app-home-doctor',
@@ -45,19 +48,20 @@ export class HomeDoctorComponent implements OnInit {
       history.pushState(null, '', location.href);
     };
 
-    // ✅ Mostrar comunicado si existe alguno sin leer para doctores
+    // ✅ Mostrar comunicado emergente si hay alguno sin leer (doctor)
     const unreadAnnouncements: AnnouncementEntity[] =
       this.announcementService.getUnreadForAudience('doctors');
 
     if (unreadAnnouncements.length > 0) {
-      const announcement = unreadAnnouncements[0];
+      unreadAnnouncements.forEach(announcement => {
+        this.dialog.open(AnnouncementPopupComponent, {
+          data: announcement,
+          disableClose: true,
+          width: '400px'
+        });
 
-      this.snackBar.open(announcement.message, 'Cerrar', {
-        duration: 8000,
-        panelClass: ['announcement-snackbar']
+        this.announcementService.markAsRead(announcement.id);
       });
-
-      this.announcementService.markAsRead(announcement.id);
     }
   }
 
@@ -65,7 +69,6 @@ export class HomeDoctorComponent implements OnInit {
     this.isLoading = true;
     this.patientsDataService.getAll().subscribe({
       next: (data: PatientEntity[]) => {
-        console.log('Patients loaded', data);
         this.patients = data;
         this.isLoading = false;
       },
@@ -76,7 +79,7 @@ export class HomeDoctorComponent implements OnInit {
     });
   }
 
-  get filteredPatients() {
+  get filteredPatients(): PatientEntity[] {
     return this.patients.filter(p =>
       `${p.firstName} ${p.lastName}`.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
