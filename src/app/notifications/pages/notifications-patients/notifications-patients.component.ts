@@ -4,20 +4,21 @@ import { AnnouncementService } from '../../../notifications/services/announcemen
 import {MatDialogModule} from "@angular/material/dialog";
 import {CommonModule} from "@angular/common";
 import {MatButtonModule} from "@angular/material/button";
+import {MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 import {
   MatCard,
   MatCardActions,
+  MatCardAvatar,
   MatCardContent,
   MatCardHeader,
-  MatCardSubtitle,
-  MatCardTitle
+  MatCardSubtitle, MatCardTitle
 } from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-notifications-patients',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatDialogModule, MatButtonModule, MatDialogModule, MatCardActions, MatCardContent, MatCardSubtitle, MatCardTitle, MatIcon, MatCardHeader, MatCard],
+  imports: [CommonModule,MatCardSubtitle, MatCardTitle, MatSidenavContent,MatDialogModule, MatDialogModule, MatButtonModule, MatDialogModule, MatSidenavContainer, MatCard, MatCardAvatar, MatCardHeader, MatIcon, MatCardContent, MatCardActions],
   templateUrl: './notifications-patients.component.html',
   styleUrls: ['./notifications-patients.component.css']
 })
@@ -45,7 +46,8 @@ export class NotificationsPatientsComponent implements OnInit {
     localStorage.setItem('announcements', JSON.stringify(this.announcements));
   }
 
-  toggleDescription(index: number): void {
-    this.announcements[index].expanded = !this.announcements[index].expanded;
+  toggleDescription(announcement: AnnouncementEntity & { expanded?: boolean }): void {
+    announcement.expanded = !announcement.expanded;
   }
+
 }
