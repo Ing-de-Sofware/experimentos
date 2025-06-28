@@ -1,0 +1,37 @@
+.table-container {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.search-bar {
+  margin-bottom: 12px;
+}
+
+input[matInput] {
+  width: 100%;
+  max-width: 300px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.active {
+  color: green;
+  font-weight: bold;
+}
+
+.inactive {
+  color: red;
+  font-weight: bold;
+}
+.snackbar-success {
+  background-color: #4caf50;
+  color: white;
+  font-weight: 500;
+}
+.table-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}

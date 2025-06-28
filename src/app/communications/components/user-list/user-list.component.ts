@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
+import {NgForOf} from "@angular/common";
 
 interface User {
   id: number;
@@ -9,7 +10,11 @@ interface User {
 
 @Component({
   selector: 'app-user-list',
+  standalone: true,
   templateUrl: './user-list.component.html',
+  imports: [
+    NgForOf
+  ],
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {

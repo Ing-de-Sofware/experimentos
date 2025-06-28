@@ -1,0 +1,51 @@
+<form [formGroup]="userForm" (ngSubmit)="submitForm()" class="user-form">
+
+  <!-- Nombre -->
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name" required>
+    <mat-error *ngIf="nameCtrl.hasError('required')">
+      El nombre es obligatorio.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Correo -->
+  <mat-form-field appearance="fill">
+    <mat-label>Correo electrónico</mat-label>
+    <input matInput formControlName="email" required>
+    <mat-error *ngIf="emailCtrl.hasError('required')">
+      El correo es obligatorio.
+    </mat-error>
+    <mat-error *ngIf="emailCtrl.hasError('email') && !emailCtrl.hasError('required')">
+      Formato de correo no válido.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Rol -->
+  <mat-form-field appearance="fill">
+    <mat-label>Rol</mat-label>
+    <mat-select formControlName="role" required>
+      <mat-option *ngFor="let role of roles" [value]="role">{{ role }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="roleCtrl.hasError('required')">
+      Selecciona un rol.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Estado -->
+  <mat-form-field appearance="fill">
+    <mat-label>Estado</mat-label>
+    <mat-select formControlName="status" required>
+      <mat-option *ngFor="let status of statuses" [value]="status">{{ status }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="statusCtrl.hasError('required')">
+      Selecciona un estado.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Botones -->
+  <div class="actions">
+    <button mat-flat-button color="primary" type="submit">Guardar</button>
+    <button mat-stroked-button type="button" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>
