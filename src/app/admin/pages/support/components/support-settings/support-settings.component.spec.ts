@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {SupportSettingsComponent} from "./support-settings.component";
 
-import { SupportSettingsComponent } from './support-settings.component';
+
 
 describe('SupportSettingsComponent', () => {
   let component: SupportSettingsComponent;
@@ -11,7 +12,7 @@ describe('SupportSettingsComponent', () => {
       imports: [SupportSettingsComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(SupportSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

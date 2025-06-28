@@ -5,12 +5,16 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { TicketListComponent } from './components/ticket-list/ticket-list.component';
 import {SupportTicket} from "./model/support-ticket.model";
 import {LiveChatComponent} from "./components/live-chat/live-chat.component";
+import {KnowledgeBaseComponent} from "./components/knowledge-base/knowledge-base.component";
+import {AnalyticsComponent} from "./components/analytics/analytics.component";
+import {SupportSettingsComponent} from "./components/support-settings/support-settings.component";
+
 
 
 @Component({
   selector: 'app-support',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatTabsModule, TicketListComponent, LiveChatComponent],
+  imports: [CommonModule, RouterModule, MatTabsModule, TicketListComponent, LiveChatComponent, KnowledgeBaseComponent, AnalyticsComponent, SupportSettingsComponent,],
   templateUrl: './support.component.html',
   styleUrls: ['./support.component.css']
 })

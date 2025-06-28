@@ -1,0 +1,49 @@
+.analytics-container {
+  padding: 32px;
+}
+
+.title {
+  font-size: 24px;
+  color: #4d2559;
+  margin-bottom: 24px;
+}
+
+.analytics-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background-color: #f3e5f5;
+  border-left: 5px solid #ab47bc;
+}
+
+.chart-title {
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: #6a1b9a;
+}
+.stat-card {
+  background-color: #f7eafd;
+  border-left: 5px solid #a64ac9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  min-width: 250px;
+  max-width: 300px;
+}
+
+.stat-card mat-card-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px; /* 🔧 Espacio entre título y contenido */
+  line-height: 1.3;
+}
+
+.stat-card mat-card-content {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.4;
+}

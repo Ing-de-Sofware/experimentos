@@ -1,1 +1,36 @@
-<p>analytics works!</p>
+<div class="analytics-container">
+  <h1 class="title">📊 Panel de Analítica de Soporte</h1>
+
+  <div class="analytics-cards">
+    <mat-card class="stat-card">
+      <mat-card-title>Visitas a la Base de Conocimiento</mat-card-title>
+      <mat-card-content>{{ knowledgeVisits }} visitas</mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-title>Tickets de soporte</mat-card-title>
+      <mat-card-content>{{ totalTickets }} creados / {{ resolvedTickets }} resueltos</mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-title>Tiempo promedio de respuesta</mat-card-title>
+      <mat-card-content>{{ avgResponseTime }} hrs</mat-card-content>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-title>Tasa de resolución</mat-card-title>
+      <mat-card-content>{{ resolutionRate }}%</mat-card-content>
+    </mat-card>
+  </div>
+
+  <h2 class="chart-title">📅 Evolución semanal de interacciones</h2>
+
+  <canvas baseChart
+          [type]="'line'"
+          [data]="{
+            labels: chartLabels,
+            datasets: chartData
+          }"
+          [options]="chartOptions">
+  </canvas>
+</div>
