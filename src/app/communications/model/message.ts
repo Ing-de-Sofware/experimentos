@@ -6,6 +6,10 @@ export interface Message {
   to: string;
   content: string;
   timestamp: string;
+  file?: {
+    name: string;
+    url: string;
+  };
 }
 const mockMessages: Message[] = [
   // Pedro Sanchez – TCK-004

@@ -104,6 +104,39 @@
   text-align: right;
 }
 
+/* Estilos para enlaces dentro de las burbujas de chat */
+.bubble a {
+  color: #7c3aed; /* Morado de HormonalCare para enlaces */
+  text-decoration: none; /* Quitar subrayado por defecto */
+  font-weight: 500;
+}
+
+.bubble a:hover {
+  text-decoration: underline; /* Subrayado en hover */
+  color: #5a21ab; /* Morado más oscuro */
+}
+
+/* Contenedor del archivo adjunto */
+.attachment-container {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.04); /* Fondo sutil */
+  border-radius: 8px;
+  display: inline-block; /* Para que el fondo no ocupe todo el ancho de la burbuja */
+  max-width: 100%; /* Asegurar que no se desborde de la burbuja */
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Enlace del archivo adjunto dentro del contenedor */
+.attachment-container a {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Añade '...' si el nombre es muy largo */
+  display: inline-block; /* Necesario para que text-overflow funcione */
+  max-width: 100%; /* El enlace no debe exceder el contenedor */
+  font-size: 0.85rem; /* Tamaño de fuente ligeramente más pequeño para el nombre del archivo */
+}
+
 .input-area {
   display: flex;
   gap: 8px;

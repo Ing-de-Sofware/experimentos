@@ -12,10 +12,10 @@
     <h4>Chat con {{ selectedUser.name }} {{ selectedUser.lastname }}</h4>
 
     <!-- Lista de mensajes -->
-    <div class="messages chat-messages">
+    <div class="messages chat-messages" #chatMessagesContainer>
       <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender === 'admin' ? 'admin' : 'user'">
         <img
-          [src]="msg.sender === 'admin' ? 'assets/admin-avatar.png' : 'assets/user-avatar.png'"
+          [src]="msg.sender === 'admin' ? 'assets/admin-avatar.png' : selectedUser.image"
           class="avatar"
           alt="avatar"
         />
@@ -25,7 +25,7 @@
           <p *ngIf="msg.content">{{ msg.content }}</p>
 
           <!-- Archivo adjunto -->
-          <div *ngIf="msg.file">
+          <div *ngIf="msg.file" class="attachment-container">
             <a [href]="msg.file.url" [attr.download]="msg.file.name">
               📎 {{ msg.file.name }}
             </a>
@@ -48,7 +48,7 @@
 
       <!-- Cargar archivo -->
       <label>
-        <input type="file" (change)="handleFileUpload($event)" hidden />
+        <input type="file" (change)="handleFileUpload($event)" hidden multiple />
         <mat-icon>attach_file</mat-icon>
       </label>
 
