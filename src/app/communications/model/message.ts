@@ -4,6 +4,7 @@ export interface Message {
   content: string;
   timestamp: string;
   file?: { name: string; url: string }; // opcional
+  id?: string; // Añadido según especificación de corrección
 }
 
 // Nota: Los mockMessages se actualizan para reflejar la nueva estructura.

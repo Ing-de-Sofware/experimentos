@@ -6,8 +6,8 @@
     <div *ngFor="let message of messages" class="message-container">
       <div [ngClass]="{
             'message': true,
-            'message-received': message.from !== currentUser.email,
-            'message-sent': message.from === currentUser.email
+            'message-received': message.sender !== currentUser.email,
+            'message-sent': message.sender === currentUser.email
           }">
         <p>{{ message.content }}</p>
         <span>{{ message.timestamp | date:'shortTime' }}</span>

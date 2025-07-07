@@ -190,15 +190,14 @@ export class TicketListComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result?.message && ticket.userEmail) {
         const newMessage: Message = {
-          id: Date.now(),
-          sender: 'admin',
-          receiverId: ticket.userEmail,
-          from: 'admin@hormonalcare.com',
-          to: ticket.userEmail,
+          id: Date.now().toString(), // ID como string
+          sender: 'admin@hormonalcare.com', // Usar email completo para sender
+          receiver: ticket.userEmail,   // Usar receiver
           content: result.message,
           timestamp: new Date().toISOString()
         };
 
+        // Asumiendo que chatService.sendMessage espera el modelo Message actualizado
         this.chatService.sendMessage(newMessage).subscribe(() => {
           const [first, last] = ticket.userName.trim().split(' ');
           const profile: DoctorProfile = {

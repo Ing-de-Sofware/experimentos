@@ -33,7 +33,7 @@ export class PatientChatComponent implements OnInit, OnDestroy {
   // Identificadores de usuario y clave de localStorage (deben ser los mismos que en admin)
   readonly adminEmail = 'admin@hormonalcare.com';
   readonly patientEmail = 'patient@hormonalcare.com'; // Email de este paciente
-  readonly chatStorageKey = 'chat_admin_paciente';
+  readonly chatStorageKey = 'shared_chat_messages'; // Clave compartida actualizada
 
   // Información del usuario actual (paciente) y del interlocutor (admin)
   currentUser: ChatParticipant = {

@@ -46,15 +46,14 @@ export class ReplyDialogComponent {
   sendReply(): void {
     if (this.replyMessage.trim()) {
       const message: Message = {
-        id: Date.now(),
-        sender: 'admin',
-        receiverId: this.data.userEmail,
-        from: 'admin@hormonalcare.com',
-        to: this.data.userEmail,
+        id: Date.now().toString(), // ID como string
+        sender: 'admin@hormonalcare.com', // Usar email completo para sender
+        receiver: this.data.userEmail,   // Usar receiver
         content: this.replyMessage.trim(),
         timestamp: new Date().toISOString()
       };
 
+      // Asumiendo que chatService.sendMessage espera el modelo Message actualizado
       this.chatService.sendMessage(message).subscribe(() => {
         this.dialogRef.close(this.replyMessage); // opcional: puedes pasar mensaje como respuesta
       });
