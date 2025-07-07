@@ -1,28 +1,22 @@
-<div class="live-chat-container">
-  <!-- Usuario seleccionado -->
-  <ul class="user-list">
-    <li>
-      <mat-icon>person</mat-icon>
-      {{ selectedUser.name }} {{ selectedUser.lastname }}
-    </li>
-  </ul>
+<div class="patient-chat-container">
+  <!-- Encabezado del chat con el nombre del interlocutor (Admin) -->
+  <section class="chat-header">
+    <h4>Chat con {{ chatPartner.name }}</h4>
+  </section>
 
   <!-- Ventana del chat -->
-  <section class="chat-window" *ngIf="true">
-    <h4>Chat con {{ selectedUser.name }} {{ selectedUser.lastname }}</h4>
-
+  <section class="chat-window">
     <!-- Lista de mensajes -->
     <div class="messages chat-messages" #chatMessagesContainer>
-      <!-- Usar adminEmail y selectedUser.email para determinar el origen del mensaje -->
-      <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender === adminEmail ? 'admin' : 'user'">
+      <div *ngFor="let msg of messages" class="message" [ngClass]="isMyMessage(msg) ? 'user' : 'admin'">
+        <!-- El remitente del mensaje determina el avatar y nombre a mostrar -->
         <img
-          [src]="msg.sender === adminEmail ? 'assets/admin-avatar.png' : selectedUser.image"
+          [src]="isMyMessage(msg) ? currentUser.avatar : chatPartner.avatar"
           class="avatar"
           alt="avatar"
         />
-
         <div class="bubble">
-          <strong>{{ msg.sender === adminEmail ? 'Admin' : selectedUser.name }}:</strong>
+          <strong>{{ isMyMessage(msg) ? currentUser.name : chatPartner.name }}:</strong>
           <p *ngIf="msg.content">{{ msg.content }}</p>
 
           <!-- Archivo adjunto -->
@@ -31,13 +25,12 @@
               📎 {{ msg.file.name }}
             </a>
           </div>
-
           <small class="timestamp">{{ msg.timestamp | date: 'short' }}</small>
         </div>
       </div>
     </div>
 
-    <!-- Área de entrada -->
+    <!-- Área de entrada de mensajes -->
     <div class="input-area">
       <input
         type="text"
@@ -46,14 +39,13 @@
         (keydown.enter)="sendMessage()"
         autofocus
       />
-
-      <!-- Cargar archivo -->
-      <label>
+      <!-- Botón para adjuntar archivo -->
+      <label class="file-upload-button">
         <input type="file" (change)="handleFileUpload($event)" hidden multiple />
         <mat-icon>attach_file</mat-icon>
       </label>
-
-      <button mat-icon-button (click)="sendMessage()" [disabled]="!newMessage.trim() && uploadedFiles.length === 0">
+      <!-- Botón para enviar mensaje -->
+      <button mat-icon-button color="primary" (click)="sendMessage()" [disabled]="!newMessage.trim() && uploadedFiles.length === 0">
         <mat-icon>send</mat-icon>
       </button>
     </div>

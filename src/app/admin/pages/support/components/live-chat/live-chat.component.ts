@@ -37,17 +37,21 @@ interface ChatUser {
   ]
 })
 export class LiveChatComponent implements OnInit, OnDestroy {
-  // Simulación de un paciente seleccionado. En una implementación real, esto vendría de otro componente o servicio.
+  // Simulación del paciente con el que el administrador está chateando.
+  // Para esta US10, es un paciente fijo.
   selectedUser: ChatUser = {
-    id: 1,
-    name: 'Laura',
-    lastname: 'Martinez',
-    email: 'laura@patient.hormonalcare.com', // Email del paciente para la clave de localStorage
-    gender: 'female',
+    id: 1, // ID de ejemplo
+    name: 'Paciente', // Nombre genérico
+    lastname: 'Demo', // Apellido genérico
+    email: 'patient@hormonalcare.com', // Email del paciente simulado
+    gender: 'female', // Ejemplo
     image: 'assets/user-avatar.png' // Avatar para el paciente
   };
 
-  currentUserEmail = 'admin@hormonalcare.com'; // Email del administrador
+  readonly adminEmail = 'admin@hormonalcare.com'; // Email del administrador
+  readonly patientEmail = 'patient@hormonalcare.com'; // Email del paciente (coincide con selectedUser.email)
+  readonly chatStorageKey = 'chat_admin_paciente'; // Clave compartida
+
   messages: Message[] = [];
   newMessage = '';
   uploadedFiles: { name: string; url: string; type?: string }[] = [];
@@ -76,9 +80,10 @@ export class LiveChatComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getChatStorageKey(patientEmail: string): string {
-    return `admin_chat_${patientEmail}`;
-  }
+  // Ya no se necesita patientEmail como argumento, la clave es fija.
+  // private getChatStorageKey(): string {
+  //   return this.chatStorageKey;
+  // }
 
   private scrollToBottom(): void {
     try {
@@ -95,8 +100,8 @@ export class LiveChatComponent implements OnInit, OnDestroy {
       this.messages = [];
       return;
     }
-    const storageKey = this.getChatStorageKey(this.selectedUser.email);
-    const storedMessages = localStorage.getItem(storageKey);
+    // Usar la clave compartida fija
+    const storedMessages = localStorage.getItem(this.chatStorageKey);
     const currentMessages = storedMessages ? JSON.parse(storedMessages) : [];
 
     if (JSON.stringify(this.messages) !== JSON.stringify(currentMessages)) {
@@ -108,34 +113,28 @@ export class LiveChatComponent implements OnInit, OnDestroy {
 
   // Método para inicializar con mensajes mock si el chat para el usuario seleccionado está vacío
   private initializeMockMessagesIfEmpty(): void {
-    if (!this.selectedUser || !this.selectedUser.email) return;
-
-    const storageKey = this.getChatStorageKey(this.selectedUser.email);
-    const existingMessages = localStorage.getItem(storageKey);
+    // Ya no depende de selectedUser.email para la clave, sino de la clave fija.
+    const existingMessages = localStorage.getItem(this.chatStorageKey);
 
     if (!existingMessages || JSON.parse(existingMessages).length === 0) {
       const mockMessages: Message[] = [
         {
-          id: Date.now() + 1,
-          sender: 'user', // Mensaje del paciente
-          receiverId: this.currentUserEmail, // El admin es el receptor
-          from: this.selectedUser.email,
-          to: this.currentUserEmail,
-          content: `Hola, soy ${this.selectedUser.name}. ¿Podrían ayudarme con una consulta?`,
-          timestamp: new Date(Date.now() - 60000 * 5).toISOString() // Hace 5 minutos
+          // id: Date.now() + 1, // ID ya no es parte del modelo
+          sender: this.patientEmail, // Email del paciente
+          receiver: this.adminEmail,   // Email del admin
+          content: `Hola, soy ${this.selectedUser.name}. ¿Podrían ayudarme con una consulta?`, // Usa el nombre del paciente simulado
+          timestamp: new Date(Date.now() - 60000 * 5).toISOString()
         },
         {
-          id: Date.now() + 2,
-          sender: 'admin', // Mensaje del admin
-          receiverId: this.selectedUser.email, // El paciente es el receptor
-          from: this.currentUserEmail,
-          to: this.selectedUser.email,
+          // id: Date.now() + 2,
+          sender: this.adminEmail,
+          receiver: this.patientEmail,
           content: `Hola ${this.selectedUser.name}, claro. ¿En qué puedo ayudarte?`,
-          timestamp: new Date(Date.now() - 60000 * 3).toISOString() // Hace 3 minutos
+          timestamp: new Date(Date.now() - 60000 * 3).toISOString()
         }
       ];
-      localStorage.setItem(storageKey, JSON.stringify(mockMessages));
-      this.loadMessages(); // Recargar mensajes después de añadir los mocks
+      localStorage.setItem(this.chatStorageKey, JSON.stringify(mockMessages));
+      this.loadMessages();
     }
   }
 
@@ -169,18 +168,16 @@ export class LiveChatComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const storageKey = this.getChatStorageKey(this.selectedUser.email);
-    const currentMessages: Message[] = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    // Usar la clave compartida fija y los emails definidos
+    const currentMessages: Message[] = JSON.parse(localStorage.getItem(this.chatStorageKey) || '[]');
     const timestamp = new Date().toISOString();
 
     // Crear mensaje de texto si existe
     if (trimmedMessageContent) {
       const textMessage: Message = {
-        id: Date.now(),
-        sender: 'admin', // El administrador es el emisor
-        from: this.currentUserEmail, // Email del admin
-        to: this.selectedUser.email, // Email del paciente seleccionado
-        receiverId: this.selectedUser.email, // Manteniendo receiverId por coherencia con el modelo Message
+        // id: Date.now(), // ID ya no es parte del modelo
+        sender: this.adminEmail,       // Admin es el emisor
+        receiver: this.patientEmail,   // Paciente es el receptor
         content: trimmedMessageContent,
         timestamp: timestamp
       };
@@ -188,24 +185,22 @@ export class LiveChatComponent implements OnInit, OnDestroy {
     }
 
     // Crear mensajes para cada archivo adjunto
-    this.uploadedFiles.forEach((file, index) => {
+    this.uploadedFiles.forEach((file) => { // No necesitamos index para el ID
       const fileMessage: Message = {
-        id: Date.now() + index + 1, // Asegurar ID único para mensajes de archivo
-        sender: 'admin',
-        from: this.currentUserEmail,
-        to: this.selectedUser.email,
-        receiverId: this.selectedUser.email,
+        // id: Date.now() + Math.random(), // ID ya no es parte del modelo, Math.random() para unicidad si fuera necesario
+        sender: this.adminEmail,
+        receiver: this.patientEmail,
         content: '', // Los mensajes con archivo pueden no tener contenido de texto
         timestamp: timestamp,
         file: {
           name: file.name,
-          url: file.url // Para la simulación, la URL puede ser la dataURL base64
+          url: file.url
         }
       };
       currentMessages.push(fileMessage);
     });
 
-    localStorage.setItem(storageKey, JSON.stringify(currentMessages));
+    localStorage.setItem(this.chatStorageKey, JSON.stringify(currentMessages));
     this.messages = [...currentMessages]; // Actualizar la vista inmediatamente
     this.newMessage = ''; // Limpiar el campo de texto
     this.uploadedFiles = []; // Limpiar la lista de archivos adjuntos

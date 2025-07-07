@@ -1,0 +1,196 @@
+/* Estilos para el contenedor principal del chat del paciente */
+.patient-chat-container {
+  display: flex;
+  flex-direction: column; /* El header estará arriba del chat window */
+  height: 100%; /* Ocupa toda la altura disponible */
+  background-color: #f9f9f9; /* Un fondo ligeramente diferente para distinguir */
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden; /* Para que los bordes redondeados afecten a los hijos */
+}
+
+/* Estilos para el encabezado del chat */
+.chat-header {
+  padding: 12px 20px;
+  background-color: #7c3aed; /* Morado de HormonalCare */
+  color: white;
+  border-bottom: 1px solid #6a2dbd;
+  text-align: center; /* Centrar el nombre del interlocutor */
+}
+
+.chat-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Estilos para la ventana de chat (similar al admin) */
+.chat-window {
+  flex: 1; /* Ocupa el espacio restante */
+  padding: 15px; /* Un poco menos de padding que el admin */
+  display: flex;
+  flex-direction: column;
+  background-color: #fff; /* Fondo blanco para la ventana de mensajes */
+  overflow-y: hidden; /* El scroll lo maneja .messages */
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto; /* Habilitar scroll para mensajes */
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Espacio entre burbujas */
+  padding-right: 8px; /* Espacio para la barra de scroll */
+  scroll-behavior: smooth;
+}
+
+/* Estilos para cada mensaje (comunes para admin y paciente) */
+.message {
+  display: flex;
+  align-items: flex-start; /* Alinea avatar con la parte superior de la burbuja */
+  max-width: 75%; /* Limita el ancho de los mensajes */
+}
+
+/* Mensajes del usuario actual (paciente) - clase 'user' */
+.message.user {
+  align-self: flex-end; /* Alinea a la derecha */
+}
+.message.user .bubble {
+  background-color: #d0ebff; /* Azul claro, como en el chat del admin */
+  border-top-right-radius: 0; /* Esquina para indicar que es enviado */
+  margin-right: 8px; /* Espacio del avatar */
+}
+.message.user .avatar {
+  order: 1; /* Mueve el avatar a la derecha de la burbuja */
+  margin-left: 8px;
+  margin-right: 0;
+}
+
+
+/* Mensajes del interlocutor (admin) - clase 'admin' */
+.message.admin {
+  align-self: flex-start; /* Alinea a la izquierda */
+}
+.message.admin .bubble {
+  background-color: #e8cbfb; /* Lila, como en el chat del admin */
+  border-top-left-radius: 0; /* Esquina para indicar que es recibido */
+  margin-left: 8px; /* Espacio del avatar */
+}
+.message.admin .avatar {
+  margin-right: 8px;
+}
+
+
+/* Estilos para la burbuja del mensaje */
+.bubble {
+  padding: 10px 15px;
+  border-radius: 18px; /* Burbujas más redondeadas */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: relative;
+  word-wrap: break-word; /* Para que el texto largo no rompa el layout */
+}
+
+.bubble p {
+  margin: 0 0 4px 0; /* Espacio debajo del contenido principal */
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.bubble strong {
+  font-size: 0.8rem; /* Nombre del remitente un poco más pequeño */
+  color: #333;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.bubble small.timestamp {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.7rem;
+  color: #777; /* Color más sutil para el timestamp */
+  text-align: right;
+}
+
+/* Estilos para el avatar */
+.avatar {
+  width: 36px; /* Avatar ligeramente más grande */
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #eee; /* Borde sutil para el avatar */
+}
+
+/* Área de entrada de texto */
+.input-area {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 0; /* Padding vertical, horizontal se maneja en chat-window */
+  border-top: 1px solid #e0e0e0; /* Separador más sutil */
+}
+
+.input-area input[type="text"] {
+  flex: 1;
+  padding: 12px 16px; /* Input más grande */
+  border: 1px solid #ccc;
+  border-radius: 22px; /* Input más redondeado */
+  outline: none;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+.input-area input[type="text"]:focus {
+  border-color: #7c3aed; /* Color de borde al enfocar */
+}
+
+/* Estilos para el botón de adjuntar archivo y enviar (reutiliza mat-icon) */
+.file-upload-button, .input-area button[mat-icon-button] {
+  color: #7c3aed; /* Color principal para iconos de acción */
+}
+.input-area button[mat-icon-button]:hover {
+  color: #5a21ab; /* Color más oscuro en hover */
+}
+
+
+/* Estilos para archivos adjuntos (consistente con admin chat) */
+.attachment-container {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.03); /* Fondo muy sutil */
+  border-radius: 8px;
+  display: inline-block;
+  max-width: 100%;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.attachment-container a {
+  color: #7c3aed;
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  max-width: 100%;
+  font-size: 0.85rem;
+}
+.attachment-container a:hover {
+  text-decoration: underline;
+  color: #5a21ab;
+}
+
+/* Responsive (opcional, si se requiere un diseño específico para móviles) */
+@media (max-width: 600px) {
+  .chat-window {
+    padding: 10px;
+  }
+  .message {
+    max-width: 90%; /* Mensajes pueden ser más anchos en pantallas pequeñas */
+  }
+  .bubble {
+    padding: 8px 12px;
+  }
+  .input-area input[type="text"] {
+    padding: 10px 14px;
+  }
+}
