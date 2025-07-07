@@ -22,6 +22,7 @@ export class HomeDoctorComponent implements OnInit {
   isLoading: boolean = true;
   searchTerm: string = '';
   patients: PatientEntity[] = [];
+  exams: any[] = [];
 
   constructor(
     private userTypeService: UserTypeService,
@@ -42,6 +43,7 @@ export class HomeDoctorComponent implements OnInit {
     }
 
     this.loadPatients();
+    this.loadExams();
 
     history.pushState(null, '', location.href);
     window.onpopstate = () => {
@@ -79,6 +81,11 @@ export class HomeDoctorComponent implements OnInit {
     });
   }
 
+  loadExams(): void {
+    const stored = localStorage.getItem('doctorFiles');
+    this.exams = stored ? JSON.parse(stored) : [];
+  }
+
   get filteredPatients(): PatientEntity[] {
     return this.patients.filter(p =>
       `${p.firstName} ${p.lastName}`.toLowerCase().includes(this.searchTerm.toLowerCase())
@@ -103,5 +110,9 @@ export class HomeDoctorComponent implements OnInit {
         console.log('Transfer completed:', result);
       }
     });
+  }
+  deleteExam(examToDelete: any): void {
+    this.exams = this.exams.filter(exam => exam !== examToDelete);
+    localStorage.setItem('doctorFiles', JSON.stringify(this.exams));
   }
 }

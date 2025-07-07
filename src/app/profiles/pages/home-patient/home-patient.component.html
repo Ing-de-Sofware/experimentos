@@ -32,10 +32,19 @@
         </div>
         <div class="part2">
           <div class="upload-exam-wrapper">
-            <label for="examFile" class="upload-exam-button">Upload your exams</label>
+            <label for="examFile" class="upload-exam-button">
+              <mat-icon>upload</mat-icon>
+              Upload your exams
+            </label>
+
             <input type="file" id="examFile" (change)="onExamSelected($event)" hidden />
+
             <div *ngIf="selectedExam" class="exam-preview">
-              <strong>Selected file:</strong> {{ selectedExam.name }}
+              <p><strong>Selected file:</strong> {{ selectedExam.name }}</p>
+
+              <button mat-flat-button color="primary" (click)="sendToDoctor()">
+                Send to Doctor
+              </button>
             </div>
           </div>
         </div>

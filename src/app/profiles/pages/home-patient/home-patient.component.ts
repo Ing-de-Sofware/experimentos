@@ -76,4 +76,22 @@ export class HomePatientComponent implements OnInit {
       this.selectedExam = input.files[0];
     }
   }
+
+  sendToDoctor(): void {
+    if (!this.selectedExam) return;
+
+    const exam = {
+      name: this.selectedExam.name,
+      uploadedAt: new Date().toISOString(),
+      seen: false,
+      url: URL.createObjectURL(this.selectedExam)
+    };
+
+    const existing = JSON.parse(localStorage.getItem('doctorFiles') || '[]');
+    existing.push(exam);
+    localStorage.setItem('doctorFiles', JSON.stringify(existing));
+
+    alert('Archivo enviado al doctor exitosamente.');
+    this.selectedExam = null;
+  }
 }

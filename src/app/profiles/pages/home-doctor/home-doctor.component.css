@@ -185,3 +185,58 @@ mat-sidenav-container {
   color: #fff;
   font-weight: bold;
 }
+
+.exam-panel {
+  margin: 40px 0 0;
+  padding: 28px 32px;
+  background-color: #f5f3ff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+.exam-panel h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 20px;
+}
+
+.exam-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 18px 24px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  transition: transform 0.2s ease;
+}
+
+.exam-card:hover {
+  transform: scale(1.01);
+}
+
+.exam-info p {
+  margin: 6px 0 0;
+  font-size: 13.5px;
+  color: #6b7280;
+}
+
+.view-link {
+  background-color: #ede9fe;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #7c3aed;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.view-link:hover {
+  background-color: #c4b5fd;
+  color: #4c1d95;
+}
