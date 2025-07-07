@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule, DatePipe, NgFor, NgIf, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 
-import { ChatService } from '../../../../../communications/services/chat.service';
+// No se utiliza ChatService según los requisitos (solo localStorage)
+// import { ChatService } from '../../../../../communications/services/chat.service';
 import { Message } from '../../../../../communications/model/message';
 
 interface ChatUser {
@@ -14,8 +15,9 @@ interface ChatUser {
   email: string;
   gender: string;
   image: string;
-  fee: number;
-  specialty: string;
+  // Los campos fee y specialty no son necesarios para este componente específico
+  // fee: number;
+  // specialty: string;
 }
 
 @Component({
@@ -34,67 +36,109 @@ interface ChatUser {
     MatIconButton
   ]
 })
-export class LiveChatComponent implements OnInit {
+export class LiveChatComponent implements OnInit, OnDestroy {
+  // Simulación de un paciente seleccionado. En una implementación real, esto vendría de otro componente o servicio.
   selectedUser: ChatUser = {
     id: 1,
     name: 'Laura',
     lastname: 'Martinez',
-    email: 'laura@patient.hormonalcare.com',
+    email: 'laura@patient.hormonalcare.com', // Email del paciente para la clave de localStorage
     gender: 'female',
-    image: 'assets/user-avatar.png',
-    fee: 0,
-    specialty: ''
+    image: 'assets/user-avatar.png' // Avatar para el paciente
   };
 
-  currentUserEmail = 'admin@hormonalcare.com';
+  currentUserEmail = 'admin@hormonalcare.com'; // Email del administrador
   messages: Message[] = [];
   newMessage = '';
   uploadedFiles: { name: string; url: string; type?: string }[] = [];
 
-  constructor(private chatService: ChatService) {}
+  private messagePollingInterval: any;
+
+  @ViewChild('chatMessagesContainer') private chatMessagesContainer!: ElementRef;
+
+  // No se inyecta ChatService ya que no se usará backend.
+  constructor() {}
 
   ngOnInit(): void {
-    // Inicializar solo una vez los mensajes de prueba
-    const alreadyInitialized = localStorage.getItem('chat_initialized');
-    if (!alreadyInitialized) {
-      const mockMessages: Message[] = [
-        {
-          id: 1001,
-          sender: 'user',
-          receiverId: 'admin@hormonalcare.com',
-          from: 'laura@patient.hormonalcare.com',
-          to: 'admin@hormonalcare.com',
-          content: 'Hola, no recibo mis recordatorios.',
-          timestamp: '2025-06-10T15:21:00Z'
-        },
-        {
-          id: 1002,
-          sender: 'admin',
-          receiverId: 'laura@patient.hormonalcare.com',
-          from: 'admin@hormonalcare.com',
-          to: 'laura@patient.hormonalcare.com',
-          content: 'Vamos a revisar tu configuración de alertas.',
-          timestamp: '2025-06-10T15:25:00Z'
-        }
-      ];
-
-      const storageKey = this.getSharedChatKey();
-      localStorage.setItem(storageKey, JSON.stringify(mockMessages));
-      localStorage.setItem('chat_initialized', 'true');
-    }
-
     this.loadMessages();
-    setInterval(() => this.loadMessages(), 1000);
+    // Actualizar mensajes cada segundo para simular tiempo real desde localStorage
+    this.messagePollingInterval = setInterval(() => {
+      this.loadMessages();
+    }, 1000);
+
+    // Opcional: Cargar mensajes de prueba si el chat está vacío para este paciente
+    this.initializeMockMessagesIfEmpty();
   }
 
-  private getSharedChatKey(): string {
-    return 'chat_patient_admin'; // clave única compartida
+  ngOnDestroy(): void {
+    if (this.messagePollingInterval) {
+      clearInterval(this.messagePollingInterval);
+    }
+  }
+
+  private getChatStorageKey(patientEmail: string): string {
+    return `admin_chat_${patientEmail}`;
+  }
+
+  private scrollToBottom(): void {
+    try {
+      if (this.chatMessagesContainer) {
+        this.chatMessagesContainer.nativeElement.scrollTop = this.chatMessagesContainer.nativeElement.scrollHeight;
+      }
+    } catch (err) {
+      console.error('Error scrolling to bottom:', err);
+    }
   }
 
   private loadMessages(): void {
-    const stored = localStorage.getItem(this.getSharedChatKey());
-    this.messages = stored ? JSON.parse(stored) : [];
+    if (!this.selectedUser || !this.selectedUser.email) {
+      this.messages = [];
+      return;
+    }
+    const storageKey = this.getChatStorageKey(this.selectedUser.email);
+    const storedMessages = localStorage.getItem(storageKey);
+    const currentMessages = storedMessages ? JSON.parse(storedMessages) : [];
+
+    if (JSON.stringify(this.messages) !== JSON.stringify(currentMessages)) {
+      this.messages = currentMessages;
+      // Desplazar al final solo si hay nuevos mensajes o es la carga inicial
+      setTimeout(() => this.scrollToBottom(), 0);
+    }
   }
+
+  // Método para inicializar con mensajes mock si el chat para el usuario seleccionado está vacío
+  private initializeMockMessagesIfEmpty(): void {
+    if (!this.selectedUser || !this.selectedUser.email) return;
+
+    const storageKey = this.getChatStorageKey(this.selectedUser.email);
+    const existingMessages = localStorage.getItem(storageKey);
+
+    if (!existingMessages || JSON.parse(existingMessages).length === 0) {
+      const mockMessages: Message[] = [
+        {
+          id: Date.now() + 1,
+          sender: 'user', // Mensaje del paciente
+          receiverId: this.currentUserEmail, // El admin es el receptor
+          from: this.selectedUser.email,
+          to: this.currentUserEmail,
+          content: `Hola, soy ${this.selectedUser.name}. ¿Podrían ayudarme con una consulta?`,
+          timestamp: new Date(Date.now() - 60000 * 5).toISOString() // Hace 5 minutos
+        },
+        {
+          id: Date.now() + 2,
+          sender: 'admin', // Mensaje del admin
+          receiverId: this.selectedUser.email, // El paciente es el receptor
+          from: this.currentUserEmail,
+          to: this.selectedUser.email,
+          content: `Hola ${this.selectedUser.name}, claro. ¿En qué puedo ayudarte?`,
+          timestamp: new Date(Date.now() - 60000 * 3).toISOString() // Hace 3 minutos
+        }
+      ];
+      localStorage.setItem(storageKey, JSON.stringify(mockMessages));
+      this.loadMessages(); // Recargar mensajes después de añadir los mocks
+    }
+  }
+
 
   handleFileUpload(event: any): void {
     const files: FileList = event.target.files;
@@ -105,55 +149,67 @@ export class LiveChatComponent implements OnInit {
         reader.onload = (e: any) => {
           this.uploadedFiles.push({
             name: file.name,
-            url: e.target.result,
-            type: file.type
+            url: e.target.result, // Esto será una URL base64 para la vista previa y almacenamiento temporal
+            // type: file.type // El tipo es opcional aquí, Message.file no lo requiere
           });
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(file); // Convertir archivo a base64
       }
     }
   }
 
   sendMessage(): void {
-    const trimmed = this.newMessage.trim();
-    if (!trimmed && this.uploadedFiles.length === 0) return;
-
-    const timestamp = new Date().toISOString();
-    const chatKey = this.getSharedChatKey();
-    const currentMessages = JSON.parse(localStorage.getItem(chatKey) || '[]');
-
-    const newMessages: Message[] = [];
-
-    if (trimmed.length > 0) {
-      newMessages.push({
-        id: Date.now(),
-        sender: 'admin',
-        receiverId: this.selectedUser.email,
-        from: this.currentUserEmail,
-        to: this.selectedUser.email,
-        content: trimmed,
-        timestamp
-      });
-      this.newMessage = '';
+    const trimmedMessageContent = this.newMessage.trim();
+    if (!trimmedMessageContent && this.uploadedFiles.length === 0) {
+      return; // No enviar mensaje vacío o sin archivos
     }
 
-    this.uploadedFiles.forEach(file => {
-      newMessages.push({
-        id: Date.now() + Math.floor(Math.random() * 1000),
+    if (!this.selectedUser || !this.selectedUser.email) {
+      console.error("No hay un usuario seleccionado para enviar el mensaje.");
+      return;
+    }
+
+    const storageKey = this.getChatStorageKey(this.selectedUser.email);
+    const currentMessages: Message[] = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    const timestamp = new Date().toISOString();
+
+    // Crear mensaje de texto si existe
+    if (trimmedMessageContent) {
+      const textMessage: Message = {
+        id: Date.now(),
+        sender: 'admin', // El administrador es el emisor
+        from: this.currentUserEmail, // Email del admin
+        to: this.selectedUser.email, // Email del paciente seleccionado
+        receiverId: this.selectedUser.email, // Manteniendo receiverId por coherencia con el modelo Message
+        content: trimmedMessageContent,
+        timestamp: timestamp
+      };
+      currentMessages.push(textMessage);
+    }
+
+    // Crear mensajes para cada archivo adjunto
+    this.uploadedFiles.forEach((file, index) => {
+      const fileMessage: Message = {
+        id: Date.now() + index + 1, // Asegurar ID único para mensajes de archivo
         sender: 'admin',
-        receiverId: this.selectedUser.email,
         from: this.currentUserEmail,
         to: this.selectedUser.email,
-        content: '',
-        timestamp,
-        file
-      });
+        receiverId: this.selectedUser.email,
+        content: '', // Los mensajes con archivo pueden no tener contenido de texto
+        timestamp: timestamp,
+        file: {
+          name: file.name,
+          url: file.url // Para la simulación, la URL puede ser la dataURL base64
+        }
+      };
+      currentMessages.push(fileMessage);
     });
 
-    this.uploadedFiles = [];
+    localStorage.setItem(storageKey, JSON.stringify(currentMessages));
+    this.messages = [...currentMessages]; // Actualizar la vista inmediatamente
+    this.newMessage = ''; // Limpiar el campo de texto
+    this.uploadedFiles = []; // Limpiar la lista de archivos adjuntos
 
-    currentMessages.push(...newMessages);
-    localStorage.setItem(chatKey, JSON.stringify(currentMessages));
-    this.messages.push(...newMessages);
+    setTimeout(() => this.scrollToBottom(), 0); // Desplazar al final después de enviar
   }
 }
