@@ -4,7 +4,7 @@ import { UserTypeService } from '../../../shared/services/user-type.service';
 
 interface ChatMessage {
   text?: string;
-  sender: 'patient' | 'doctor';
+  sender: 'patient' | 'doctor' | 'admin';
   timestamp: Date;
   file?: {
     name: string;
@@ -22,6 +22,7 @@ export class PatientChatComponent implements OnInit {
   messages: ChatMessage[] = [];
   newMessage: string = '';
   uploadedFiles: { name: string; url: string; type?: string }[] = [];
+  chatTarget: 'doctor' | 'admin' = 'doctor';
 
   constructor(
     private userTypeService: UserTypeService,
@@ -34,27 +35,54 @@ export class PatientChatComponent implements OnInit {
       this.router.navigate(['/login'], { replaceUrl: true });
     }
 
-    const saved = localStorage.getItem('single_chat');
-    if (saved) {
-      this.messages = JSON.parse(saved);
-    }
+    this.loadMessages();
+
+    setInterval(() => {
+      const updated = localStorage.getItem(this.getSharedChatKey());
+      if (updated) {
+        const parsed = JSON.parse(updated);
+        if (JSON.stringify(parsed) !== JSON.stringify(this.messages)) {
+          this.messages = parsed;
+        }
+      }
+    }, 2000);
+  }
+
+  private getSharedChatKey(): string {
+    // Clave compartida entre paciente y doctor/admin
+    return this.chatTarget === 'doctor'
+      ? 'chat_patient_doctor'
+      : 'chat_patient_admin';
+  }
+
+  switchTarget(target: 'doctor' | 'admin'): void {
+    this.chatTarget = target;
+    this.loadMessages();
+  }
+
+  loadMessages(): void {
+    const saved = localStorage.getItem(this.getSharedChatKey());
+    this.messages = saved ? JSON.parse(saved) : [];
   }
 
   sendMessage(): void {
     const trimmed = this.newMessage.trim();
+    const timestamp = new Date();
+    const newMessages: ChatMessage[] = [];
+
     if (trimmed.length > 0) {
-      this.messages.push({
+      newMessages.push({
         text: trimmed,
         sender: 'patient',
-        timestamp: new Date()
+        timestamp
       });
       this.newMessage = '';
     }
 
     this.uploadedFiles.forEach(file => {
-      this.messages.push({
+      newMessages.push({
         sender: 'patient',
-        timestamp: new Date(),
+        timestamp,
         file: {
           name: file.name,
           url: file.url,
@@ -64,7 +92,12 @@ export class PatientChatComponent implements OnInit {
     });
 
     this.uploadedFiles = [];
-    this.saveMessages();
+    this.messages.push(...newMessages);
+
+    const chatKey = this.getSharedChatKey();
+    const current = JSON.parse(localStorage.getItem(chatKey) || '[]');
+    current.push(...newMessages);
+    localStorage.setItem(chatKey, JSON.stringify(current));
   }
 
   handleFileUpload(event: any): void {
@@ -85,12 +118,8 @@ export class PatientChatComponent implements OnInit {
     }
   }
 
-  saveMessages(): void {
-    localStorage.setItem('single_chat', JSON.stringify(this.messages));
-  }
-
   clearChat(): void {
     this.messages = [];
-    this.saveMessages();
+    localStorage.setItem(this.getSharedChatKey(), JSON.stringify([]));
   }
 }
