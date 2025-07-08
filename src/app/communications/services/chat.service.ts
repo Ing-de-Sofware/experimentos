@@ -27,19 +27,19 @@ export class ChatService {
     );
   }
 
-  getMessages(from: string, to: string): Observable<Message[]> {
+  getMessages(senderParam: string, receiverParam: string): Observable<Message[]> {
     return this.http.get<Message[]>(`${this.apiUrl}/messages?_sort=timestamp&_order=asc`).pipe(
       map(messages =>
         messages.filter(
-          message =>
-            (message.from === from && message.to === to) ||
-            (message.from === to && message.to === from)
+          msg => // Asumiendo que msg (Message) ahora tiene sender y receiver
+            (msg.sender === senderParam && msg.receiver === receiverParam) ||
+            (msg.sender === receiverParam && msg.receiver === senderParam)
         )
       )
     );
   }
 
-  sendMessage(message: Message): Observable<Message> {
+  sendMessage(message: Message): Observable<Message> { // message ya debería tener sender/receiver
     return this.http.post<Message>(`${this.apiUrl}/messages`, message);
   }
 

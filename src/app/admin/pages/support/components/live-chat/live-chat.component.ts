@@ -50,7 +50,7 @@ export class LiveChatComponent implements OnInit, OnDestroy {
 
   readonly adminEmail = 'admin@hormonalcare.com'; // Email del administrador
   readonly patientEmail = 'patient@hormonalcare.com'; // Email del paciente (coincide con selectedUser.email)
-  readonly chatStorageKey = 'chat_admin_paciente'; // Clave compartida
+  readonly chatStorageKey = 'shared_chat_messages'; // Clave compartida actualizada
 
   messages: Message[] = [];
   newMessage = '';
