@@ -61,22 +61,54 @@ export class LiveChatComponent implements OnInit, OnDestroy {
   @ViewChild('chatMessagesContainer') private chatMessagesContainer!: ElementRef;
 
   // No se inyecta ChatService ya que no se usará backend.
-  constructor() {}
+  constructor() {
+    // Enlazar handleStorageChange al contexto correcto de 'this'
+    this.handleStorageChange = this.handleStorageChange.bind(this);
+  }
 
   ngOnInit(): void {
     this.loadMessages();
-    // Actualizar mensajes cada segundo para simular tiempo real desde localStorage
-    this.messagePollingInterval = setInterval(() => {
-      this.loadMessages();
-    }, 1000);
+    window.addEventListener('storage', this.handleStorageChange);
 
-    // Opcional: Cargar mensajes de prueba si el chat está vacío para este paciente
+    // Opcional: Cargar mensajes de prueba si el chat está vacío.
     this.initializeMockMessagesIfEmpty();
+
+    // Se elimina messagePollingInterval, se usará el evento 'storage'.
+    // if (this.messagePollingInterval) {
+    //   clearInterval(this.messagePollingInterval);
+    // }
+    // this.messagePollingInterval = setInterval(() => {
+    //   this.loadMessages(); // Podría ser útil como fallback o para cambios externos no 'storage'
+    // }, 2000); // Intervalo más largo si se mantiene
   }
 
   ngOnDestroy(): void {
-    if (this.messagePollingInterval) {
-      clearInterval(this.messagePollingInterval);
+    window.removeEventListener('storage', this.handleStorageChange);
+    // if (this.messagePollingInterval) { // Limpiar si se mantiene el intervalo
+    //  clearInterval(this.messagePollingInterval);
+    // }
+  }
+
+  // Método para manejar cambios en localStorage desde otras pestañas/ventanas
+  private handleStorageChange(event: StorageEvent): void {
+    if (event.key === this.chatStorageKey) {
+      if (event.newValue) {
+        const allMessages = JSON.parse(event.newValue);
+        // Aplicar filtro
+        const filteredMessages = allMessages.filter((msg: Message) =>
+          (msg.sender === this.adminEmail && msg.receiver === this.patientEmail) ||
+          (msg.sender === this.patientEmail && msg.receiver === this.adminEmail)
+        );
+
+        if (JSON.stringify(this.messages) !== JSON.stringify(filteredMessages)) {
+          this.messages = filteredMessages;
+          setTimeout(() => this.scrollToBottom(), 0);
+        }
+      } else {
+        // localStorage fue limpiado para esta clave
+        this.messages = []; // Correcto, vaciar mensajes si la clave se borra
+        setTimeout(() => this.scrollToBottom(), 0);
+      }
     }
   }
 
@@ -102,27 +134,33 @@ export class LiveChatComponent implements OnInit, OnDestroy {
     }
     // Usar la clave compartida fija
     const storedMessages = localStorage.getItem(this.chatStorageKey);
-    const currentMessages = storedMessages ? JSON.parse(storedMessages) : [];
+    let allMessages = storedMessages ? JSON.parse(storedMessages) : [];
 
-    if (JSON.stringify(this.messages) !== JSON.stringify(currentMessages)) {
-      this.messages = currentMessages;
-      // Desplazar al final solo si hay nuevos mensajes o es la carga inicial
+    // Aplicar filtro
+    const filteredMessages = allMessages.filter((msg: Message) =>
+      (msg.sender === this.adminEmail && msg.receiver === this.patientEmail) ||
+      (msg.sender === this.patientEmail && msg.receiver === this.adminEmail)
+    );
+
+    if (JSON.stringify(this.messages) !== JSON.stringify(filteredMessages)) {
+      this.messages = filteredMessages;
       setTimeout(() => this.scrollToBottom(), 0);
     }
   }
 
   // Método para inicializar con mensajes mock si el chat para el usuario seleccionado está vacío
   private initializeMockMessagesIfEmpty(): void {
-    // Ya no depende de selectedUser.email para la clave, sino de la clave fija.
-    const existingMessages = localStorage.getItem(this.chatStorageKey);
-
-    if (!existingMessages || JSON.parse(existingMessages).length === 0) {
+    const existingStoredMessages = localStorage.getItem(this.chatStorageKey);
+    // Considerar solo los mensajes ya filtrados para esta conversación al decidir si inicializar.
+    // O, más simple, solo inicializar si la clave está totalmente vacía,
+    // ya que los mocks son específicos para esta conversación.
+    if (!existingStoredMessages || JSON.parse(existingStoredMessages).length === 0) {
       const mockMessages: Message[] = [
         {
-          // id: Date.now() + 1, // ID ya no es parte del modelo
-          sender: this.patientEmail, // Email del paciente
-          receiver: this.adminEmail,   // Email del admin
-          content: `Hola, soy ${this.selectedUser.name}. ¿Podrían ayudarme con una consulta?`, // Usa el nombre del paciente simulado
+          id: Date.now().toString() + '_mock1',
+          sender: this.patientEmail,
+          receiver: this.adminEmail,
+          content: `Hola Admin, soy ${this.selectedUser.name}. ¿Podrían ayudarme con una consulta?`,
           timestamp: new Date(Date.now() - 60000 * 5).toISOString()
         },
         {
@@ -175,7 +213,7 @@ export class LiveChatComponent implements OnInit, OnDestroy {
     // Crear mensaje de texto si existe
     if (trimmedMessageContent) {
       const textMessage: Message = {
-        // id: Date.now(), // ID ya no es parte del modelo
+        id: Date.now().toString(),
         sender: this.adminEmail,       // Admin es el emisor
         receiver: this.patientEmail,   // Paciente es el receptor
         content: trimmedMessageContent,
@@ -185,9 +223,9 @@ export class LiveChatComponent implements OnInit, OnDestroy {
     }
 
     // Crear mensajes para cada archivo adjunto
-    this.uploadedFiles.forEach((file) => { // No necesitamos index para el ID
+    this.uploadedFiles.forEach((file) => {
       const fileMessage: Message = {
-        // id: Date.now() + Math.random(), // ID ya no es parte del modelo, Math.random() para unicidad si fuera necesario
+        id: Date.now().toString() + `_${file.name.replace(/[^a-zA-Z0-9]/g, "")}`, // ID más robusto
         sender: this.adminEmail,
         receiver: this.patientEmail,
         content: '', // Los mensajes con archivo pueden no tener contenido de texto
