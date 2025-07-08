@@ -55,23 +55,43 @@ export class PatientChatComponent implements OnInit, OnDestroy {
   private messagePollingInterval: any;
   @ViewChild('chatMessagesContainer') private chatMessagesContainer!: ElementRef;
 
-  constructor() {}
+  constructor() {
+    // Enlazar handleStorageChange al contexto correcto de 'this'
+    this.handleStorageChange = this.handleStorageChange.bind(this);
+  }
 
   ngOnInit(): void {
     this.loadMessages();
-    this.messagePollingInterval = setInterval(() => {
-      this.loadMessages();
-    }, 1000); // Revisa nuevos mensajes cada segundo
+    window.addEventListener('storage', this.handleStorageChange);
 
     // Opcional: Cargar mensajes de prueba si el chat está vacío.
-    // Esto podría ser redundante si el admin chat component ya lo hace.
-    // Se puede comentar o ajustar si es necesario.
     this.initializeMockMessagesIfEmpty();
+    // Se elimina messagePollingInterval
   }
 
   ngOnDestroy(): void {
-    if (this.messagePollingInterval) {
-      clearInterval(this.messagePollingInterval);
+    window.removeEventListener('storage', this.handleStorageChange);
+    // Se elimina messagePollingInterval
+  }
+
+  // Método para manejar cambios en localStorage desde otras pestañas/ventanas
+  private handleStorageChange(event: StorageEvent): void {
+    if (event.key === this.chatStorageKey) {
+      if (event.newValue) {
+        const allMessages = JSON.parse(event.newValue);
+        // Aplicar filtro
+        const filteredMessages = allMessages.filter((msg: Message) =>
+          (msg.sender === this.patientEmail && msg.receiver === this.adminEmail) ||
+          (msg.sender === this.adminEmail && msg.receiver === this.patientEmail)
+        );
+        if (JSON.stringify(this.messages) !== JSON.stringify(filteredMessages)) {
+          this.messages = filteredMessages;
+          setTimeout(() => this.scrollToBottom(), 0);
+        }
+      } else {
+        this.messages = []; // Correcto, vaciar si la clave se borra
+        setTimeout(() => this.scrollToBottom(), 0);
+      }
     }
   }
 
@@ -87,24 +107,28 @@ export class PatientChatComponent implements OnInit, OnDestroy {
 
   private loadMessages(): void {
     const storedMessages = localStorage.getItem(this.chatStorageKey);
-    const currentMessages = storedMessages ? JSON.parse(storedMessages) : [];
+    const allMessages = storedMessages ? JSON.parse(storedMessages) : [];
 
-    // Mostrar todos los mensajes ya que la clave es específica para esta conversación.
-    // No se requiere filtrado adicional basado en sender/receiver aquí,
-    // ya que se asume que chatStorageKey solo contiene mensajes entre este paciente y el admin.
-    if (JSON.stringify(this.messages) !== JSON.stringify(currentMessages)) {
-      this.messages = currentMessages;
+    // Aplicar filtro
+    const filteredMessages = allMessages.filter((msg: Message) =>
+      (msg.sender === this.patientEmail && msg.receiver === this.adminEmail) ||
+      (msg.sender === this.adminEmail && msg.receiver === this.patientEmail)
+    );
+
+    if (JSON.stringify(this.messages) !== JSON.stringify(filteredMessages)) {
+      this.messages = filteredMessages;
       setTimeout(() => this.scrollToBottom(), 0);
     }
   }
 
   private initializeMockMessagesIfEmpty(): void {
-    const existingMessages = localStorage.getItem(this.chatStorageKey);
-    if (!existingMessages || JSON.parse(existingMessages).length === 0) {
-      // Solo añade mensajes si está completamente vacío, para evitar duplicados
-      // si el admin component también tiene una función similar.
+    const existingStoredMessages = localStorage.getItem(this.chatStorageKey);
+    // Solo inicializar si la clave está totalmente vacía,
+    // ya que los mocks son específicos para esta conversación.
+    if (!existingStoredMessages || JSON.parse(existingStoredMessages).length === 0) {
       const mockMessages: Message[] = [
         {
+          id: Date.now().toString() + '_mock_patient1',
           sender: this.patientEmail,
           receiver: this.adminEmail,
           content: 'Hola Admin, tengo una pregunta rápida.',
@@ -150,6 +174,7 @@ export class PatientChatComponent implements OnInit, OnDestroy {
 
     if (trimmedMessageContent) {
       const textMessage: Message = {
+        id: Date.now().toString(),
         sender: this.currentUser.email, // Paciente es el emisor
         receiver: this.chatPartner.email, // Admin es el receptor
         content: trimmedMessageContent,
@@ -160,6 +185,7 @@ export class PatientChatComponent implements OnInit, OnDestroy {
 
     this.uploadedFiles.forEach(file => {
       const fileMessage: Message = {
+        id: Date.now().toString() + `_${file.name.replace(/[^a-zA-Z0-9]/g, "")}`, // ID más robusto
         sender: this.currentUser.email,
         receiver: this.chatPartner.email,
         content: '', // Puede estar vacío si solo es un archivo
